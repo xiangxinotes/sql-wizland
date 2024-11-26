@@ -5,8 +5,8 @@ var questions;
 // 加载JSON categories.json文件中的分类数据
 async function populate() {
   // load categories
-  const requestURL ="https://raw.githubusercontent.com/xiangxinotes/sql-wizland/main/json/categories.json"; //offline
-  // const requestURL = "json/categories.json" //online 
+  // const requestURL ="https://raw.githubusercontent.com/xiangxinotes/sql-wizland/main/json/categories.json"; //offline
+  const requestURL = "json/categories.json" //online 
   const request = new Request(requestURL);
 
   const response = await fetch(request);
@@ -86,8 +86,8 @@ function clearCategoryListActiveClass() {
 // 加载JSON questions.json文件中的分类数据
 async function loadQuestions() {
   // load categories
-  const requestURL ="https://raw.githubusercontent.com/xiangxinotes/sql-wizland/main/json/questions.json";
-  // const requestURL = "json/questions.json" //online
+  // const requestURL ="https://raw.githubusercontent.com/xiangxinotes/sql-wizland/main/json/questions.json";
+  const requestURL = "json/questions.json" //online
   const request = new Request(requestURL);
 
   const response = await fetch(request);
