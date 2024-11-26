@@ -1,0 +1,38 @@
+[
+      {
+        "question_id": 1,
+        "question_text_before_options": "select * from tablea where b = 'xiexie'",
+        "options": [
+          "order by",
+          "sort by"
+        ],
+        "question_text_after_options": " name",
+        "correct_answer": "order by",
+        "category_id": 1,
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+      },
+      {
+        "question_id": 2,
+        "question_text_before_options": "",
+        "options": [
+          "search",
+          "select"
+        ],
+        "question_text_after_options": " * from tablea where b = 'xiexie'",
+        "correct_answer": "order by",
+        "category_id": 1,
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+      },
+      {
+        "question_id": 3,
+        "question_text_before_options": "category_id: 2. mysql",
+        "options": [
+          "search",
+          "select"
+        ],
+        "question_text_after_options": " * from tablea where b = 'xiexie'",
+        "correct_answer": "order by",
+        "category_id": 2,
+        "applicable_databases": ["MySQL"]
+      }
+]

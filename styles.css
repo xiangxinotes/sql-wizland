@@ -1,0 +1,203 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+#main-container {
+  display: flex;
+  width: 100%;
+}
+
+#left-sidebar {
+  background-color: #f9f9f9;
+  border-right: 1px solid #ccc;
+  width: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+#left-sidebar h2 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#category-list {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.category-item {
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  display: block; /* 设置为块级元素，使其独占一行 */
+  width: 100%; /* 宽度占满父元素 */
+  box-sizing: border-box; /* 确保内边距和边框不影响宽度计算 */
+}
+
+#right-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 200px;
+}
+
+#database-buttons-row {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.database-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#statement-details {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  padding: 20px;
+/*  width: 100%;*/
+  text-align: left;
+}
+
+#user-panel {
+  margin-top: 20px;
+  text-align: center;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.question {
+  margin-bottom: 15px;
+}
+
+select {
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.incorrect {
+  color: red;
+}
+
+.correct {
+  color: green;
+}
+
+.feedback {
+  margin-bottom: 10px;
+  text-align: left;
+  padding-left: 20px;
+}
+
+
+/* 媒体查询，针对不同屏幕宽度调整样式 */
+@media screen and (max-width: 768px) {
+  #left-sidebar {
+    width: 150px;
+  }
+
+  #right-content {
+    margin-left: 150px;
+  }
+
+  #left-sidebar h2 {
+    font-size: 20px;
+  }
+
+  button {
+    padding: 8px 16px;
+  }
+  
+ .database-button {
+    padding: 8px 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #left-sidebar {
+    width: 100px;
+  }
+
+  #right-content {
+    margin-left: 100px;
+  }
+
+  #left-sidebar h2 {
+    font-size: 16px;
+  }
+
+  button {
+    padding: 6px 12px;
+  }
+
+ .database-button {
+    padding: 6px 12px;
+  }
+}
+
+.quick_start_container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.quick_start_container h1 {
+  color: #000;
+  font-size: 2em;/*
+  font-weight: bold;*/
+}
+.quick_start_container p {
+  color: #333;
+}
+.quick_start_buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.quick_start_button {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px;
+  width: 200px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.quick_start_button:hover{
+  cursor: pointer;
+}
+
+
+
+
+
+
