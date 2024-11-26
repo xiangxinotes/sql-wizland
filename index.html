@@ -10,6 +10,15 @@
 </head>
 
 <body>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.settings.google-analytics }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.data.settings.google-analytics }}');
+  </script>
+  
   <div id="main-container">
     <div id="left-sidebar">
       <h2>SQL Wizland</h2>
@@ -27,7 +36,7 @@
       <div id="statement-details">
         <!-- 点击分类或随机按钮后在此处展示题目 -->
       </div>
-      
+
       <footer class="footer-panel">
         <div class="copyright">Copyright © 2024 <a href="/">向西笔记</a> — All right Reserved. </div>
       </footer>
