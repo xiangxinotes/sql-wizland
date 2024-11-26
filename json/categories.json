@@ -1,0 +1,14 @@
+[
+  {
+    "category_id": 1,
+    "category_name": "数据查询"
+  },
+  {
+    "category_id": 2,
+    "category_name": "数据插入"
+  },
+  {
+    "category_id": 3,
+    "category_name": "数据更新"
+  }
+]
