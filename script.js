@@ -4,11 +4,9 @@ var questions;
 
 // 加载JSON categories.json文件中的分类数据
 async function populate() {
-  // load categories
-  // const requestURL ="https://raw.githubusercontent.com/xiangxinotes/sql-wizland/main/json/categories.json"; //offline
+  // const requestURL ="https://xiangxinotes.github.io/sql-wizland/json/categories.json"; //offline
   const requestURL = "json/categories.json" //online 
   const request = new Request(requestURL);
-
   const response = await fetch(request);
   const categories = await response.json(); // 用于存储从JSON文件读取的分类数据
   categories.push({
@@ -22,10 +20,7 @@ async function populate() {
 // 加载介绍信息到网站首页面
 function populateIntroduction(){
   const statementDetailsDiv = document.getElementById('statement-details');
-  statementDetailsDiv.innerHTML = "";
-  const questionDiv = document.createElement('div');
-  questionDiv.className = 'question';
-  questionDiv.innerHTML = `
+  statementDetailsDiv.innerHTML = `
     <div class="quick_start_container">
         <h1>还在为精准记忆 SQL 语句发愁？</h1>
         <p>传统学习方法总是学了就忘，不尽人意。</p>
@@ -58,20 +53,24 @@ function populateIntroduction(){
         </div>
     </div>
     `;
-  statementDetailsDiv.appendChild(questionDiv);
 }
 
 // 加载语句分类列表到页面
 function populateCategoryList(obj) {
   const categoryListDiv = document.getElementById('category-list');
   obj.forEach((category) => {
-  // for (const category of obj) {
     const categoryItem = document.createElement('category-item');
     categoryItem.className = 'category-item';
     categoryItem.textContent = category.category_name;
-    categoryItem.addEventListener('click', function(){ clearCategoryListActiveClass(); this.classList.add('active'); showQuestionsByCategory(category.category_id); selected_category_id = category.category_id;});
+    categoryItem.addEventListener('click', function(){
+      const dbButtonsDiv = document.getElementById('database-buttons-container');
+      dbButtonsDiv.style.display = "block";
+      clearCategoryListActiveClass(); 
+      this.classList.add('active'); 
+      showQuestionsByCategory(category.category_id); 
+      selected_category_id = category.category_id;
+    });
     categoryListDiv.appendChild(categoryItem);
-  // };
   });
 }
 
@@ -83,27 +82,24 @@ function clearCategoryListActiveClass() {
   });
 }
 
-// 加载JSON questions.json文件中的分类数据
+// 加载JSON questions.json文件中的问题数据
 async function loadQuestions() {
-  // load categories
-  // const requestURL ="https://raw.githubusercontent.com/xiangxinotes/sql-wizland/main/json/questions.json";
+  // const requestURL ="https://xiangxinotes.github.io/sql-wizland/json/questions.json"; //offline
   const requestURL = "json/questions.json" //online
   const request = new Request(requestURL);
-
   const response = await fetch(request);
-  const questions = await response.json(); // 用于存储从JSON文件读取的分类数据
-
+  const questions = await response.json(); // 用于存储从JSON文件读取的问题数据
   populateQuestions(questions);
 }
 
 // 加载问题到变量内
 function populateQuestions(q){
-  questions = q
+  questions = q;
 }
 
 function showAbout(){
-  // const dbButtonsDiv = document.getElementById('database-buttons-row');
-  // dbButtonsDiv.innerHTML = "";
+  const dbButtonsDiv = document.getElementById('database-buttons-container');
+  dbButtonsDiv.style.display = "none";
   const statementDetailsDiv = document.getElementById('statement-details');
   statementDetailsDiv.innerHTML = "";
   const aboutDiv = document.createElement('div');
@@ -154,21 +150,24 @@ function showQuestionsByCategory(categoryId) {
     const questions = getQuestionsByDatabaseAndCategory(database, categoryId);
     const statementDetailsDiv = document.getElementById('statement-details');
     statementDetailsDiv.innerHTML = "";
+    const questionOl = document.createElement('ol');
+    questionOl.className = 'question';
+    questionOl.innerHTML = "";
 
     questions.forEach((question) => {
-      const questionDiv = document.createElement('div');
-      questionDiv.className = 'question';
-      questionDiv.innerHTML = `
-        <span id="answer-span-${question.question_id}">
+      questionOl.innerHTML += `
+        <li id="answer-span-${question.question_id}">
           ${question.question_text_before_options}
           <select id="answer-${question.question_id}">
+          <option value="-">&nbsp;</option>
             ${question.options.map((option) => `<option>${option}</option>`).join('')}
           </select>
           ${question.question_text_after_options}
-        </span>
+        </li>
       `;
-      statementDetailsDiv.appendChild(questionDiv);
     });
+    
+    statementDetailsDiv.appendChild(questionOl);
     const submitButton = document.createElement('button');
     submitButton.textContent = "提交答案";
     submitButton.addEventListener('click', () => checkAnswers(questions));
@@ -254,7 +253,8 @@ function checkAnswers(questions) {
       score++;
     }
   });
-  resultDiv.innerHTML = `您答对了 ${score} 道题，共 ${questions.length} 道题。`;
+  resultDiv.innerHTML = `<h2>结果：</h2>
+  <p>您答对了 ${score} / ${questions.length} 道题。正确率：${Math.round(score / questions.length *100)} %</p>`;
 }
 
 window.onload = function() {

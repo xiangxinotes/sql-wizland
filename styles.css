@@ -65,12 +65,30 @@ a {
   flex: 1;
   padding: 20px;
   margin-left: 200px;
+  position: relative;
+}
+
+/* 数据库按钮容器样式，使其固定在页面顶部 */
+#database-buttons-container {
+  /*position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;*/
 }
 
 #database-buttons-row {
   text-align: right;
   margin-bottom: 20px;
 }
+
+#database-label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
 
 .database-button {
   margin-left: 10px;
@@ -111,8 +129,9 @@ button {
   cursor: pointer;
 }
 
-.question {
-  margin-bottom: 15px;
+.question li{
+  padding: 5px 0;
+  line-height: 1.8rem;
 }
 
 select {

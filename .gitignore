@@ -1,1 +1,6 @@
 *.DS_Store
+# script.js
+styles1.css
+ref/
+json/categories.json
+json/questions.json
