@@ -2,5 +2,6 @@
 # script.js
 styles1.css
 ref/
-json/categories.json
-json/questions.json
+# json/categories.json
+# json/questions.json
+json1/

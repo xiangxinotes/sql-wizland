@@ -1,0 +1,43 @@
+[
+    {
+        "category_id": 1,
+        "category_name": "数据查询"
+    },
+    {
+        "category_id": 2,
+        "category_name": "数据关联"
+    },
+    {
+        "category_id": 3,
+        "category_name": "数据过滤与条件判断"
+    },
+    {
+        "category_id": 4,
+        "category_name": "数据分组与聚合函数"
+    },
+    {
+        "category_id": 5,
+        "category_name": "数据插入"
+    },
+    {
+        "category_id": 6,
+        "category_name": "数据更新"
+    },
+    {
+        "category_id": 7,
+        "category_name": "数据删除"
+    },
+    {
+        "category_id": 8,
+        "category_name": "索引创建与优化"
+    },
+    {
+        "category_id": 9,
+        "category_name": "存储过程与函数编写"
+    },
+    {
+        "category_id": 10,
+        "category_name": "数据库事务处理"
+    }
+    
+]
