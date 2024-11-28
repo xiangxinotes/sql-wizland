@@ -6,18 +6,17 @@ body {
   color: #393E46;
 }
 
-strong{
+strong {
   color: #0097b2;
 }
 
 a {
-    text-decoration: none;
-    color: #0097b2;
-    transition: all .35s;
+  text-decoration: none;
+  color: #0097b2;
+  transition: all.35s;
 }
 
-::selection
-{
+::selection {
   background-color: #393e46;
   color: #ffffff;
 }
@@ -69,7 +68,7 @@ a {
 }
 
 /* 数据库按钮容器样式，使其固定在页面顶部 */
-#database-buttons-container {
+/* #database-buttons-container { */
   /*position: absolute;
   top: 0;
   left: 0;
@@ -77,7 +76,7 @@ a {
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 100;*/
-}
+/* } */
 
 #database-buttons-row {
   text-align: right;
@@ -100,7 +99,7 @@ a {
   cursor: pointer;
 }
 
-.active{
+.active {
   background-color: #0097b2;
   color: white;
 }
@@ -110,7 +109,7 @@ a {
   border-radius: 5px;
   background-color: #f5f5f5;
   padding: 20px;
-/*  width: 100%;*/
+  /*  width: 100%;*/
   text-align: left;
 }
 
@@ -129,7 +128,7 @@ button {
   cursor: pointer;
 }
 
-.question li{
+.question li {
   padding: 5px 0;
   line-height: 1.8rem;
 }
@@ -171,7 +170,7 @@ select {
   button {
     padding: 8px 16px;
   }
-  
+
  .database-button {
     padding: 8px 16px;
   }
@@ -207,17 +206,21 @@ select {
 
 .quick_start_container h1 {
   color: #000;
-  font-size: 2em;/*
+  font-size: 2em;
+  /*
   font-weight: bold;*/
 }
+
 .quick_start_container p {
   color: #333;
 }
+
 .quick-start-buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .quick-start-button {
   background-color: #f0f0f0;
   border-radius: 5px;
@@ -233,11 +236,38 @@ select {
   color: inherit;
 }
 
-.quick-start-button:hover{
+.quick-start-button:hover {
   cursor: pointer;
 }
 
-.footer-panel{
+.footer-panel {
   text-align: center;
   padding: 10px;
+}
+
+/* 问题解释图标样式 */
+.comment-icon {
+  cursor: pointer;
+  color: #0097b2; 
+}
+
+.tooltip-hidden {
+  display: none;
+}
+
+.tooltip-content {
+  position: absolute;
+  background-color: #0097b2; 
+  color: #fff;
+  padding: .5em;
+  border-radius: 3px;
+  z-index: 1000; /* 确保提示框能显示在其他元素之上 */
+  display: none; /* 初始隐藏，鼠标悬停时显示 */
+  max-width: 500px; /* 限制提示框宽度，防止内容过多时太宽 */
+  word-wrap: break-word; /* 自动换行，防止内容溢出 */
+}
+
+.tootip-content-show{
+  position: absolute;
+  display: block;
 }

@@ -4,21 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SQL Wizland，有别于传统刷题网站，摒弃复杂逻辑，聚焦 SQL 语句本身。适配 MySQL、SQL Server、Oracle 等主流数据库语句。以独特交互、精准分类，协助您随时巩固 SQL 语句，强化记忆，告别盲目刷题，高效维持 SQL 熟练度，开启专业 SQL 复习新体验。">
+  <meta name="description" content="SQL Wizland，有别于传统刷题网站，摒弃复杂逻辑，聚焦 SQL 语句本身。适配 MySQL、SQL Server、Oracle等主流数据库语句。以独特交互、精准分类，协助您随时巩固 SQL 语句，强化记忆，告别盲目刷题，高效维持 SQL 熟练度，开启专业 SQL 复习新体验。">
   <link rel="stylesheet" href="styles.css">
+  <!-- 引入Font Awesome图标库，用于显示图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>SQL Wizland</title>
 </head>
 
 <body>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.settings.google-analytics }}"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKTXS5QCR2"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '{{ site.data.settings.google-analytics }}');
+    gtag('config', 'G-XKTXS5QCR2');
   </script>
-  
+
   <div id="main-container">
     <nav id="left-sidebar">
       <h2>SQL Wizland</h2>
@@ -29,7 +31,7 @@
     <section id="right-content">
       <div id="database-buttons-container">
         <div id="database-buttons-row">
-        <span id="database-label">您将要复习的数据库类型：</span>
+          <span id="database-label">您将要复习的数据库类型：</span>
           <button id="mysql-button" class="database-button active">MySQL</button>
           <button id="sql-server-button" class="database-button">SQL Server</button>
           <button id="oracle-button" class="database-button">Oracle</button>
