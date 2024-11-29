@@ -147,6 +147,7 @@ function showQuestionsByCategory(categoryId) {
         const questions = getQuestionsByDatabaseAndCategory(database, categoryId);
         const statementDetailsDiv = document.getElementById('statement-details');
         statementDetailsDiv.innerHTML = "";
+        statementDetailsDiv.innerHTML = "<p>请从下拉列表中选出最适合填在挖空处的 SQL 语句。</p>";
         const questionOl = document.createElement('ol');
         questionOl.classList.add('question');
         questionOl.innerHTML = "";
