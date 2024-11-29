@@ -154,21 +154,13 @@ function showQuestionsByCategory(categoryId) {
 
         questions.forEach((question) => {
             questionOl.innerHTML += `
-                <li id="answer-span-${question.question_id}">
+                <li id="answer-li-${question.question_id}">
                     ${question.question_text_before_options}
                     <select id="answer-${question.question_id}">
-                    <option value="-">&nbsp;</option>
+                    <option value="未填写">&nbsp;</option>
                         ${question.options.map((option) => `<option>${option}</option>`).join('')}
                     </select>
                     ${question.question_text_after_options}
-                    <span class="tooltip tooltip-hidden tooltip-fa color_text">
-                      <i class="comment-icon far fa-question-circle"></i>
-                      <span class="tooltip-content">${question.question_comment}</span>
-                    </span>
-                    <span class="tooltip tooltip-hidden tooltip-fa color_text">
-                      <i class="comment-icon fas fa-info-circle"></i>
-                      <span class="tooltip-content">${question.knowledge_comment}</span>
-                    </span>
                 </li>
             `;
         });
@@ -179,24 +171,6 @@ function showQuestionsByCategory(categoryId) {
         submitButton.textContent = "提交答案";
         submitButton.addEventListener('click', () => checkAnswers(questions));
         statementDetailsDiv.appendChild(submitButton);
-
-        const tooltips = document.querySelectorAll('.tooltip');
-        tooltips.forEach((tooltip) => {
-          // 绑定鼠标悬停事件，显示知识解释提示框
-          tooltip.addEventListener('mouseover', function () {
-            const tooltipContent = tooltip.querySelector('.tooltip-content');
-            // 设置提示框为绝对定位，根据图标位置设置合适的显示位置
-            tooltipContent.classList.add("tootip-content-show");
-            tooltipContent.style.top = (this.offsetTop + this.offsetHeight + 5) + 'px';
-            tooltipContent.style.left = (this.offsetLeft - tooltipContent.offsetWidth / 2) + 'px';
-          });
-
-          // 绑定鼠标移出事件，移除提示框
-          tooltip.addEventListener('mouseout', function () {
-            const tooltipContent = tooltip.querySelector('.tooltip-content');
-            tooltipContent.classList.remove("tootip-content-show");
-          });
-        });
     }
 }
 
@@ -273,22 +247,90 @@ function checkAnswers(questions) {
     const submitButton = document.querySelector('.submit-answer');
     submitButton.style.display = 'none';
     const statementDetailsDiv = document.getElementById('statement-details');
-    const resultP = document.createElement('p');
     let score = 0;
     questions.forEach((question) => {
+        const questionLi = document.getElementById(`answer-li-${question.question_id}`)
         const selectedAnswer = document.getElementById(`answer-${question.question_id}`).value;
+        const questionLiSettings = [
+            {
+                class: "correct",
+                emoji: "fa-check"
+            },
+            {
+                class: "blank",
+                emoji: "fa-minus-circle"
+            },
+            {
+                class: "incorrect",
+                emoji: "fa-times"
+            }
+        ]
+        let number = 1;
         if (selectedAnswer === question.correct_answer) {
             score++;
-        }
-    });
-    resultP.innerHTML = `<h2>结果：</h2>
-    <p>您答对了 ${score} / ${questions.length} 道题。正确率：${Math.round(score / questions.length * 100)} %</p>`;
+            number = 0;
+        } else if (selectedAnswer === '未填写') {
+            number = 1;
+        } else {
+            number = 2;
+        };
 
-    statementDetailsDiv.appendChild(resultP);
+        questionLi.innerHTML = `
+            ${question.question_text_before_options} 
+            <span class="${questionLiSettings[number].class}"> 
+                ${selectedAnswer} 
+                <i class="fas ${questionLiSettings[number].emoji}"></i> 
+            </span>
+            ${question.question_text_after_options}
+            <span class="tooltip tooltip-hidden tooltip-fa color_text">
+              <i class="comment-icon far fa-question-circle"></i>
+              <span class="tooltip-content">${question.question_comment}</span>
+            </span>
+            <span class="tooltip tooltip-hidden tooltip-fa color_text">
+              <i class="comment-icon fas fa-info-circle"></i>
+              <span class="tooltip-content">${question.knowledge_comment}</span>
+            </span>
+        `;
+    });
+
+    const resultFooter = document.createElement('div');
+    resultFooter.classList.add("feedback");
+    const correctStars = Math.round(score / questions.length * 5);
+    console.log(correctStars);
+
+    function ligentenStars(n){
+        const lightenStars = new Array(n+1).join(`<i class="fas fa-star"></i>`);
+        const darkenStars = new Array(5-n+1).join(`<i class="far fa-star"></i>`);
+        return lightenStars + darkenStars;
+    }
+    
+    resultFooter.innerHTML = `
+        <h2 class="question-result">结果
+            <span class="star">
+                ${ligentenStars(correctStars)}
+            </span>
+        </h2>
+        <p>您答对了 ${score} / ${questions.length} 道题。正确率：${Math.round(score / questions.length * 100)} %</p>`;
+
+    statementDetailsDiv.appendChild(resultFooter);
     const tooltips = document.querySelectorAll('.tooltip');
     tooltips.forEach((tooltip) => {
-      tooltip.classList.remove("tooltip-hidden");
-    })
+        tooltip.classList.remove("tooltip-hidden");
+      // 绑定鼠标悬停事件，显示知识解释提示框
+      tooltip.addEventListener('mouseover', function () {
+        const tooltipContent = tooltip.querySelector('.tooltip-content');
+        // 设置提示框为绝对定位，根据图标位置设置合适的显示位置
+        tooltipContent.classList.add("tootip-content-show");
+        tooltipContent.style.top = (this.offsetTop + this.offsetHeight + 5) + 'px';
+        tooltipContent.style.left = (this.offsetLeft - tooltipContent.offsetWidth / 2) + 'px';
+      });
+
+      // 绑定鼠标移出事件，移除提示框
+      tooltip.addEventListener('mouseout', function () {
+        const tooltipContent = tooltip.querySelector('.tooltip-content');
+        tooltipContent.classList.remove("tootip-content-show");
+      });
+    });
 }
 
 window.onload = function () {

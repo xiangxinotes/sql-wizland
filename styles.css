@@ -142,6 +142,10 @@ select {
   color: red;
 }
 
+.blank {
+  color: orange;
+}
+
 .correct {
   color: green;
 }
@@ -150,6 +154,10 @@ select {
   margin-bottom: 10px;
   text-align: left;
   padding-left: 20px;
+}
+
+.question-result{
+  color: #0097b2;
 }
 
 
