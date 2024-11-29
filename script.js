@@ -140,7 +140,6 @@ function showAbout() {
 
 // 展示特定分类下的题目列表
 function showQuestionsByCategory(categoryId) {
-    // console.log(categoryId)
     if (categoryId === 0) {
         showAbout()
     } else {
@@ -296,14 +295,13 @@ function checkAnswers(questions) {
     const resultFooter = document.createElement('div');
     resultFooter.classList.add("feedback");
     const correctStars = Math.round(score / questions.length * 5);
-    console.log(correctStars);
 
     function ligentenStars(n){
         const lightenStars = new Array(n+1).join(`<i class="fas fa-star"></i>`);
         const darkenStars = new Array(5-n+1).join(`<i class="far fa-star"></i>`);
         return lightenStars + darkenStars;
     }
-    
+
     resultFooter.innerHTML = `
         <h2 class="question-result">结果
             <span class="star">
