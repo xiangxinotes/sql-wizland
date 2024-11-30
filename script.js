@@ -29,7 +29,7 @@ function populateIntroduction() {
                     <h3>数据查询</h3>
                     <p>通用基础，关联万千，巩固提升</p>
                 </div>
-                <div class="quick-start-button">
+                <!-- <div class="quick-start-button">
                     <h3>数据插入</h3>
                     <p></p>
                 </div>
@@ -37,7 +37,7 @@ function populateIntroduction() {
                     <h3>数据更新</h3>
                     <p></p>
                 </div>
-                <!-- <div class="quick-start-button">
+                <div class="quick-start-button">
                     <h3></h3>
                     <p></p>
                 </div>

@@ -229,6 +229,7 @@ select {
 }
 
 .quick-start-button {
+  text-align: left;
   background-color: #f0f0f0;
   border-radius: 5px;
   padding: 20px;
@@ -238,14 +239,14 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   text-decoration: none;
   color: inherit;
 }
 
-.quick-start-button:hover {
+/* .quick-start-button:hover {
   cursor: pointer;
-}
+} */
 
 .footer-panel {
   text-align: center;
