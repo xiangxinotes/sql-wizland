@@ -4,8 +4,8 @@
         "question_text_before_options": "SELECT customer_id, customer_name FROM customers WHERE customer_name ",
         "options": ["LIKE", "="],
         "question_text_after_options": " '%John%';",
-        "question_comment": "您将用于模糊查询的 “LIKE” 写成了 “=”，“=” 是用于精确匹配的，所以这个查询不会返回我们想要的结果，因为不会有顾客名称恰好等于 “% John%” 这样带有通配符的字符串。",
-        "knowledge_comment":"“=” 是我们日常生活和其他很多场景中常用的表示相等的符号，在 SQL 中用于精确匹配。而 “LIKE” 用于模糊查询，其语法和使用场景相对特殊，您在需要模糊查询时习惯性地写成 “=”，忽略了精确匹配和模糊查询的区别。",
+        "question_comment": "这道题的解题线索是挖空处后面的 '%John%'。在 SQL 中，'%John%' 这样的表达式通常用于在进行文本数据的查询操作时，实现模糊匹配的功能。因此这里应该使用用于模糊查询的 “LIKE”，“=” 是用于精确匹配的，所以用 “=” 不会返回我们想要的结果，因为不会有顾客名称恰好等于 “%John%” 这样带有通配符的字符串。",
+        "knowledge_comment":"“=” 在 SQL 中用于精确匹配。而 “LIKE” 用于模糊查询，一般会搭配正则表示式使用。如果你没听说过正则表示式，一定要去学习，正则表达式的应用场景很多。",
         "correct_answer": "LIKE",
         "category_id": 1,
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
