@@ -26,8 +26,8 @@
         "question_text_before_options": "SELECT product_id, ",
         "options": ["SUM", "AVG"],
         "question_text_after_options": " (quantity) as average_quantity FROM sales GROUP BY product_id;",
-        "question_comment": "题目中的 average_quantity 暗示了此题是想查询每种产品的平均销售数量。您在这里错误地把应该用于求平均值的 “AVG” 写成了 “SUM”，这样得到的结果是每种产品的销售数量总和，而不是平均销售数量。",
-        "knowledge_comment": "“SUM” 和 “AVG” 都是对数值列进行计算的函数，“SUM” 用于求和，“AVG” 用于求平均值。",
+        "question_comment": "这道题的解题线索是 as average_quantity，即平均数量，对查询变量的重命名暗示了此题想查询每种产品的平均销售数量。“SUM” 是求和函数， “AVG” 是求平均值函数，答案一目了然了。",
+        "knowledge_comment": "“SUM” 和 “AVG” 都是对数值列进行计算的函数，“SUM” 是 Summation (求和) 的简写，用于求和，“AVG” 是 Average (平均) 的简写，用于求平均值。还有其他的函数，比如计算的函数，比如 “MAX” 和 “MIN”，函数名都是英文单词简写，可以遇到一个积累一个。",
         "correct_answer": "AVG",
         "category_id": 1,
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
