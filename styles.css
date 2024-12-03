@@ -26,29 +26,16 @@ a {
   width: 100%;
 }
 
-#left-sidebar {
-  background-color: #f5f5f5;
-  border-right: 1px solid #ccc;
-  width: 200px;
-  padding: 10px;
-  box-sizing: border-box;
-  position: fixed;
-  height: 100vh;
-  overflow-y: auto;
-}
-
-#left-sidebar h2 {
-  color: #0097b2;
-  margin-top: 0;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
 #category-list {
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
   padding: 10px;
+}
+
+#category-nav {
+  padding: 0;
+  margin: 0;
 }
 
 .category-item {
@@ -63,7 +50,6 @@ a {
 #right-content {
   flex: 1;
   padding: 20px;
-  margin-left: 200px;
   position: relative;
 }
 
@@ -159,19 +145,139 @@ select {
   color: #0097b2;
 }
 
+.nav-buttons {
+  display: none;
+}
 
-/* 媒体查询，针对不同屏幕宽度调整样式 */
-@media screen and (max-width: 768px) {
-  #left-sidebar {
-    width: 150px;
+.close-nav-button{
+  display: none;
+}
+
+.nav-title{
+  padding-bottom: 7px;
+  color: #bbb;
+  border-bottom: 1px solid #e6eef0;
+}
+
+i.nav-icon {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.header__overlay{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(17, 17, 17, .7);
+  opacity: 0;
+  visibility: hidden;
+  transition: all .5s ease;
+}
+
+.header__overlay.is-visible{
+  opacity: 1;
+  visibility: visible;
+}
+
+.close-icon {
+  padding: 10px;
+}
+
+@media only screen and (min-width: 769px) {
+
+  #category-menu {
+    background-color: #f5f5f5;
+    border-right: 1px solid #ccc;
+    width: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  #category-menu h2 {
+    color: #0097b2;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .nav-title{
+    display: none;
   }
 
   #right-content {
-    margin-left: 150px;
+    margin-left: 200px;
+  }
+  
+}
+
+/* 媒体查询，针对不同屏幕宽度调整样式 */
+@media only screen and (max-width: 768px) {
+
+  #main-container {
+    flex-direction: column;
   }
 
-  #left-sidebar h2 {
+  #category-list {
+    position: fixed;
+    top: 0;
+    left: inherit;
+    right: -300px;
+    bottom: 0;
+    transform: none;
+    z-index: 100;
+    width: 50vw;
+    max-width: 238px;
+    height: 100vh;
+    padding: 40px 30px 30px;
+    transition: right .5s cubic-bezier(0.7, 0.4, 0, 1);
+    background: #fff;
+  }
+
+  #category-list.is-open {
+    right: 0;
+  }
+
+  .close-nav-button {
+    display: block;
+    text-align: end;
+  }
+
+  .nav-buttons {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 21px;
+    position: absolute;
+    padding: 1.25em;
+    /* right: 1.25em; */
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  #category-menu {
+    width: 100vw;
+    box-sizing: border-box;
+    padding: 0 1.25em;
+    /* position: relative; */
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #ffffff;
+  }
+
+  #category-menu h2 {
     font-size: 20px;
+    display: inline-block;
+  }
+
+  #right-content {
+    background-color: #f5f5f5;
   }
 
   button {
@@ -183,25 +289,9 @@ select {
   }
 }
 
-@media screen and (max-width: 480px) {
-  #left-sidebar {
-    width: 100px;
-  }
-
-  #right-content {
-    margin-left: 100px;
-  }
-
-  #left-sidebar h2 {
-    font-size: 16px;
-  }
-
-  button {
-    padding: 6px 12px;
-  }
-
- .database-button {
-    padding: 6px 12px;
+@media only screen and (max-width: 540px) {
+  #database-label{
+    display: block;
   }
 }
 
@@ -269,7 +359,7 @@ select {
   color: #fff;
   padding: .5em;
   border-radius: 3px;
-  z-index: 1000; /* 确保提示框能显示在其他元素之上 */
+  z-index: 90; /* 确保提示框能显示在其他元素之上 */
   display: none; /* 初始隐藏，鼠标悬停时显示 */
   max-width: 500px; /* 限制提示框宽度，防止内容过多时太宽 */
   word-wrap: break-word; /* 自动换行，防止内容溢出 */

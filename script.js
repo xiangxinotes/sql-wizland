@@ -56,12 +56,16 @@ function populateIntroduction() {
 
 // 加载语句分类列表到页面
 function populateCategoryList(obj) {
-    const categoryListDiv = document.getElementById('category-list');
+    const categoryListUl = document.getElementById('category-nav');
+    const categoryListNav = document.querySelector('#category-list');
+    const headerOverlayDiv = document.querySelector('.header__overlay');
     obj.forEach((category) => {
-        const categoryItem = document.createElement('category-item');
+        categoryItem = document.createElement('li');
         categoryItem.classList.add('category-item');
         categoryItem.textContent = category.category_name;
         categoryItem.addEventListener('click', function () {
+            categoryListNav.classList.remove('is-open');
+            headerOverlayDiv.classList.remove('is-visible');
             const dbButtonsDiv = document.getElementById('database-buttons-container');
             dbButtonsDiv.style.display = "block";
             clearCategoryListActiveClass();
@@ -69,13 +73,36 @@ function populateCategoryList(obj) {
             showQuestionsByCategory(category.category_id);
             selected_category_id = category.category_id;
         });
-        categoryListDiv.appendChild(categoryItem);
+        // categoryListDiv.appendChild(categoryItem);
+        categoryListUl.appendChild(categoryItem);
     });
+
+    const navButtons = document.querySelector('.nav-buttons');
+    navButtons.addEventListener('click', function(){
+        categoryListNav.classList.add('is-open');
+        headerOverlayDiv.classList.add('is-visible');
+    });
+
+    // const closeNavButton = document.querySelector('.close-nav-button');
+    // closeNavButton.addEventListener('click', function(){
+    //     categoryListNav.classList.remove('is-open');
+    // });
+
+    categoryListNav.addEventListener('click', function(){
+        categoryListNav.classList.remove('is-open');
+        headerOverlayDiv.classList.remove('is-visible');
+    });
+
+    headerOverlayDiv.addEventListener('click', function(){
+        categoryListNav.classList.remove('is-open');
+        headerOverlayDiv.classList.remove('is-visible');
+    });
+
 }
 
 // 清除所有分类列表的选中状态（移除active类）
 function clearCategoryListActiveClass() {
-    const categoryItems = document.querySelectorAll('category-item');
+    const categoryItems = document.querySelectorAll('.category-item');
     categoryItems.forEach((categoryItem) => {
         categoryItem.classList.remove('active');
     });
