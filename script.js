@@ -306,15 +306,15 @@ function checkAnswers(questions) {
             ${question.question_text_before_options} 
             <span class="${questionLiSettings[number].class}"> 
                 ${selectedAnswer} 
-                <i class="fas ${questionLiSettings[number].emoji}"></i> 
+                <i class="fas ${questionLiSettings[number].emoji}" aria-hidden="true"></i> 
             </span>
             ${question.question_text_after_options}
             <span class="tooltip tooltip-hidden tooltip-fa color_text">
-              <i class="comment-icon far fa-question-circle"></i>
+              <i class="comment-icon far fa-question-circle" aria-hidden="true"></i>
               <span class="tooltip-content">${question.question_comment}</span>
             </span>
             <span class="tooltip tooltip-hidden tooltip-fa color_text">
-              <i class="comment-icon fas fa-info-circle"></i>
+              <i class="comment-icon fas fa-info-circle" aria-hidden="true"></i>
               <span class="tooltip-content">${question.knowledge_comment}</span>
             </span>
         `;
@@ -325,8 +325,8 @@ function checkAnswers(questions) {
     const correctStars = Math.round(score / questions.length * 5);
 
     function ligentenStars(n){
-        const lightenStars = new Array(n+1).join(`<i class="fas fa-star"></i>`);
-        const darkenStars = new Array(5-n+1).join(`<i class="far fa-star"></i>`);
+        const lightenStars = new Array(n+1).join(`<i class="fas fa-star" aria-hidden="true"></i>`);
+        const darkenStars = new Array(5-n+1).join(`<i class="far fa-star" aria-hidden="true"></i>`);
         return lightenStars + darkenStars;
     }
 
