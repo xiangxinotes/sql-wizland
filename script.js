@@ -205,7 +205,7 @@ function showQuestionsByCategory(categoryId) {
 // 根据选中的数据库和分类获取题目列表
 function getQuestionsByDatabaseAndCategory(database, categoryId) {
     // const category = categories.find(c => c.category_id === categoryId);
-    return questions.filter(q => q.applicable_databases.includes(database) && q.category_id === categoryId);
+    return questions[categoryId].filter(q => q.applicable_databases.includes(database));
 }
 
 // 获取当前选中的数据库按钮
