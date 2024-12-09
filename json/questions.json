@@ -4,7 +4,7 @@
         "question_text_before_options": "SELECT customer_id, customer_name FROM customers WHERE customer_name ",
         "options": ["LIKE", "="],
         "question_text_after_options": " '%John%';",
-        "question_comment": "这道题的解题线索是挖空处后面的 '%John%'。在 SQL 中，'%John%' 这样的表达式通常用于在进行文本数据的查询操作时，实现模糊匹配的功能，因此这里应该使用用于模糊查询的 “LIKE”。“=” 是用于精确匹配的，所以用 “=” 不会返回我们想要的结果，因为不会有顾客名称恰好等于 “%John%” 这样带有通配符的字符串。",
+        "question_comment": "本题解题线索是挖空处后面的 '%John%'。在 SQL 中，'%John%' 这样的表达式通常用于在进行文本数据的查询操作时，实现模糊匹配的功能，因此这里应该使用用于模糊查询的 “LIKE”。“=” 是用于精确匹配的，所以用 “=” 不会返回我们想要的结果，因为不会有顾客名称恰好等于 “%John%” 这样带有通配符的字符串。",
         "knowledge_comment":"“=” 在 SQL 中用于精确匹配。而 “LIKE” 用于模糊查询，一般会搭配正则表示式使用。如果你没听说过正则表示式，正则表达式的应用场景很多，一定要去学习。",
         "correct_answer": "LIKE",
         "category_id": 1,
@@ -26,10 +26,87 @@
         "question_text_before_options": "SELECT product_id, ",
         "options": ["SUM", "AVG"],
         "question_text_after_options": " (quantity) as average_quantity FROM sales GROUP BY product_id;",
-        "question_comment": "这道题的解题线索是 as average_quantity，即平均数量，对查询变量的重命名暗示了此题想查询每种产品的平均销售数量。“SUM” 是求和函数， “AVG” 是求平均值函数，答案一目了然了。",
+        "question_comment": "本题解题线索是 as average_quantity，即平均数量，对查询变量的重命名暗示了此题想查询每种产品的平均销售数量。“SUM” 是求和函数，“AVG” 是求平均值函数，答案一目了然了。",
         "knowledge_comment": "“SUM” 和 “AVG” 都是对数值列进行计算的函数，“SUM” 是 Summation (求和) 的简写，用于求和，“AVG” 是 Average (平均) 的简写，用于求平均值。还有其他的函数，比如计算的函数，比如 “MAX” 和 “MIN”，函数名都是英文单词简写，可以遇到一个积累一个。",
         "correct_answer": "AVG",
         "category_id": 1,
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 4,
+        "question_text_before_options": "查出所有员工及其所在部门的信息: SELECT employees.employee_id, employees.department_id, departments.department_name FROM employees ",
+        "options": ["JOIN", "LEFT JOIN"],
+        "question_text_after_options": " departments ON employees.department_id = departments.department_id;",
+        "question_comment": "题干明确指出需要查询的是所有员工的信息，也就是说只要一个员工信息存在于 employees 表中，就应该返回（即使此员工还没有分配department），所以应该使用 “LEFT JOIN” 以 employees 表为基准返回结果。",
+        "knowledge_comment": "“JOIN”，也就是 “INNER JOIN”，是内连接，它只会返回两个表的交集（也就是满足连接条件的匹配记录）； “LEFT JOIN”，也就是 “LEFT OUTTER JOIN” 是左外连接，它会返回左边表中的所有数据（即使和右边表没有匹配记录也会被返回）。",
+        "correct_answer": "LEFT JOIN",
+        "category_id": 1,
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 5,
+        "question_text_before_options": "SELECT class_id, ",
+        "options": ["COUNT(*)", "COUNT(name)"],
+        "question_text_after_options": " as number_of_students FROM students GROUP BY class_id;",
+        "question_comment": "本题解题线索是 as number_of_students，即学生数量，对查询变量的重命名暗示了此题想查询每个班的学生数量。“COUNT” 是计数函数，“COUNT(*)” 统计所有行的个数，而 “COUNT(name)” 只统计 name 列非空值的行的个数，因此如果 name 列存在空值，就会出现统计数量比真实情况少的情况。",
+        "knowledge_comment": "COUNT(*) 和 COUNT(列名) 是有区别的。“COUNT (*)” 是用于统计包括空值在内的所有行的；而 “COUNT (列名)” 不统计空值行，所以如果 “列名” 这一列存在空值，那么统计的结果将会少于真实数据。",
+        "correct_answer": "COUNT(*)",
+        "category_id": 1,
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 6,
+        "question_text_before_options": "查出 A、B 两班所有学生的考试成绩: SELECT student_name, subject, score FROM classa",
+        "options": ["UNION", "UNION ALL"],
+        "question_text_after_options": " SELECT student_name, subject, score FROM classb;",
+        "question_comment": "题干明确指出需要查询的是 A、B 两班所有学生的考试成绩，而且可以看到查询的是学生姓名、科目、成绩三项，那就必须使用 “UNION ALL” 来确保重名学生的成绩都能被返回到结果中。",
+        "knowledge_comment": "“UNION”，合并结果集并去除重复行； “UNION ALL”，合并结果集并保留所有行，包括重复行。",
+        "correct_answer": "UNION ALL",
+        "category_id": 1,
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 7,
+        "question_text_before_options": "SELECT department_id, last_name, first_name, salary FROM employees",
+        "options": ["ORDER BY", "GROUP BY"],
+        "question_text_after_options": " salary DESC, department_id;",
+        "question_comment": "本题解题线索是 salary DESC 中的 DESC，即降序，涉及到排序，那么必然选择“ORDER BY”。",
+        "knowledge_comment": "“ORDER BY”，对查询返回的结果集按照指定的列进行排序，可以按照某一列排序或者同时按照多列进行排序，排序的顺序可以是升序 (ASC 或留空) 或者降序 (DESC)； “GROUP BY”，将条目分组，以便对每个组执行聚合函数（比如 COUNT(), MAX(), MIN(), SUM(), AVG() 等）。",
+        "correct_answer": "ORDER BY",
+        "category_id": 1,
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 8,
+        "question_text_before_options": "查出每种产品的平均价格(四舍五入保留两位小数): SELECT product_id",
+        "options": ["ROUND", "TRUNCATE"],
+        "question_text_after_options": " (AVG(price), 2) FROM products GROUP BY product_id;",
+        "question_comment": "题干明确指出需要查询的是每种产品的平均价格，需要四舍五入，并且保留两位小数，因此选择“ROUND”，因为“ROUND”会进行四舍五入。",
+        "knowledge_comment": "“ROUND”，按指定位数对数值进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； “TRUNCATE”，按照位数对数值进行截取，TRUNCATE(number, 2)即按照2位数对 number 进行截取，若 number = 2.339，则 TRUNCATE(number, 2) = 2.33",
+        "correct_answer": "ROUND",
+        "category_id": 1,
+        "applicable_databases": ["MySQL"]
+    },
+    {
+        "question_id": 9,
+        "question_text_before_options": "查出每种产品的平均价格(四舍五入保留两位小数): SELECT product_id",
+        "options": ["ROUND", "TRUNC"],
+        "question_text_after_options": " (AVG(price), 2) FROM products GROUP BY product_id;",
+        "question_comment": "题干明确指出需要查询的是每种产品的平均价格，需要四舍五入，并且保留两位小数，因此选择“ROUND”，因为“ROUND”会进行四舍五入。",
+        "knowledge_comment": "“ROUND”，按指定位数对数值进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； “TRUNC”，按照位数对数值进行截取，TRUNC(number, 2)即按照2位数对 number 进行截取，若 number = 2.339，则 TRUNC(number, 2) = 2.33",
+        "correct_answer": "ROUND",
+        "category_id": 1,
+        "applicable_databases": ["Oracle", "PostgreSQL"]
+    },
+    {
+        "question_id": 10,
+        "question_text_before_options": "查出每种产品的平均价格(四舍五入保留两位小数): SELECT product_id",
+        "options": ["ROUND(AVG(price), 2)", "ROUND(AVG(price), 2, 1)"],
+        "question_text_after_options": "  FROM products GROUP BY product_id;",
+        "question_comment": "题干明确指出需要查询的是每种产品的平均价格，需要四舍五入，并且保留两位小数，因此选择“ROUND(AVG(price), 2)”，因为在没有第三个参数的情况下，“ROUND”会进行四舍五入。",
+        "knowledge_comment": "“ROUND(n,d)”，按指定 d 位数对数值 n 进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； “ROUND(n,d,f)”，根据 f 大小按指定 d 位数对数值 n 进行截取（当 f 为0时，即默认值，需要对数值进行四舍五入；当 f 大于0时，不进行四舍五入，直接截取），ROUND(number, 2, 1)即按照2位数直接对 number 进行截取，若 number = 2.339，则 ROUND(number, 2, 1) = 2.33",
+        "correct_answer": "ROUND(AVG(price), 2)",
+        "category_id": 1,
+        "applicable_databases": ["SQL Server"]
     }
 ]
