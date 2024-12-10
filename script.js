@@ -347,8 +347,55 @@ function checkAnswers(questions) {
         const tooltipContent = tooltip.querySelector('.tooltip-content');
         // 设置提示框为绝对定位，根据图标位置设置合适的显示位置
         tooltipContent.classList.add("tootip-content-show");
-        tooltipContent.style.top = (this.offsetTop + this.offsetHeight + 5) + 'px';
-        tooltipContent.style.left = (this.offsetLeft - tooltipContent.offsetWidth / 2) + 'px';
+
+        var viewportSize = getViewportSize();
+        // console.log("可视窗口宽度为: " + viewportSize.width + "px");
+        // console.log("可视窗口高度为: " + viewportSize.height + "px");
+        // console.log(`框框元素的高度: ${tooltipContent.offsetHeight} px`);
+        // console.log(`this.offsetTop 鼠标离最上方的距离: ${this.offsetTop} px`);
+        // console.log(`this.offsetHeight 这个图标元素的高度: ${this.offsetHeight} px`);
+        // console.log("--------------");
+        // console.log(`this.offsetLeft 鼠标离最左方的距离: ${this.offsetLeft} px`);
+        // console.log(`tooltipContent.offsetWidth 框框元素的宽度: ${tooltipContent.offsetWidth} px`);
+
+        const setWidth = viewportSize.width < 540 ? viewportSize.width - 56 : 484;
+        // console.log(setWidth);
+        tooltipContent.style.width = setWidth + 'px';
+        // console.log(`tooltipContent.offsetWidth 框框元素的宽度: ${tooltipContent.offsetWidth} px`);
+
+        const bottomOver = viewportSize.height - this.offsetTop - this.offsetHeight - 5;
+        // console.log(`下方剩余空间：${bottomOver}`);
+        let setTop;
+        if (bottomOver < tooltipContent.offsetHeight){
+            // console.log(`下方空间放不下框框`);
+            setTop = this.offsetTop - 5 - tooltipContent.offsetHeight;
+        } else {
+            setTop = this.offsetTop + this.offsetHeight + 5;
+        }
+        tooltipContent.style.top = setTop + 'px';
+        // console.log("--------------");
+        // console.log(`设置框框的上方距离: ${setTop} px`);
+
+        if(viewportSize.width > 540){
+            const rightOver = viewportSize.width - this.offsetLeft;
+            let setLeft;
+            const categoryMenuWidth = viewportSize.width > 768 ? 200 : 0;
+            // console.log(`右侧剩余空间：${rightOver - categoryMenuWidth}`);
+            // console.log(tooltipContent.offsetWidth / 2);
+            if(rightOver - categoryMenuWidth < tooltipContent.offsetWidth / 2) {
+                // setLeft = this.offsetLeft - tooltipContent.offsetWidth + rightOver / 2 - categoryMenuWidth;
+                setLeft = this.offsetLeft - tooltipContent.offsetWidth + (rightOver - categoryMenuWidth) - 20;
+                // console.log(`设置框框的左方距离: ${setLeft} px`);
+            } else {
+                // console.log("右侧放得下");
+                setLeft = this.offsetLeft - tooltipContent.offsetWidth / 2 < 20 ? 20 : this.offsetLeft - tooltipContent.offsetWidth / 2 - 20;
+            }
+            // console.log("--------------");
+            // console.log(setLeft);
+            tooltipContent.style.left = (setLeft < 20 ? 20 : setLeft) + 'px';
+            // console.log(`设置框框的左方距离: ${setLeft} px`);
+        }
+
       });
 
       // 绑定鼠标移出事件，移除提示框
@@ -357,6 +404,23 @@ function checkAnswers(questions) {
         tooltipContent.classList.remove("tootip-content-show");
       });
     });
+}
+
+function getViewportSize() {
+    var width, height;
+    // 先尝试标准模式下的获取方式（针对现代浏览器）
+    if (document.compatMode === "CSS1Compat") {
+        width = document.documentElement.clientWidth;
+        height = document.documentElement.clientHeight;
+    } else {
+        // 如果是怪异模式（quirks mode），通过body元素获取
+        width = document.body.clientWidth;
+        height = document.body.clientHeight;
+    }
+    return {
+        width: width,
+        height: height
+    };
 }
 
 window.onload = function () {

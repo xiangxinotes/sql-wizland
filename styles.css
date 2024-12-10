@@ -186,6 +186,7 @@ i.nav-icon {
   padding: 10px;
 }
 
+/* screen width > 769px */
 @media only screen and (min-width: 769px) {
 
   #category-menu {
@@ -213,10 +214,14 @@ i.nav-icon {
   #right-content {
     margin-left: 200px;
   }
+
+  .tooltip-content {
+    max-width: 500px; /* 限制提示框宽度，防止内容过多时太宽 */
+  }
   
 }
 
-/* 媒体查询，针对不同屏幕宽度调整样式 */
+/* screen width <= 768px */
 @media only screen and (max-width: 768px) {
 
   #main-container {
@@ -287,11 +292,20 @@ i.nav-icon {
  .database-button {
     padding: 8px 16px;
   }
+
+  .tooltip-content {
+    max-width: 500px; /* 限制提示框宽度，防止内容过多时太宽 */
+  }
 }
 
+/* screen width <= 540px */
 @media only screen and (max-width: 540px) {
   #database-label{
     display: block;
+  }
+  .tooltip-content {
+    max-width: 484px; /* 限制提示框宽度，防止内容过多时太宽 */
+    left: 20px;
   }
 }
 
@@ -358,14 +372,12 @@ i.nav-icon {
   background-color: #0097b2; 
   color: #fff;
   padding: .5em;
-  border-radius: 3px;
+  border-radius: .5em;
   z-index: 90; /* 确保提示框能显示在其他元素之上 */
   display: none; /* 初始隐藏，鼠标悬停时显示 */
-  max-width: 500px; /* 限制提示框宽度，防止内容过多时太宽 */
   word-wrap: break-word; /* 自动换行，防止内容溢出 */
 }
 
 .tootip-content-show{
-  position: absolute;
   display: block;
 }
