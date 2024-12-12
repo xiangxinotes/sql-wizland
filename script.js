@@ -60,7 +60,7 @@ function populateCategoryList(obj) {
     const categoryListNav = document.querySelector('#category-list');
     const headerOverlayDiv = document.querySelector('.header__overlay');
     obj.forEach((category) => {
-        categoryItem = document.createElement('li');
+        const categoryItem = document.createElement('li');
         categoryItem.classList.add('category-item');
         categoryItem.textContent = category.category_name;
         categoryItem.addEventListener('click', function () {
@@ -174,7 +174,8 @@ function showQuestionsByCategory(categoryId) {
         const questions = getQuestionsByDatabaseAndCategory(database, categoryId);
         const statementDetailsDiv = document.getElementById('statement-details');
         statementDetailsDiv.innerHTML = "";
-        statementDetailsDiv.innerHTML = "<p>请从下拉列表中选出最适合填在挖空处的 SQL 语句。</p>";
+        statementDetailsDiv.innerHTML = "<div class='display-correct-answers'><i class='display-answers-icon fa fa-toggle-off'></i><span>显示正确答案</span></div>";
+        statementDetailsDiv.innerHTML += "<p>请从下拉列表中选出最适合填在挖空处的 SQL 语句。</p>";
         const questionOl = document.createElement('ol');
         questionOl.classList.add('question');
         questionOl.innerHTML = "";
@@ -188,6 +189,14 @@ function showQuestionsByCategory(categoryId) {
                         ${question.options.map((option) => `<option>${option}</option>`).join('')}
                     </select>
                     ${question.question_text_after_options}
+                    <span class="tooltip tooltip-hidden tooltip-fa color_text">
+                        <i class="comment-icon far fa-question-circle" aria-label="题目解析"></i>
+                        <span class="tooltip-content">${question.question_comment}</span>
+                    </span>
+                    <span class="tooltip tooltip-hidden tooltip-fa color_text">
+                        <i class="comment-icon fas fa-info-circle" aria-label="知识点解析"></i>
+                        <span class="tooltip-content">${question.knowledge_comment}</span>
+                    </span>
                 </li>
             `;
         });
@@ -196,8 +205,20 @@ function showQuestionsByCategory(categoryId) {
         const submitButton = document.createElement('button');
         submitButton.classList.add('submit-answer');
         submitButton.textContent = "提交答案";
-        submitButton.addEventListener('click', () => checkAnswers(questions));
+        let answerSpans;
+        submitButton.addEventListener('click', () => {
+            answerSpans = checkAnswers(questions); 
+        });
         statementDetailsDiv.appendChild(submitButton);
+
+        const displayCorrectAnswersButton = document.querySelector('.display-correct-answers');
+        const answerSelects = document.querySelectorAll('[id^="answer-"] select');
+        
+        // console.log(answerSelects);
+        displayCorrectAnswersButton.addEventListener('click', () => {
+            // console.log(answerSpans);
+            displayCorrectAnswers(answerSpans ? answerSpans : answerSelects, questions)}
+        );
     }
 }
 
@@ -304,22 +325,23 @@ function checkAnswers(questions) {
 
         questionLi.innerHTML = `
             ${question.question_text_before_options} 
-            <span class="${questionLiSettings[number].class}"> 
+            <span class="answer-${question.question_id} ${questionLiSettings[number].class}"> 
                 ${selectedAnswer} 
                 <i class="fas ${questionLiSettings[number].emoji}" aria-hidden="true"></i> 
             </span>
             ${question.question_text_after_options}
             <span class="tooltip tooltip-hidden tooltip-fa color_text">
-              <i class="comment-icon far fa-question-circle" aria-hidden="true"></i>
-              <span class="tooltip-content">${question.question_comment}</span>
+                <i class="comment-icon far fa-question-circle" aria-label="题目解析"></i>
+                <span class="tooltip-content">${question.question_comment}</span>
             </span>
             <span class="tooltip tooltip-hidden tooltip-fa color_text">
-              <i class="comment-icon fas fa-info-circle" aria-hidden="true"></i>
-              <span class="tooltip-content">${question.knowledge_comment}</span>
+                <i class="comment-icon fas fa-info-circle" aria-label="知识点解析"></i>
+                <span class="tooltip-content">${question.knowledge_comment}</span>
             </span>
         `;
     });
-
+    
+    removeResultFeedback();
     const resultFooter = document.createElement('div');
     resultFooter.classList.add("feedback");
     const correctStars = Math.round(score / questions.length * 5);
@@ -329,7 +351,6 @@ function checkAnswers(questions) {
         const darkenStars = new Array(5-n+1).join(`<i class="far fa-star" aria-hidden="true"></i>`);
         return lightenStars + darkenStars;
     }
-
     resultFooter.innerHTML = `
         <h2 class="question-result">结果
             <span class="star">
@@ -339,6 +360,11 @@ function checkAnswers(questions) {
         <p>您答对了 ${score} / ${questions.length} 道题。正确率：${Math.round(score / questions.length * 100)} %</p>`;
 
     statementDetailsDiv.appendChild(resultFooter);
+    showCommentIcon();
+    return document.querySelectorAll('span[class^="answer-"]');;
+}
+
+function showCommentIcon(){
     const tooltips = document.querySelectorAll('.tooltip');
     tooltips.forEach((tooltip) => {
         tooltip.classList.remove("tooltip-hidden");
@@ -404,6 +430,131 @@ function checkAnswers(questions) {
         tooltipContent.classList.remove("tootip-content-show");
       });
     });
+}
+
+function hideCommentIcon(){
+    const tooltips = document.querySelectorAll('.tooltip');
+    tooltips.forEach((tooltip) => {
+        tooltip.classList.add("tooltip-hidden");
+    });
+}
+
+// 显示正确答案
+function displayCorrectAnswers(answerElements, questions){
+    // console.log(answerElements);
+        const displayCorrectAnswersIcon = document.querySelector('.display-answers-icon');
+        if (displayCorrectAnswersIcon.classList.contains('fa-toggle-off')){
+            displayCorrectAnswersIcon.classList.remove('fa-toggle-off');
+            displayCorrectAnswersIcon.classList.add('fa-toggle-on');
+            const submitButton = document.querySelector('.submit-answer');
+            submitButton.style.display = 'none';
+            questions.forEach((question) => {
+                // console.log(question.question_id);
+                showAnswerSpans(question);
+                showCommentIcon();
+            });
+        } else {
+            displayCorrectAnswersIcon.classList.remove('fa-toggle-on');
+            displayCorrectAnswersIcon.classList.add('fa-toggle-off');
+            restoreAnswers(answerElements);
+            hideCommentIcon();
+            // removeResultFeedback();
+        }
+}
+
+function removeResultFeedback(){
+    // console.log("remove result feedback div");
+    const resultFooters = document.querySelectorAll(".feedback");
+    // console.log(resultFooters);
+    resultFooters.forEach((resultFooter)=>{
+        resultFooter.parentNode.removeChild(resultFooter);
+    });
+}
+
+function showAnswerSpans(question){
+    //update page after click the checkanswers button
+    const answerHolder = document.querySelector(`.answer-${question.question_id}`);
+    if (answerHolder){
+        const correctAnswer = document.createElement('em');
+        correctAnswer.innerText = `${question.correct_answer}`;
+        if(answerHolder.classList.contains('correct')){
+            // answerHolder.classList.remove(answerHolder.classList[1]);
+            // answerHolder.classList.add('correct');
+            // answerHolder.classList.add('display-correct-answer');
+            answerHolder.style.display = 'none';
+        } else {
+            answerHolder.classList.add('strike');
+            // answerHolder.innerHTML += `<em>${question.correct_answer}</em>`;
+        }
+        correctAnswer.classList.add('correct');
+        correctAnswer.classList.add('display-correct-answer');
+        answerHolder.parentNode.insertBefore(correctAnswer, answerHolder.nextSibling);
+    }
+
+    //update page before click the checkanswers button
+    const answerSelect = document.querySelector(`#answer-${question.question_id}`);
+    if (answerSelect){
+        // console.log(answerSelect);
+        const parentElement = answerSelect.parentNode;
+
+        const answerSpan = document.createElement('span');
+        answerSpan.classList.add(`answer-${question.question_id}`);
+        answerSpan.classList.add('correct');
+        answerSpan.classList.add('display-correct-answer');
+        answerSpan.innerHTML = `<em>${question.correct_answer}</em>`;
+
+        const previousSibling = answerSelect.previousSibling;
+        if (previousSibling) {
+            // 使用insertBefore方法将span元素插入到前一个兄弟元素之后，实现替换原select元素位置的效果
+            parentElement.insertBefore(answerSpan, previousSibling.nextSibling);
+        } else {
+            // 如果select元素没有前一个兄弟元素（即它是第一个子元素），则直接添加到父元素开头
+            parentElement.insertBefore(answerSpan, parentElement.firstChild);
+        }
+        parentElement.removeChild(answerSelect);
+    }
+}
+
+function restoreAnswers(answerElements) {
+    if (answerElements[0].tagName === "SELECT"){
+        const answerSpans = document.querySelectorAll('span[class^="answer-"]');
+        answerSpans.forEach((answerSpan)=>{
+            // console.log(answerSpan);
+            const parentElement = answerSpan.parentNode;
+            // console.log(parentElement);
+            const previousSibling = answerSpan.previousSibling;
+            let answerSelected;
+            answerElements.forEach((answerSelect) => {
+                if (answerSelect.id === answerSpan.classList[0]) {
+                    answerSelected = answerSelect;
+                }
+            })
+            // console.log(answerSelected);
+            if (previousSibling) {
+                // 使用insertBefore方法将select元素插入到前一个兄弟元素之后，实现替换原span元素位置的效果
+                parentElement.insertBefore(answerSelected, previousSibling.nextSibling);
+            } else {
+                // 如果span元素没有前一个兄弟元素（即它是第一个子元素），则直接添加到父元素开头
+                parentElement.insertBefore(answerSelected, parentElement.firstChild);
+            }
+            parentElement.removeChild(answerSpan);
+            const submitButton = document.querySelector('.submit-answer');
+            submitButton.style.display = 'block';
+        })
+    } else {
+        // console.log("hello, original spans");
+        // console.log(answerElements);
+        const correctAnswerEms = document.querySelectorAll('.display-correct-answer');
+        correctAnswerEms.forEach((correctAnswerEm)=>{correctAnswerEm.parentNode.removeChild(correctAnswerEm);})
+
+        answerElements.forEach((answerElement)=>{
+            if(answerElement.classList.contains('correct')){
+                answerElement.style.display = 'inline';
+            } else {
+                answerElement.classList.remove('strike');
+            } 
+        })
+    }
 }
 
 function getViewportSize() {
