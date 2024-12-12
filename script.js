@@ -440,10 +440,15 @@ function showCommentIcon(){
 }
 
 function hideCommentIcon(){
-    const tooltips = document.querySelectorAll('.tooltip');
-    tooltips.forEach((tooltip) => {
-        tooltip.classList.add("tooltip-hidden");
-    });
+    const resultFooters = document.querySelectorAll(".feedback");
+    console.log(resultFooters);
+    console.log(resultFooters.length===0);
+    if(resultFooters.length===0){
+        const tooltips = document.querySelectorAll('.tooltip');
+        tooltips.forEach((tooltip) => {
+            tooltip.classList.add("tooltip-hidden");
+        });
+    }
 }
 
 // 显示正确答案
