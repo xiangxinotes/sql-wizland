@@ -408,7 +408,7 @@ function showCommentIcon(){
             const categoryMenuWidth = viewportSize.width > 768 ? 200 : 0;
             const rightOver = viewportSize.width - this.offsetLeft - categoryMenuWidth;
             let setLeft;
-            // console.log(`右侧剩余空间：${rightOver - categoryMenuWidth}`);
+            // console.log(`右侧剩余空间：${rightOver}`);
             // console.log(tooltipContent.offsetWidth / 2);
             if(rightOver < tooltipContent.offsetWidth / 2) {
                 // setLeft = this.offsetLeft - tooltipContent.offsetWidth + rightOver / 2 - categoryMenuWidth;
