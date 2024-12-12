@@ -390,6 +390,10 @@ i.nav-icon {
   cursor: pointer;
   display: inline-block;
   padding: 5px 10px;
+  user-select:none;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
 }
 
 .display-answers-icon {
@@ -402,4 +406,24 @@ i.nav-icon {
 
 .strike{
   text-decoration: line-through;
+}
+
+.tooltip-content::after {
+  content: "";
+  position: absolute;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+}
+
+.tooltip-content-top::after {
+  border-color: #0097b2 transparent transparent transparent;
+  top: 100%;
+  left: var(--after-content-left);
+}
+
+.tooltip-content-bottom::after {
+  border-color: transparent transparent #0097b2 transparent;
+  top: -10px;
+  left: var(--after-content-left);
 }

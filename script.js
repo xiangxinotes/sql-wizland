@@ -394,27 +394,34 @@ function showCommentIcon(){
         let setTop;
         if (bottomOver < tooltipContent.offsetHeight){
             // console.log(`下方空间放不下框框`);
-            setTop = this.offsetTop - 5 - tooltipContent.offsetHeight;
+            setTop = this.offsetTop - 10 - tooltipContent.offsetHeight;
+            tooltipContent.classList.add('tooltip-content-top');
         } else {
-            setTop = this.offsetTop + this.offsetHeight + 5;
+            setTop = this.offsetTop + this.offsetHeight + 10;
+            tooltipContent.classList.add('tooltip-content-bottom');
         }
         tooltipContent.style.top = setTop + 'px';
         // console.log("--------------");
         // console.log(`设置框框的上方距离: ${setTop} px`);
 
         if(viewportSize.width > 540){
-            const rightOver = viewportSize.width - this.offsetLeft;
-            let setLeft;
             const categoryMenuWidth = viewportSize.width > 768 ? 200 : 0;
+            const rightOver = viewportSize.width - this.offsetLeft - categoryMenuWidth;
+            let setLeft;
             // console.log(`右侧剩余空间：${rightOver - categoryMenuWidth}`);
             // console.log(tooltipContent.offsetWidth / 2);
-            if(rightOver - categoryMenuWidth < tooltipContent.offsetWidth / 2) {
+            if(rightOver < tooltipContent.offsetWidth / 2) {
                 // setLeft = this.offsetLeft - tooltipContent.offsetWidth + rightOver / 2 - categoryMenuWidth;
-                setLeft = this.offsetLeft - tooltipContent.offsetWidth + (rightOver - categoryMenuWidth) - 20;
+                setLeft = this.offsetLeft - tooltipContent.offsetWidth + rightOver - 20;
                 // console.log(`设置框框的左方距离: ${setLeft} px`);
+                // console.log(`设置框框小标的左方距离: ${tooltipContent.offsetWidth - rightOver + 27}px`);
+                tooltipContent.style.setProperty('--after-content-left', `${tooltipContent.offsetWidth - rightOver + 27}px`);
             } else {
                 // console.log("右侧放得下");
                 setLeft = this.offsetLeft - tooltipContent.offsetWidth / 2 < 20 ? 20 : this.offsetLeft - tooltipContent.offsetWidth / 2 - 20;
+                afterContentLeft = this.offsetLeft - tooltipContent.offsetWidth / 2 < 20 ? this.offsetLeft - 12 : tooltipContent.offsetWidth / 2 + 27;
+                // console.log(`设置框框小标的左方距离: ${afterContentLeft}px`);
+                tooltipContent.style.setProperty('--after-content-left', `${afterContentLeft}px`);
             }
             // console.log("--------------");
             // console.log(setLeft);
