@@ -10,48 +10,46 @@ async function populate() {
     const categories = await response.json(); // 用于存储从JSON文件读取的分类数据
     categories.push({
         "category_id": 0,
-        "category_name": "关于 SQL Wizland"
+        "category_name": "关于 SQL Wizland",
+        "category_introduction": "SQL Wizland 的诞生"
     });
     populateCategoryList(categories);
-    populateIntroduction();
+    populateIntroduction(categories);
 }
 
 // 加载介绍信息到网站首页面
-function populateIntroduction() {
+function populateIntroduction(categories) {
     const statementDetailsDiv = document.getElementById('statement-details');
+    statementDetailsDiv.classList.add('quick-start');
     statementDetailsDiv.innerHTML = `
         <div class="quick_start_container">
-            <h1>还在为精准记忆 SQL 语句发愁？</h1>
+            <h2>还在为精准记忆 SQL 语句发愁？</h2>
             <p>传统学习方法总是学了就忘，不尽人意。</p>
             <p>SQL Wizland 提供针对性复习，助您轻松掌握 SQL！</p>
-            <div class="quick-start-buttons">
-                <div class="quick-start-button">
-                    <h3>数据查询</h3>
-                    <p>通用基础，关联万千，巩固提升</p>
-                </div>
-                <!-- <div class="quick-start-button">
-                    <h3>数据插入</h3>
-                    <p></p>
-                </div>
-                <div class="quick-start-button">
-                    <h3>数据更新</h3>
-                    <p></p>
-                </div>
-                <div class="quick-start-button">
-                    <h3></h3>
-                    <p></p>
-                </div>
-                <div class="quick-start-button">
-                    <h3></h3>
-                    <p></p>
-                </div>
-                <div class="quick-start-button">
-                    <h3></h3>
-                    <p></p>
-                </div> -->
-            </div>
         </div>
     `;
+    const quickStartButtons = document.createElement('div');
+    quickStartButtons.classList.add("quick-start-buttons");
+    categories.forEach((category)=>{
+        if (category.category_id < 4){
+            const quickStartButton = document.createElement('div');
+            quickStartButton.classList.add("quick-start-button");
+            const quickStartH3 = document.createElement('h3');
+            quickStartH3.innerText = category.category_name;
+            const quickStartP = document.createElement('p');
+            quickStartP.innerText = category.category_introduction;
+            quickStartButton.appendChild(quickStartH3);
+            quickStartButton.appendChild(quickStartP);
+            quickStartButton.addEventListener('click', function(){
+                const categoryNav = document.getElementById('category-nav');
+                const categoryItem = category.category_id ===0 ? categoryNav.lastChild : categoryNav.children[category.category_id-1];
+                const clickEvent = new Event('click');
+                categoryItem.dispatchEvent(clickEvent);
+            });
+            quickStartButtons.appendChild(quickStartButton);
+        }
+    })
+    statementDetailsDiv.appendChild(quickStartButtons);
 }
 
 // 加载语句分类列表到页面
@@ -97,7 +95,6 @@ function populateCategoryList(obj) {
         categoryListNav.classList.remove('is-open');
         headerOverlayDiv.classList.remove('is-visible');
     });
-
 }
 
 // 清除所有分类列表的选中状态（移除active类）
@@ -126,6 +123,7 @@ function showAbout() {
     const dbButtonsDiv = document.getElementById('database-buttons-container');
     dbButtonsDiv.style.display = "none";
     const statementDetailsDiv = document.getElementById('statement-details');
+    statementDetailsDiv.classList.remove('quick-start');
     statementDetailsDiv.innerHTML = "";
     const aboutDiv = document.createElement('div');
     aboutDiv.classList.add('about');
@@ -173,6 +171,7 @@ function showQuestionsByCategory(categoryId) {
         const database = getSelectedDatabase();
         const questions = getQuestionsByDatabaseAndCategory(database, categoryId);
         const statementDetailsDiv = document.getElementById('statement-details');
+        statementDetailsDiv.classList.remove('quick-start');
         statementDetailsDiv.innerHTML = "";
         statementDetailsDiv.innerHTML = "<div class='display-correct-answers'><i class='display-answers-icon fa fa-toggle-off'></i><span>显示正确答案</span></div>";
         statementDetailsDiv.innerHTML += "<p>请从下拉列表中选出最适合填在挖空处的 SQL 语句。</p>";
@@ -295,6 +294,7 @@ function checkAnswers(questions) {
     const submitButton = document.querySelector('.submit-answer');
     submitButton.style.display = 'none';
     const statementDetailsDiv = document.getElementById('statement-details');
+    statementDetailsDiv.classList.remove('quick-start');
     let score = 0;
     questions.forEach((question) => {
         const questionLi = document.getElementById(`answer-li-${question.question_id}`)
@@ -587,7 +587,7 @@ function getViewportSize() {
 }
 
 window.onload = function () {
-    populate();
     loadQuestions();
+    populate();
     setupDatabaseButtonClickHandlers();
 };

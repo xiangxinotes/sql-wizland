@@ -1,6 +1,8 @@
 [
     {
         "category_id": 1,
-        "category_name": "数据查询"
+        "category_name": "数据查询",
+        "category_introduction": "最常用，最基础，必须会"
     }
+    
 ]

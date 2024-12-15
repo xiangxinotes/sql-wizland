@@ -202,7 +202,7 @@ i.nav-icon {
   
   #category-menu h2 {
     color: #0097b2;
-    margin-top: 0;
+    margin-top: 10px;
     margin-bottom: 20px;
     text-align: center;
   }
@@ -309,8 +309,12 @@ i.nav-icon {
   }
 }
 
+.quick-start{
+  background-color: transparent!important;
+}
+
 .quick_start_container {
-  width: 80%;
+  width: 80vw;
   margin: 0 auto;
   text-align: center;
 }
@@ -326,6 +330,7 @@ i.nav-icon {
   color: #333;
 }
 
+
 .quick-start-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -334,7 +339,8 @@ i.nav-icon {
 
 .quick-start-button {
   text-align: left;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
+  background-color: transparent;
   border-radius: 5px;
   padding: 20px;
   margin: 10px;
@@ -348,9 +354,20 @@ i.nav-icon {
   color: inherit;
 }
 
-/* .quick-start-button:hover {
+.quick-start-button:hover {
   cursor: pointer;
-} */
+}
+
+.quick-start-button h3,
+.quick-start-button p{
+  margin-block-end: 0.5em;
+  margin-block-start: 0;
+  /* font-size: 0.9rem; */
+}
+
+.quick-start-button p{
+  color: rgba(0, 0, 0, 0.5);
+}
 
 .footer-panel {
   text-align: center;
