@@ -1,8 +1,4 @@
 [
-    {
-        "category_id": 1,
-        "category_name": "数据查询",
-        "category_introduction": "最常用，最基础，必须会"
-    }
-    
+    {"category_id": 1,"category_name": "数据查询","category_introduction": "最常用，最基础，必须会"},
+    {"category_id": 2,"category_name": "多表连接","category_introduction": "定会用到，必要掌握"}
 ]

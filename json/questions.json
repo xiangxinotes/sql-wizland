@@ -4,8 +4,8 @@
         "question_text_before_options": "SELECT customer_id, customer_name FROM customers WHERE customer_name ",
         "options": ["LIKE", "="],
         "question_text_after_options": " '%John%';",
-        "question_comment": "本题解题线索是挖空处后面的 '%John%'。在 SQL 中，'%John%' 这样的表达式通常用于在进行文本数据的查询操作时，实现模糊匹配的功能，因此这里应该使用用于模糊查询的 “LIKE”。“=” 是用于精确匹配的，所以用 “=” 不会返回我们想要的结果，因为不会有顾客名称恰好等于 “%John%” 这样带有通配符的字符串。",
-        "knowledge_comment":"“=” 在 SQL 中用于精确匹配。而 “LIKE” 用于模糊查询，一般会搭配正则表示式使用。如果你没听说过正则表示式，正则表达式的应用场景很多，一定要去学习。",
+        "question_comment": "本题解题线索是挖空处后面的 '%John%'。在 SQL 中，'%John%' 这样的表达式通常用于在进行文本数据的查询操作时，实现模糊匹配的功能，因此这里应该使用用于模糊查询的 LIKE。= 是用于精确匹配的，所以用 = 不会返回我们想要的结果，因为不会有顾客名称恰好等于 %John% 这样带有通配符的字符串。",
+        "knowledge_comment":"= 在 SQL 中用于精确匹配。而 LIKE 用于模糊查询，一般会搭配正则表示式使用。如果你没听说过正则表示式，正则表达式的应用场景很多，一定要去学习。",
         "correct_answer": "LIKE",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
     },
@@ -14,8 +14,8 @@
         "question_text_before_options": "查出 products 表中价格在 50-100 区间的产品: SELECT product_id, product_name, price FROM products WHERE price ",
         "options": ["IN (50, 100)", "BETWEEN 50 AND 100"],
         "question_text_after_options": ";",
-        "question_comment": "题干明确指出需要查询的是 50-100 区间，也就是说：50, 51, 52, ... ,99, 100 都需要被查询并返回。“IN” 只能用于判断一个值是否在指定的集合中，所以用 “IN” 只会返回价格恰好是 50 或者 100 的产品。",
-        "knowledge_comment":"IN 和 BETWEEN AND 都用于在一定条件下筛选数据，使用时一定要注意区别。区别在于：“IN” 用于判断一个值是否在指定的集合中，“BETWEEN AND” 用于判断一个值是否在一个连续的区间内。",
+        "question_comment": "题干明确指出需要查询的是 50-100 区间，也就是说：50, 51, 52, ... ,99, 100 都需要被查询并返回。IN 只能用于判断一个值是否在指定的集合中，所以用 IN 只会返回价格恰好是 50 或者 100 的产品。",
+        "knowledge_comment":"IN 和 BETWEEN AND 都用于在一定条件下筛选数据，使用时一定要注意区别。区别在于：IN 用于判断一个值是否在指定的集合中，BETWEEN AND 用于判断一个值是否在一个连续的区间内。",
         "correct_answer": "BETWEEN 50 AND 100",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
     },
@@ -24,8 +24,8 @@
         "question_text_before_options": "SELECT product_id, ",
         "options": ["SUM", "AVG"],
         "question_text_after_options": " (quantity) as average_quantity FROM sales GROUP BY product_id;",
-        "question_comment": "本题解题线索是 as average_quantity，即平均数量，对查询变量的重命名暗示了此题想查询每种产品的平均销售数量。“SUM” 是求和函数，“AVG” 是求平均值函数，答案一目了然了。",
-        "knowledge_comment": "“SUM” 和 “AVG” 都是对数值列进行计算的函数，“SUM” 是 Summation (求和) 的简写，用于求和，“AVG” 是 Average (平均) 的简写，用于求平均值。还有其他的函数，比如计算的函数，比如 “MAX” 和 “MIN”，函数名都是英文单词简写，可以遇到一个积累一个。",
+        "question_comment": "本题解题线索是 as average_quantity，即平均数量，对查询变量的重命名暗示了此题想查询每种产品的平均销售数量。SUM 是求和函数，AVG 是求平均值函数，答案一目了然了。",
+        "knowledge_comment": "SUM 和 AVG 都是对数值列进行计算的函数，SUM 是 Summation (求和) 的简写，用于求和，AVG 是 Average (平均) 的简写，用于求平均值。还有其他的函数，比如计算的函数，比如 MAX 和 MIN，函数名都是英文单词简写，可以遇到一个积累一个。",
         "correct_answer": "AVG",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
     },
@@ -34,8 +34,8 @@
         "question_text_before_options": "查出所有员工及其所在部门的信息: SELECT employees.employee_id, employees.department_id, departments.department_name FROM employees ",
         "options": ["JOIN", "LEFT JOIN"],
         "question_text_after_options": " departments ON employees.department_id = departments.department_id;",
-        "question_comment": "题干明确指出需要查询的是所有员工的信息，也就是说只要一个员工信息存在于 employees 表中，就应该返回（即使此员工还没有分配department），所以应该使用 “LEFT JOIN” 以 employees 表为基准返回结果。",
-        "knowledge_comment": "“JOIN”，也就是 “INNER JOIN”，是内连接，它只会返回两个表的交集（也就是满足连接条件的匹配记录）； “LEFT JOIN”，也就是 “LEFT OUTTER JOIN” 是左外连接，它会返回左边表中的所有数据（即使和右边表没有匹配记录也会被返回）。",
+        "question_comment": "题干明确指出需要查询的是所有员工的信息，也就是说只要一个员工信息存在于 employees 表中，就应该返回（即使此员工还没有分配department），所以应该使用 LEFT JOIN 以 employees 表为基准返回结果。",
+        "knowledge_comment": "JOIN，也就是 INNER JOIN，是内连接，它只会返回两个表的交集（也就是满足连接条件的匹配记录）； LEFT JOIN，也就是 LEFT OUTTER JOIN 的简写，是左外连接，它会返回左边表中的所有数据（即使和右边表没有匹配记录也会被返回）。",
         "correct_answer": "LEFT JOIN",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
     },
@@ -44,8 +44,8 @@
         "question_text_before_options": "SELECT class_id, ",
         "options": ["COUNT(*)", "COUNT(name)"],
         "question_text_after_options": " as number_of_students FROM students GROUP BY class_id;",
-        "question_comment": "本题解题线索是 as number_of_students，即学生数量，对查询变量的重命名暗示了此题想查询每个班的学生数量。“COUNT” 是计数函数，“COUNT(*)” 统计所有行的个数，而 “COUNT(name)” 只统计 name 列非空值的行的个数，因此如果 name 列存在空值，就会出现统计数量比真实情况少的情况。",
-        "knowledge_comment": "COUNT(*) 和 COUNT(列名) 是有区别的。“COUNT (*)” 是用于统计包括空值在内的所有行的；而 “COUNT (列名)” 不统计空值行，所以如果 “列名” 这一列存在空值，那么统计的结果将会少于真实数据。",
+        "question_comment": "本题解题线索是 as number_of_students，即学生数量，对查询变量的重命名暗示了此题想查询每个班的学生数量。COUNT 是计数函数，COUNT(*) 统计所有行的个数，而 COUNT(name) 只统计 name 列非空值的行的个数，因此如果 name 列存在空值，就会出现统计数量比真实情况少的情况。",
+        "knowledge_comment": "COUNT(*) 和 COUNT(列名) 是有区别的。COUNT (*) 是用于统计包括空值在内的所有行的；而 COUNT (列名) 不统计空值行，所以如果 列名 这一列存在空值，那么统计的结果将会少于真实数据。",
         "correct_answer": "COUNT(*)",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
     },
@@ -54,8 +54,8 @@
         "question_text_before_options": "查出 A、B 两班所有学生的考试成绩: SELECT student_name, subject, score FROM classa",
         "options": ["UNION", "UNION ALL"],
         "question_text_after_options": " SELECT student_name, subject, score FROM classb;",
-        "question_comment": "题干明确指出需要查询的是 A、B 两班所有学生的考试成绩，而且可以看到查询的是学生姓名、科目、成绩三项，那就必须使用 “UNION ALL” 来确保重名学生的成绩都能被返回到结果中。",
-        "knowledge_comment": "“UNION”，合并结果集并去除重复行； “UNION ALL”，合并结果集并保留所有行，包括重复行。",
+        "question_comment": "题干明确指出需要查询的是 A、B 两班所有学生的考试成绩，而且可以看到查询的是学生姓名、科目、成绩三项，那就必须使用 UNION ALL 来确保重名学生的成绩都能被返回到结果中。",
+        "knowledge_comment": "UNION，合并结果集并去除重复行； UNION ALL，合并结果集并保留所有行，包括重复行。",
         "correct_answer": "UNION ALL",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
     },
@@ -64,8 +64,8 @@
         "question_text_before_options": "SELECT department_id, last_name, first_name, salary FROM employees",
         "options": ["ORDER BY", "GROUP BY"],
         "question_text_after_options": " salary DESC, department_id;",
-        "question_comment": "本题解题线索是 salary DESC 中的 DESC，即降序，涉及到排序，那么必然选择“ORDER BY”。",
-        "knowledge_comment": "“ORDER BY”，对查询返回的结果集按照指定的列进行排序，可以按照某一列排序或者同时按照多列进行排序，排序的顺序可以是升序 (ASC 或留空) 或者降序 (DESC)； “GROUP BY”，将条目分组，以便对每个组执行聚合函数（比如 COUNT(), MAX(), MIN(), SUM(), AVG() 等）。",
+        "question_comment": "本题解题线索是 salary DESC 中的 DESC，即降序，涉及到排序，那么必然选择ORDER BY。",
+        "knowledge_comment": "ORDER BY，对查询返回的结果集按照指定的列进行排序，可以按照某一列排序或者同时按照多列进行排序，排序的顺序可以是升序 (ASC 或留空) 或者降序 (DESC)； GROUP BY，将条目分组，以便对每个组执行聚合函数（比如 COUNT(), MAX(), MIN(), SUM(), AVG() 等）。",
         "correct_answer": "ORDER BY",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
     },
@@ -74,8 +74,8 @@
         "question_text_before_options": "查出每种产品的平均价格(四舍五入保留两位小数): SELECT product_id",
         "options": ["ROUND", "TRUNCATE"],
         "question_text_after_options": " (AVG(price), 2) FROM products GROUP BY product_id;",
-        "question_comment": "题干明确指出需要查询的是每种产品的平均价格，需要四舍五入，并且保留两位小数，因此选择“ROUND”，因为“ROUND”会进行四舍五入。",
-        "knowledge_comment": "“ROUND”，按指定位数对数值进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； “TRUNCATE”，按照位数对数值进行截取，TRUNCATE(number, 2)即按照2位数对 number 进行截取，若 number = 2.339，则 TRUNCATE(number, 2) = 2.33",
+        "question_comment": "题干明确指出需要查询的是每种产品的平均价格，需要四舍五入，并且保留两位小数，因此选择ROUND，因为ROUND会进行四舍五入。",
+        "knowledge_comment": "ROUND，按指定位数对数值进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； TRUNCATE，按照位数对数值进行截取，TRUNCATE(number, 2)即按照2位数对 number 进行截取，若 number = 2.339，则 TRUNCATE(number, 2) = 2.33",
         "correct_answer": "ROUND",
         "applicable_databases": ["MySQL"]
     },
@@ -84,8 +84,8 @@
         "question_text_before_options": "查出每种产品的平均价格(四舍五入保留两位小数): SELECT product_id",
         "options": ["ROUND", "TRUNC"],
         "question_text_after_options": " (AVG(price), 2) FROM products GROUP BY product_id;",
-        "question_comment": "题干明确指出需要查询的是每种产品的平均价格，需要四舍五入，并且保留两位小数，因此选择“ROUND”，因为“ROUND”会进行四舍五入。",
-        "knowledge_comment": "“ROUND”，按指定位数对数值进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； “TRUNC”，按照位数对数值进行截取，TRUNC(number, 2)即按照2位数对 number 进行截取，若 number = 2.339，则 TRUNC(number, 2) = 2.33",
+        "question_comment": "题干明确指出需要查询的是每种产品的平均价格，需要四舍五入，并且保留两位小数，因此选择ROUND，因为ROUND会进行四舍五入。",
+        "knowledge_comment": "ROUND，按指定位数对数值进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； TRUNC，按照位数对数值进行截取，TRUNC(number, 2)即按照2位数对 number 进行截取，若 number = 2.339，则 TRUNC(number, 2) = 2.33",
         "correct_answer": "ROUND",
         "applicable_databases": ["Oracle", "PostgreSQL"]
     },
@@ -93,10 +93,110 @@
         "question_id": 10,
         "question_text_before_options": "查出每种产品的平均价格(四舍五入保留两位小数): SELECT product_id",
         "options": ["ROUND(AVG(price), 2)", "ROUND(AVG(price), 2, 1)"],
-        "question_text_after_options": "  FROM products GROUP BY product_id;",
-        "question_comment": "题干明确指出需要查询的是每种产品的平均价格，需要四舍五入，并且保留两位小数，因此选择“ROUND(AVG(price), 2)”，因为在没有第三个参数的情况下，“ROUND”会进行四舍五入。",
-        "knowledge_comment": "“ROUND(n,d)”，按指定 d 位数对数值 n 进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； “ROUND(n,d,f)”，根据 f 大小按指定 d 位数对数值 n 进行截取（当 f 为0时，即默认值，需要对数值进行四舍五入；当 f 大于0时，不进行四舍五入，直接截取），ROUND(number, 2, 1)即按照2位数直接对 number 进行截取，若 number = 2.339，则 ROUND(number, 2, 1) = 2.33",
+        "question_text_after_options": " FROM products GROUP BY product_id;",
+        "question_comment": "题干明确指出需要查询的是每种产品的平均价格，需要四舍五入，并且保留两位小数，因此选择ROUND(AVG(price), 2)，因为在没有第三个参数的情况下，ROUND会进行四舍五入。",
+        "knowledge_comment": "ROUND(n,d)，按指定 d 位数对数值 n 进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； ROUND(n,d,f)，根据 f 大小按指定 d 位数对数值 n 进行截取（当 f 为0时，即默认值，需要对数值进行四舍五入；当 f 大于0时，不进行四舍五入，直接截取），ROUND(number, 2, 1)即按照2位数直接对 number 进行截取，若 number = 2.339，则 ROUND(number, 2, 1) = 2.33",
         "correct_answer": "ROUND(AVG(price), 2)",
         "applicable_databases": ["SQL Server"]
+    }],
+    "2" : [{
+        "question_id": 1,
+        "question_text_before_options": "查询员工信息和其部门信息：SELECT * FROM employees ",
+        "options": ["JOIN", "UNION"],
+        "question_text_after_options": " departments ON employees.department_id = departments.department_id;",
+        "question_comment": "UNION 用于合并两个或多个 SELECT 语句的结果集，而且要求列数、对应列的数据类型等要一致，所以 UNION 的前后必须都包含 SELECT 语句，这道题 UNION 后面的部分没有 SELECT 语句，所以应该选择JOIN。",
+        "knowledge_comment": "JOIN 用于表与表之间基于关联条件的连接操作，能获取到符合关联逻辑的综合数据；UNION 侧重合并多个查询结果集，二者功能不同，使用场景有明显区别，要准确掌握。",
+        "correct_answer": "JOIN",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 2,
+        "question_text_before_options": "SELECT * FROM employees INNER JOIN departments ",
+        "options": ["ON", "WHERE"],
+        "question_text_after_options": " employees.department_id = departments.department_id",
+        "question_comment": "在标准 SQL 中，当使用 INNER JOIN 时，如果没有 ON 子句，语法是错误的。因为 INNER JOIN 需要基于某些列的关联条件来确定如何连接两个表，而这个关联条件是通过 ON 子句来指定的，所以这里应该选择 ON。",
+        "knowledge_comment": "你可能会在测试中发现这里选择 ON 和 WHERE 会产生同样的结果，这是因为你的 MySQL 版本较旧或者有特定的数据库配置导致的，但使用 INNER JOIN 时没有 ON 子句是不符合标准规范的行为，请不要这样编写代码。",
+        "correct_answer": "ON",
+        "applicable_databases": ["MySQL"]
+    },
+    {
+        "question_id": 3,
+        "question_text_before_options": "SELECT * FROM employees INNER JOIN departments ",
+        "options": ["ON", "WHERE"],
+        "question_text_after_options": " employees.department_id = departments.department_id",
+        "question_comment": "在标准 SQL 中，当使用 INNER JOIN 时，如果没有 ON 子句，语法是错误的。因为 INNER JOIN 需要基于某些列的关联条件来确定如何连接两个表，而这个关联条件是通过 ON 子句来指定的，所以这里应该选择 ON。",
+        "knowledge_comment": "和 MySQL 不同，使用 INNER JOIN 但没有 ON 子句，一定会产生语法错误，如果你有其他需要过滤的条件，可以用 AND 加到 ON 子句中，或者用 WHERE 写到 ON 子句后。",
+        "correct_answer": "ON",
+        "applicable_databases": ["SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 4,
+        "question_text_before_options": "SELECT stores.store_name, products.product_name FROM stores <strong>JOIN</strong> products ON stores.store_id = products.store_id 中的 JOIN 是",
+        "options": ["NATURAL JOIN", "OUTER JOIN", "INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "CROSS JOIN"],
+        "question_text_after_options": "的简写。",
+        "question_comment": "在 SQL 中，JOIN（不带修饰词时）默认是 INNER JOIN。这意味着在大多数情况下，当你想要进行内连接操作时，使用 JOIN 和 INNER JOIN 是等效的。",
+        "knowledge_comment": "虽然在 SQL 中，INNER JOIN 中的 INNER 可以省略，但为了代码的清晰性和可读性，明确使用 INNER JOIN 可能是更好的选择。",
+        "correct_answer": "INNER JOIN",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 5,
+        "question_text_before_options": "在语法格式上符合使用自然连接的要求（假设各表有合适的同名关联字段）的是：SELECT * FROM products ",
+        "options": ["NATURAL JOIN", "JOIN"],
+        "question_text_after_options": " categories;",
+        "question_comment": "NATURAL JOIN是基于两张表中同名字段自动进行连接的一种连接方式，语法上直接使用NATURAL JOIN关键字跟要连接的表名就行。而JOIN后面通常需要跟具体的连接条件（如ON子句等），题目要求使用自然连接，所以选项中用NATURAL JOIN这种连续使用自然连接关键字去连接多个表的格式才符合要求，JOIN的那种写法不符合自然连接语法格式。",
+        "knowledge_comment": "NATURAL JOIN语法相对简洁，依靠同名字段自动关联，但使用时要确保表中同名字段确实是用于关联的合理字段，同时要区分它和普通JOIN在语法及使用方式上的不同。",
+        "correct_answer": "NATURAL JOIN",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 6,
+        "question_text_before_options": "查询员工工资记录，要求所有员工的工资记录都要显示（即使有些员工没有对应的工资记录情况也显示）：SELECT * FROM salaries ",
+        "options": ["RIGHT JOIN", "LEFT JOIN"],
+        "question_text_after_options": " employees ON salaries.employee_id = employees.employee_id;",
+        "question_comment": "RIGHT JOIN是以右边的表（这里是employees表）为主，会返回右边表的所有记录以及与左边表匹配的记录，符合题目要求，所以要用RIGHT JOIN。",
+        "knowledge_comment": "RIGHT JOIN，RIGHT OUTER JOIN 的简写，与LEFT JOIN刚好相反，RIGHT JOIN侧重于保留右表全部记录并关联左表匹配记录，LEFT JOIN反之，保留左表全部记录并关联右表匹配记录，要根据实际需求中对表记录保留及关联的侧重来选用合适的连接类型。",
+        "correct_answer": "RIGHT JOIN",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 7,
+        "question_text_before_options": "获取所有学生及对应的课程信息（即使没选课的学生也显示）：SELECT students.student_name, courses.course_name FROM students ",
+        "options": ["LEFT JOIN", "INNER JOIN"],
+        "question_text_after_options": " student_courses ON students.student_id = student_courses.student_id LEFT JOIN courses ON student_courses.course_id = courses.course_id;",
+        "question_comment": "INNER JOIN只会返回两个表中满足连接条件的交集数据，也就是只有选了课的学生信息才会被显示出来。而LEFT JOIN是以左边的表（这里先以students表为主），会返回左边表的所有记录以及与右边表匹配的记录，所以即使没选课的学生也能显示出来，为了符合题目要求显示所有学生的情况，要用LEFT JOIN。",
+        "knowledge_comment": "INNER JOIN和LEFT JOIN是多表连接中常用的不同连接方式，INNER JOIN取交集，LEFT JOIN 是 LEFT OUTER JOIn的简写，侧重于保留左表全部记录，要依据具体需求选择合适的连接类型来获取期望的数据。",
+        "correct_answer": "LEFT JOIN",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 8,
+        "question_text_before_options": "SELECT * FROM employees INNER JOIN departments ",
+        "options": ["ON", "USING"],
+        "question_text_after_options": " (department_id);",
+        "question_comment": "本题解题线索是挖空处后面的 (department_id)，因为 ON 必须明确写出两个表的列名来定义连接条件，所以这里选择 USING。如果要使用 ON 完成本题，那么挖空处后面应该写成 employees.department_id = departments.department_id",
+        "knowledge_comment": "在连接两个表时，如果连接列名相同，那么用 ON 和 USING 都是可以的，相比较而言，USING 的语法更简洁，而 ON 则需要明确写出两个表的列名来定义连接条件。",
+        "correct_answer": "USING",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 9,
+        "question_text_before_options": "SELECT basket_name, fruit_name FROM baskets ",
+        "options": ["INNER JOIN", "FULL OUTER JOIN"],
+        "question_text_after_options": " fruits ON baskets.basket_id = fruits.basket_id WHERE baskets.basket_id IS NOT NULL AND fruits.basket_id IS NULL;",
+        "question_comment": "本题解题线索是 WHERE 后面的条件，即没有放到篮子中的水果。因为 INNER JOIN 只会返回放到篮子中的水果，所以使用此过滤逻辑会返回空，肯定不符合实际情况。",
+        "knowledge_comment": "FULL OUTER JOIN 可以简写为 FULL JOIN，它返回左表和右表中的所有行。如果左表中的行在右表中没有匹配的行，右表对应的列填充为NULL；反之，如果右表中的行在左表中没有匹配的行，左表对应的列填充为NULL。如果你使用的数据库不支持 FULL OUTER JOIN，你可以用 LEFT OUTER JOIN UNION RIGHT OUTER JOIN 代替。",
+        "correct_answer": "FULL OUTER JOIN",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 10,
+        "question_text_before_options": "查询所有可能的商品类别和颜色组合：SELECT pc.category_name, c.color_name FROM product_categories pc ",
+        "options": ["CROSS JOIN", "FULL JOIN"],
+        "question_text_after_options": " colors c;",
+        "question_comment": "本题解题线索是不包含 ON 子句，在标准 SQL 语法中，FULL JOIN（全外连接）通常需要跟ON子句。ON子句用于指定两个表之间的连接条件，也就是告诉数据库如何根据两个表中的列来匹配行。在某些情况下，如果没有ON子句，数据库系统可能会尝试根据表中的列名自动匹配（如果存在同名且数据类型兼容的列），或者按照某种默认规则进行连接，但这种行为是非标准的，并且不同数据库系统的处理方式可能不同。某些数据库的旧版本或者特定配置下，可能会将没有ON子句的FULL JOIN当作CROSS JOIN（笛卡尔积）来处理，请不要这样编写代码。",
+        "knowledge_comment": "使用 CROSS JOIN 会生成两个表之间的笛卡尔积。当需要为新系统或者功能创建测试数据时，CROSS JOIN往往会派上用场，但在使用CROSS JOIN时要特别小心，因为它会产生笛卡尔积，导致结果集的数据量可能会急剧增长，导致性能问题，如占用大量的内存和磁盘空间，甚至使数据库服务器崩溃。",
+        "correct_answer": "CROSS JOIN",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
     }]
 }
