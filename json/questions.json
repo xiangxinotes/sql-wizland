@@ -1,5 +1,6 @@
 {
-    "1" : [{
+    "1" : [
+        {
         "question_id": 1,
         "question_text_before_options": "SELECT customer_id, customer_name FROM customers WHERE customer_name ",
         "options": ["LIKE", "="],
@@ -99,7 +100,8 @@
         "correct_answer": "ROUND(AVG(price), 2)",
         "applicable_databases": ["SQL Server"]
     }],
-    "2" : [{
+    "2" : [
+        {
         "question_id": 1,
         "question_text_before_options": "查询员工信息和其部门信息：SELECT * FROM employees ",
         "options": ["JOIN", "UNION"],
@@ -198,5 +200,157 @@
         "knowledge_comment": "使用 CROSS JOIN 会生成两个表之间的笛卡尔积。当需要为新系统或者功能创建测试数据时，CROSS JOIN往往会派上用场，但在使用CROSS JOIN时要特别小心，因为它会产生笛卡尔积，导致结果集的数据量可能会急剧增长，导致性能问题，如占用大量的内存和磁盘空间，甚至使数据库服务器崩溃。",
         "correct_answer": "CROSS JOIN",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
-    }]
+    }],
+    "3" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "计算3天后的日期：SELECT ",
+            "options": ["DATE_ADD", "DATE_SUB" ,"DATE_DIFF","PLUS_DATE"],
+            "question_text_after_options": "(launch_date, INTERVAL 3 DAY) AS expire_date from products;",
+            "question_comment": "本题可使用排除法。DATE_DIFF 的写法不对，正确的函数名应该是DATEDIFF，因此可以排除；PLUS_DATE 并非任何主流数据库里的内置函数名，也可以排除。DATE_ADD，DATE_SUB 都是 MySQL中内置的函数名，但作用不一样，通过它们的名字也可以看出，一个是ADD（加法）；一个是SUB（减法），因为是计算3天后的日期，因此应该是用加法，在现在的日期上加上3天，所以选择 DATE_ADD。",
+            "knowledge_comment": "在 MySQL 中，DATE_ADD() 函数用于对日期进行加法操作。它接收一个日期值和一个时间间隔作为参数，返回一个新的日期。",
+            "correct_answer": "DATE_ADD",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 1,
+            "question_text_before_options": "计算3天后的日期：SELECT ",
+            "options": ["DATE_ADD", "DATEADD", "DATESUB", "DATEDIFF"],
+            "question_text_after_options": "(DAY, 3, launch_date) expire_date from products;",
+            "question_comment": "DATE_ADD 是 MySQL 的内置函数名，用于对日期进行加法操作。DATE_ADD 函数的语法是：DATE_ADD(date, INTERVAL value unit)；DATEADD() 函数的参数顺序和 DATE_ADD() 有所不同，它要求先指定时间间隔类型，接着是间隔值，最后是日期；DATESUB 并非任何主流数据库里的内置函数名，可以排除；DATEDIFF 函数用来计算两个日期之前的间隔，语法是：DATEDIFF(datepart, startdate, enddate)",
+            "knowledge_comment": "DATEADD 的语法是：DATEADD(datepart, number, date)，需要注意的是因为 SQL Server 没有 DATASUB 函数，所以如果想要计算几天前的日期，仍需使用 DATEADD，不同的是，number 参数填写负值。如果需要计算3天前的日期：(DAY, -3, launch_date)",
+            "correct_answer": "DATEADD",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 1,
+            "question_text_before_options": "计算3天后的日期：SELECT ",
+            "options": ["DATEADD(DAY, 3, launch_date)", "DATE_ADD(launch_date, INTERVAL 3 DAY)", "launch_date + 3"],
+            "question_text_after_options": "AS expire_date FROM products;",
+            "question_comment": "其实本题的3个选项都是有效的 SQL语句，DATEADD 是 SQL Server 的内置函数，DATE_ADD 是 MySQL 的内置函数，都可以用于计算几天后的日期。在 Oracle 数据库中，若要对日期进行加减操作，可直接使用算术运算符。",
+            "knowledge_comment": "如果 launch_date 是字符串类型，还需要使用 TO_DATE 函数将日期字符串转换为日期类型。举例：SELECT TO_DATE('2025-04-11', 'YYYY-MM-DD') + 5 FROM DUAL;",
+            "correct_answer": "launch_date + 3",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "SELECT * FROM users ",
+            "options": ["FILTER", "HAVING", "WHERE", "CONDITION"],
+            "question_text_after_options": " age > 25;",
+            "question_comment": "本题可使用排除法。在 MySQL 语法里，并没有 FILTER 和 CONDITION 这样的关键字来实现筛选数据的功能；HAVING 子句通常与 GROUP BY 子句一起使用，用于对分组后的结果进行筛选，虽然 MySQL 语法上允许只写 HAVING 子句，但语义上不太符合常规用法，可能会产生不符合预期的结果。",
+            "knowledge_comment": "WHERE 是基础筛选条件的关键词。",
+            "correct_answer": "WHERE",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "SELECT * FROM users ",
+            "options": ["FILTER", "HAVING", "WHERE", "CONDITION"],
+            "question_text_after_options": " age > 25;",
+            "question_comment": "本题可使用排除法。SQL Server 从 2012 版本开始支持 FILTER 修饰符，FILTER是聚合函数的修饰符，能在聚合时限制参与运算的值，相比WHERE子句更灵活，可在一个聚合查询中使用多个；在标准 SQL 语法里，并没有 CONDITION 这样的关键字来实现筛选数据的功能；HAVING 子句通常与 GROUP BY 子句一起使用，用于对分组后的结果进行筛选，没有 GROUP BY 子句时使用 HAVING 会引发语法错误。",
+            "knowledge_comment": "WHERE 是基础筛选条件的关键词。",
+            "correct_answer": "WHERE",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "SELECT * FROM users ",
+            "options": ["FILTER", "HAVING", "WHERE", "CONDITION"],
+            "question_text_after_options": " age > 25;",
+            "question_comment": "本题可使用排除法。在 Oracle 语法里，并没有 FILTER 和 CONDITION 这样的关键字来实现筛选数据的功能；HAVING 子句通常与 GROUP BY 子句一起使用，用于对分组后的结果进行筛选，没有 GROUP BY 子句时使用 HAVING 会引发语法错误。",
+            "knowledge_comment": "WHERE 是基础筛选条件的关键词。",
+            "correct_answer": "WHERE",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "SELECT * FROM users WHERE user_name",
+            "options": ["IS NULL", "= NULL" ,"== NULL", "NOT EXISTS"],
+            "question_text_after_options": ";",
+            "question_comment": "NULL 代表缺失值，不能用 = 来判断一个值是否为 NULL，必须使用 IS NULL 或者 IS NOT NULL。== 是其他程序语言常用的判断符号，注意区分。NOT EXISTS 是一个用于子查询的谓词，它需要搭配子查询使用，用于判断子查询是否返回任何行。在 SELECT * FROM table WHERE user_name not exists 中，user_name 是一个列名，并非子查询，所以会导致语法错误。",
+            "knowledge_comment": "SQL 中判断空值必须用 IS NULL",
+            "correct_answer": "IS NULL",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "SELECT name, CASE WHEN score >= 90 THEN 'A' WHEN score >= 80 THEN 'B' ",
+            "options": ["DEFAULT", "OTHER", "ELSE"],
+            "question_text_after_options": " 'C' END AS grade FROM students;",
+            "question_comment": "本题可使用排除法。DEFAULT 一般在定义表结构时，用来设定列的默认值，并非用于 CASE 表达式；在标准 SQL 语法里，并没有 OTHER 这样的关键字；因此只能选择 ELSE",
+            "knowledge_comment": "在标准 SQL 的 CASE 表达式里，当使用 CASE WHEN ... THEN ... 这种形式时，最后若要指定默认值，使用的关键字是 ELSE ，而非 DEFAULT 。",
+            "correct_answer": "ELSE",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 5,
+            "question_text_before_options": "SELECT * FROM orders WHERE status ",
+            "options": ["NOT IN", "NOT LIKE" ,"!=", "BETWEEN"],
+            "question_text_after_options": " ('cancelled', 'refund');",
+            "question_comment": "本题解题线索是 ('cancelled', 'refund')，括号中包含2个字符串说明这是一个列表，而可以放在列表前的操作符非 IN 莫属，答案一目了然。LIKE 后接正则表达式；!= 是其他程序语言常用的判断符号；BETWEEN 应和 AND 配合用于判断范围。",
+            "knowledge_comment": "NOT IN 用于排除列表中的值。",
+            "correct_answer": "NOT IN",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "查询名字以“张”开头且名字有3个字的用户：SELECT * FROM users WHERE name LIKE ",
+            "options": ["'张_'", "'张%'" ,"'张__'","'张*'"],
+            "question_text_after_options": ";",
+            "question_comment": "_ 是 LIKE 操作符中的通配符，代表单个任意字符。'张_' 表示以 “张” 开头，后面跟着1个任意字符的字符串；% 是通配符，代表零个或多个任意字符。'张%' 表示以 “张” 开头的任意字符串；在常见的主流关系型数据库（如 MySQL、SQL Server、Oracle、PostgreSQL 等）中，SELECT * FROM websites WHERE Name LIKE '张*' 均不适用，因为这些数据库在使用 LIKE 进行模糊匹配时，标准的通配符是 %（代表零个或多个任意字符）和 _（代表单个任意字符），而非 *。",
+            "knowledge_comment": "_ 是 LIKE 操作符中的通配符，代表单个任意字符。'张__' 表示以 “张” 开头，后面跟着两个任意字符的字符串。",
+            "correct_answer": "'张__'",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "SELECT name, IF(stock > 0, ",
+            "options": ["'有货'", "有货" ,"TRUE"],
+            "question_text_after_options": ", '缺货') AS status FROM products;",
+            "question_comment": "本题主要考察IF函数的使用。IF函数接受3个参数。第一个参数为判断条件；第二个参数为条件为真时的返回值；第三个参数为条件为假时的返回值。",
+            "knowledge_comment": "IF 函数的第二个参数为条件为真时的返回值，需用引号包裹字符串。CASE WHEN 的条件判断语句在需要判断的情况较多时使用，简单的 Y/N 判断用IF即可。IF作为常用函数，使用方法应该牢记。",
+            "correct_answer": "'有货'",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 8,
+            "question_text_before_options": "查询3天前的订单：SELECT * FROM orders WHERE order_date >= ",
+            "options": ["CURRENT_DATE - 3", "DATE_SUB(NOW(), INTERVAL 3 DAY)" ,"GETDATE() - 3","SYSDATE - 3"],
+            "question_text_after_options": ";",
+            "question_comment": "本题可使用排除法。CURRENT_DATE 的写法不对，CURRENT_DATE是函数名，后应加()，因此可以排除；GETDATE 是 SQL Server 中的函数，也可以排除。SYSDATE 的写法不对，SYSDATE 是函数名，后应加()，因此也可以排除。关于SYSDATE函数的更多介绍请参考：https://dev.mysql.com/doc/refman/9.3/en/date-and-time-functions.html#function_sysdate",
+            "knowledge_comment": "MySQL 使用 DATE_SUB 和 INTERVAL 处理日期的减法计算。",
+            "correct_answer": "DATE_SUB(NOW(), INTERVAL 3 DAY)",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 9,
+            "question_text_before_options": " 查询前5条记录：SELECT * FROM employees ",
+            "options": ["LIMIT 5" ,"TOP 5", "WHERE ROW_NUMBER() <= 5", "WHERE ROWNUM <= 5"],
+            "question_text_after_options": ";",
+            "question_comment": "LIMIT 5 是 MySQL 的写法；TOP 5 是 SQL Server 的写法，但位置不再尾端；ROW_NUMBER() 是一个窗口函数，它需要结合 OVER 子句来指定排序规则，并不能直接在 WHERE 子句中使用。",
+            "knowledge_comment": "在 Oracle 中，ROWNUM是一个伪列，用于表示结果集的行号。除了题目中的 WHERE ROWNUM <= 5 写法，从 Oracle 12c 开始，还可以这样写：SELECT * FROM employees ORDER BY employee_id OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY; 需要注意的是，ORDER BY 是必需的。",
+            "correct_answer": "WHERE ROWNUM <= 5",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 9,
+            "question_text_before_options": " 查询前5条记录：SELECT * FROM employees ",
+            "options": ["LIMIT 5" ,"TOP 5", "WHERE ROW_NUMBER() <= 5", "WHERE ROWNUM <= 5"],
+            "question_text_after_options": ";",
+            "question_comment": "TOP 5 是 SQL Server 的写法，但并不位于尾端；ROW_NUMBER() 是一个窗口函数，它需要结合 OVER 子句来指定排序规则，并不能直接在 WHERE 子句中使用；MySQL 不支持 ROWNUM 关键词。",
+            "knowledge_comment": "在 MySQL 里，LIMIT 是一个常用的子句，用于限制查询结果返回的行数。",
+            "correct_answer": "LIMIT 5",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 9,
+            "question_text_before_options": " 查询前5条记录：SELECT",
+            "options": ["LIMIT" ,"TOP"],
+            "question_text_after_options": " 5 * FROM employees;",
+            "question_comment": "LIMIT 5 是 MySQL 的写法，用于限制查询结果返回的行数，位于查询语句的尾端。",
+            "knowledge_comment": "TOP 5 是 SQL Server 的写法，用于限制查询结果返回的行数。除了题目中的写法：SELECT TOP 5 * FROM employees;，从 SQL Server 2012 版本开始，还可以这样写：SELECT * FROM employees ORDER BY employee_id OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY; 需要注意的是，ORDER BY 是必需的。",
+            "correct_answer": "TOP",
+            "applicable_databases": ["SQL Server"]
+        }
+    ]
 }
