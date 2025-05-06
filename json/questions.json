@@ -307,10 +307,20 @@
             "question_text_before_options": "SELECT name, IF(stock > 0, ",
             "options": ["'有货'", "有货" ,"TRUE"],
             "question_text_after_options": ", '缺货') AS status FROM products;",
-            "question_comment": "本题主要考察IF函数的使用。IF函数接受3个参数。第一个参数为判断条件；第二个参数为条件为真时的返回值；第三个参数为条件为假时的返回值。",
-            "knowledge_comment": "IF 函数的第二个参数为条件为真时的返回值，需用引号包裹字符串。CASE WHEN 的条件判断语句在需要判断的情况较多时使用，简单的 Y/N 判断用IF即可。IF作为常用函数，使用方法应该牢记。",
+            "question_comment": "本题主要考察IF函数的使用。IF() 是一个条件判断函数，其语法为 IF(condition, value_if_true, value_if_false)。如果 condition 为真，则返回 value_if_true；否则返回 value_if_false。",
+            "knowledge_comment": "IF 函数的第二个参数为条件为真时的返回值，需用引号包裹字符串。CASE WHEN 的条件判断语句在需要判断的情况较多时使用，简单的 Y/N 判断用IF即可。IF作为常用函数，使用方法应该牢记。对于简单的条件判断，一般来说，MySQL 用 IF，SQL Server 用 IIF，Oracle 用 CASE WHEN。",
             "correct_answer": "'有货'",
-            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "SELECT name, ",
+            "options": ["IF" ,"IFELSE", "IIF"],
+            "question_text_after_options": "(stock > 0, '有货', '缺货') AS status FROM products;",
+            "question_comment": "本题主要考察条件判断函数的使用。IF() 是 MySQL 中的一个条件判断函数，其语法为 IF(condition, value_if_true, value_if_false)，不适用于 SQL Server，因此排除；IFELSE 并不是一个可用的函数名，因此排除。",
+            "knowledge_comment": "IIF 函数是 SQL Server 2012 及更高版本引入的，它是 IF...ELSE 逻辑的简洁表达方式，语法为 IIF(condition, true_value, false_value)。在 SQL Server 2012 及以上版本中，你可以使用 IIF 函数来替代 CASE 表达式实现条件判断，使代码更加简洁直观。对于简单的条件判断，一般来说，SQL Server 用 IIF，MySQL 用 IF，Oracle 用 CASE WHEN。",
+            "correct_answer": "IIF",
+            "applicable_databases": ["SQL Server"]
         },
         {
             "question_id": 8,
@@ -324,7 +334,7 @@
         },
         {
             "question_id": 9,
-            "question_text_before_options": " 查询前5条记录：SELECT * FROM employees ",
+            "question_text_before_options": "查询前5条记录：SELECT * FROM employees ",
             "options": ["LIMIT 5" ,"TOP 5", "WHERE ROW_NUMBER() <= 5", "WHERE ROWNUM <= 5"],
             "question_text_after_options": ";",
             "question_comment": "LIMIT 5 是 MySQL 的写法；TOP 5 是 SQL Server 的写法，但位置不再尾端；ROW_NUMBER() 是一个窗口函数，它需要结合 OVER 子句来指定排序规则，并不能直接在 WHERE 子句中使用。",
@@ -334,7 +344,7 @@
         },
         {
             "question_id": 9,
-            "question_text_before_options": " 查询前5条记录：SELECT * FROM employees ",
+            "question_text_before_options": "查询前5条记录：SELECT * FROM employees ",
             "options": ["LIMIT 5" ,"TOP 5", "WHERE ROW_NUMBER() <= 5", "WHERE ROWNUM <= 5"],
             "question_text_after_options": ";",
             "question_comment": "TOP 5 是 SQL Server 的写法，但并不位于尾端；ROW_NUMBER() 是一个窗口函数，它需要结合 OVER 子句来指定排序规则，并不能直接在 WHERE 子句中使用；MySQL 不支持 ROWNUM 关键词。",
@@ -344,13 +354,174 @@
         },
         {
             "question_id": 9,
-            "question_text_before_options": " 查询前5条记录：SELECT",
+            "question_text_before_options": "查询前5条记录：SELECT",
             "options": ["LIMIT" ,"TOP"],
             "question_text_after_options": " 5 * FROM employees;",
             "question_comment": "LIMIT 5 是 MySQL 的写法，用于限制查询结果返回的行数，位于查询语句的尾端。",
             "knowledge_comment": "TOP 5 是 SQL Server 的写法，用于限制查询结果返回的行数。除了题目中的写法：SELECT TOP 5 * FROM employees;，从 SQL Server 2012 版本开始，还可以这样写：SELECT * FROM employees ORDER BY employee_id OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY; 需要注意的是，ORDER BY 是必需的。",
             "correct_answer": "TOP",
             "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 10,
+            "question_text_before_options": "将 NULL 替换为“未知”：SELECT name, ",
+            "options": ["ISNULL" ,"NVL" ,"IFNULL" ,"COALESCE"],
+            "question_text_after_options": "(city, '未知') AS city FROM customers;",
+            "question_comment": "本题可使用排除法。ISNULL 是 SQL Server 函数名，用来判断 NULL 值；NVL 是 Oracle 函数名，用来判断 NULL 值；COALESCE 函数的作用是返回参数列表中第一个非 NULL 的值。它接受多个参数，会按照从左到右的顺序依次检查这些参数，一旦遇到非 NULL 的值，就返回该值，若所有参数都是 NULL，则返回 NULL。使用 COALESCE 函数并不能完成本题的要求。",
+            "knowledge_comment": "IFNULL 可用来判断 NULL 值，其语法为 IFNULL(column, value_if_null)。如果 column 值为 NULL，则返回 value_if_null。",
+            "correct_answer": "IFNULL",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 10,
+            "question_text_before_options": "将 NULL 替换为“未知”：SELECT name, ",
+            "options": ["ISNULL" ,"NVL" ,"IFNULL" ,"COALESCE"],
+            "question_text_after_options": "(city, '未知') AS city FROM customers;",
+            "question_comment": "本题可使用排除法。NVL 是 Oracle 函数名，用来判断 NULL 值；IFNULL 是 MSQL 函数名，用来判断 NULL 值；COALESCE 函数的作用是返回参数列表中第一个非 NULL 的值。它接受多个参数，会按照从左到右的顺序依次检查这些参数，一旦遇到非 NULL 的值，就返回该值，若所有参数都是 NULL，则返回 NULL。使用 COALESCE 函数并不能完成本题的要求。",
+            "knowledge_comment": "ISNULL 可用来判断 NULL 值，其语法为 ISNULL(column, value_if_null)。如果 column 值为 NULL，则返回 value_if_null。",
+            "correct_answer": "ISNULL",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 10,
+            "question_text_before_options": "将 NULL 替换为“未知”：SELECT name, ",
+            "options": ["ISNULL" ,"NVL" ,"IFNULL" ,"COALESCE"],
+            "question_text_after_options": "(city, '未知') AS city FROM customers;",
+            "question_comment": "本题可使用排除法。ISNULL 是 SQL Server 函数名，用来判断 NULL 值；IFNULL 是 MSQL 函数名，用来判断 NULL 值；COALESCE 函数的作用是返回参数列表中第一个非 NULL 的值。它接受多个参数，会按照从左到右的顺序依次检查这些参数，一旦遇到非 NULL 的值，就返回该值，若所有参数都是 NULL，则返回 NULL。使用 COALESCE 函数并不能完成本题的要求。",
+            "knowledge_comment": "NVL 可用来判断 NULL 值，其语法为 NVL(column, value_if_null)。如果 column 值为 NULL，则返回 value_if_null。",
+            "correct_answer": "NVL",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 11,
+            "question_text_before_options": "格式化日期为“YYYY-MM-DD”格式：SELECT DATE_FORMAT(order_date, '",
+            "options": ["%Y-%m-%d" ,"yyyy-MM-dd" ,"YYYY-MM-DD" ,"YY-MM-DD"],
+            "question_text_after_options": "') AS formatted_date FROM orders;",
+            "question_comment": "DATE_FORMAT 函数用于将日期或日期时间值按照指定的格式进行格式化输出。其语法为 DATE_FORMAT(date, format)，其中 date 是要格式化的日期或日期时间值，format 是指定的输出格式。",
+            "knowledge_comment": "%Y 代表四位年份，%m 代表两位月份，%d 代表两位日期。MySQL 还提供了很多其他格式说明符，如 %H 表示 24 小时制的小时，%i 表示分钟，%s 表示秒。感兴趣的话，可以多去官网了解。",
+            "correct_answer": "%Y-%m-%d",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 11,
+            "question_text_before_options": "格式化日期为“YYYY-MM-DD”格式：SELECT FORMAT(order_date, '",
+            "options": ["%Y-%m-%d" ,"yyyy-MM-dd" ,"YYYY-MM-DD" ,"YY-MM-DD"],
+            "question_text_after_options": "') AS formatted_date FROM orders;",
+            "question_comment": "从 SQL Server 2012 版本开始，引入了 FORMAT 函数来实现日期格式化功能。FORMAT 函数更加通用，不仅可以处理日期类型，还能处理其他数据类型。其语法为 FORMAT(value, format [, culture])，其中 value 是要格式化的值，format 是指定的格式，culture 是可选的文化设置。",
+            "knowledge_comment": "这里使用 yyyy 表示四位年份，MM 表示两位月份，dd 表示两位日期。最需要注意的就是大写小。",
+            "correct_answer": "yyyy-MM-dd",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 11,
+            "question_text_before_options": "格式化日期为“YYYY-MM-DD”格式：SELECT TO_CHAR(order_date, '",
+            "options": ["%Y-%m-%d" ,"yyyy-MM-dd" ,"YYYY-MM-DD" ,"YY-MM-DD"],
+            "question_text_after_options": "') AS formatted_date FROM orders;",
+            "question_comment": "在 Oracle 中，使用 TO_CHAR 函数来进行日期格式化。TO_CHAR 函数可以将日期、数字等数据类型转换为字符类型，并按照指定的格式输出。其语法为 TO_CHAR(date, format)，其中 date 是要格式化的日期，format 是指定的格式。",
+            "knowledge_comment": "这里使用 YYYY 表示四位年份，MM 表示两位月份，DD 表示两位日期。最需要注意的就是大写小。",
+            "correct_answer": "YYYY-MM-DD",
+            "applicable_databases": ["Oracle"]
         }
-    ]
+    ],
+    "4" : [
+    {
+        "question_id": 1,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 2,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 3,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 4,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 5,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 6,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 7,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 8,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 9,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    },
+    {
+        "question_id": 10,
+        "question_text_before_options": "",
+        "options": ["", "" ,"",""],
+        "question_text_after_options": "",
+        "question_comment": "",
+        "knowledge_comment": "",
+        "correct_answer": "",
+        "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+    }]
 }
