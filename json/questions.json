@@ -525,5 +525,287 @@
         "correct_answer": "2,2,2,1",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
     }
-    ]
+    ],
+    "5" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "合并姓氏和名字：SELECT ",
+            "options": ["last_name || ' ' || first_name", "last_name + ' ' + first_name" ,"CONCAT(last_name, ' ', first_name)","JOIN(last_name, ' ', first_name)"],
+            "question_text_after_options": " AS full_name FROM employees;",
+            "question_comment": "默认 || 是逻辑 OR 运算符，若需使用 ||，需通过 SET sql_mode = 'PIPES_AS_CONCAT'; 来启用；+ 是算术运算符，字符串会转为 0（如 'John' + ' ' 结果为 0）；JOIN 是用于表连接的关键字，并非字符串函数。",
+            "knowledge_comment": "CONCAT 函数可以接受任意数量的参数，若参数中有 NULL，则结果为 NULL。",
+            "correct_answer": "CONCAT(last_name, ' ', first_name)",
+            "applicable_databases": ["MySQL"]
+            },
+            {
+            "question_id": 1,
+            "question_text_before_options": "合并姓氏和名字的最佳写法：SELECT ",
+            "options": ["last_name || ' ' || first_name", "last_name + ' ' + first_name" ,"CONCAT(last_name, ' ', first_name)","JOIN(last_name, ' ', first_name)"],
+            "question_text_after_options": " AS full_name FROM employees;",
+            "question_comment": "SQL Server 不支持 || 作为字符串连接符；2012+ 版本支持 CONCAT函数，NULL 值会自动转为空字符串，因为版本限制，此选项非最佳解；JOIN 是用于表连接的关键字，并非字符串函数。",
+            "knowledge_comment": "使用 + 连接字符串是主流写法，若参数中有 NULL，则结果为 NULL，所以有时需配合 ISNULL 来处理 NULL 值情况。",
+            "correct_answer": "last_name + ' ' + first_name",
+            "applicable_databases": ["SQL Server"]
+            },
+            {
+            "question_id": 1,
+            "question_text_before_options": "合并姓氏和名字：SELECT ",
+            "options": ["last_name || ' ' || first_name", "last_name + ' ' + first_name" ,"CONCAT(last_name, ' ', first_name)","JOIN(last_name, ' ', first_name)"],
+            "question_text_after_options": " AS full_name FROM employees;",
+            "question_comment": "+ 是算术运算符；Oracle 中的 CONCAT 函数仅支持两参数，如果希望合并姓名，需嵌套使用：CONCAT(CONCAT(last_name, ' '), first_name)；JOIN 是用于表连接的关键字，并非字符串函数。",
+            "knowledge_comment": "使用 || 连接字符串是标准用法。",
+            "correct_answer": "last_name || ' ' || first_name",
+            "applicable_databases": ["Oracle"]
+            },
+            {
+            "question_id": 2,
+            "question_text_before_options": "不能从邮箱中提取域名的是：SELECT ",
+            "options": ["SUBSTRING", "SUBSTR" ,"LEFT","MID"],
+            "question_text_after_options": "(email, INSTR(email, '@') + 1) AS domain FROM users;",
+            "question_comment": "INSTR(str, substr)：返回 substr 在 str 中第一次出现的位置（位置从 1 开始）。SUBSTRING(str, position)：从 position 位置开始截取字符串（位置从 1 开始）。SUBSTR(str, pos)：从 pos 位置开始截取字符串（位置从 1 开始），是 SUBSTRING 的同义词。MID(str, pos)：从 pos 位置开始截取字符串（位置从 1 开始），是 SUBSTRING 的同义词。假设 email 为 john@example.com，INSTR(email, '@') 返回 5，SUBSTRING(email, 6)、SUBSTR(email, 6)和MID(email, 6) 都会返回 example.com。",
+            "knowledge_comment": "LEFT(str, length)：截取字符串左边 length 个字符。假设 email 为 john@example.com，INSTR(email, '@') 返回 5，LEFT(email, 6) 返回 john@e，结果错误。",
+            "correct_answer": "LEFT",
+            "applicable_databases": ["MySQL"]
+            },
+            {
+            "question_id": 2,
+            "question_text_before_options": "从邮箱中提取域名：SELECT ",
+            "options": ["SUBSTRING", "SUBSTR" ,"LEFT","MID"],
+            "question_text_after_options": "(email, CHARINDEX('@', email) + 1, LEN(email)) AS domain FROM users;",
+            "question_comment": "CHARINDEX('@', email)：返回 @ 在 email 中的位置（位置从 1 开始）。SQL Server 不支持 SUBSTR 和 MID 函数。LEFT(str, length)：截取字符串左边 length 个字符。假设 email 为 john@example.com，INSTR(email, '@') 返回 5，LEFT(email, 6) 返回 john@e，结果错误。",
+            "knowledge_comment": "SUBSTRING(email, pos, LEN(email))：从 pos 开始截取到字符串末尾。假设 email 为 john@example.com，CHARINDEX('@', email) 返回 5，SUBSTRING(email, 6, 16) 返回 example.com。",
+            "correct_answer": "SUBSTRING",
+            "applicable_databases": ["SQL Server"]
+            },
+            {
+            "question_id": 2,
+            "question_text_before_options": "从邮箱中提取域名：SELECT ",
+            "options": ["SUBSTRING", "SUBSTR" ,"LEFT","MID"],
+            "question_text_after_options": "(email, INSTR(email, '@') + 1) AS domain FROM users;",
+            "question_comment": "INSTR(str, substr)：返回 substr 在 str 中第一次出现的位置（位置从 1 开始）。Oracle 不支持 SUBSTRING、LEFT 和 MID 函数。SUBSTRING 是 MySQL 中的函数，与 Oracle 的 SUBSTR 功能相同，只是名称不同。",
+            "knowledge_comment": "SUBSTR(str, position)：从 position 位置开始截取字符串（位置从 1 开始）。假设 email 为 john@example.com，INSTR(email, '@') 返回 5，SUBSTR(email, 6) 返回 example.com。",
+            "correct_answer": "SUBSTR",
+            "applicable_databases": ["Oracle"]
+            },
+            {
+            "question_id": 3,
+            "question_text_before_options": "不能隐藏手机号中间四位的是：SELECT CONCAT(LEFT(phone, 3), '****', MID(phone",
+            "options": [", 4", ", -4", ", 8, 4", ", -4, 4", "FROM -4", "FROM -4 FOR 4"],
+            "question_text_after_options": ") AS masked_phone FROM users;",
+            "question_comment": "MID(phone, 4) 返回从第4位开始的字符串，举例：MID('13812345678', 4) → 12345678，显然没能隐藏中间四位。其他结果均返回后四位字符串。MID(str, pos) 中 pos 为负数时，表示从字符串末尾开始计数。",
+            "knowledge_comment": "MID 函数的基本语法是：MID(str,pos,len)。但它还有几种不同的使用方法：MID(str,pos)、MID(str FROM pos)、MID(str,pos,len) 和 MID(str FROM pos FOR len)。最推荐的写法就是 MID(str,pos,len)，避免兼容性问题。如果想要看每一个语法的详情，请查看此网站：https://www.modb.pro/db/62106",
+            "correct_answer": ", 4",
+            "applicable_databases": ["MySQL"]
+            },
+            {
+            "question_id": 3,
+            "question_text_before_options": "不能隐藏手机号中间四位的是：SELECT CONCAT(LEFT(phone, 3), '****', ",
+            "options": ["RIGHT(phone, 4)", "SUBSTRING(phone, LEN(phone) - 3, 4)" ,"SUBSTRING(phone, -4, 4)","REVERSE(LEFT(REVERSE(phone), 4))"],
+            "question_text_after_options": ") AS masked_phone FROM users;",
+            "question_comment": "RIGHT(phone, 4) 直接提取右侧 4 个字符。SUBSTRING(phone, LEN(phone) - 3, 4) 从 LEN(phone) - 3 位置开始截取4位字符串。REVERSE(LEFT(REVERSE(phone), 4))，通过反转字符串→左取前 4 位→再反转回来，逻辑正确但冗余。除非必要，否则不推荐这样写。",
+            "knowledge_comment": "SUBSTRING(phone, -4, 4) 错误的原因是 SQL Server 不支持负索引，会报错。",
+            "correct_answer": "SUBSTRING(phone, -4, 4)",
+            "applicable_databases": ["SQL Server"]
+            },
+            {
+            "question_id": 3,
+            "question_text_before_options": "不能隐藏手机号中间四位的是：SELECT CONCAT(LEFT(phone, 3), '****', ",
+            "options": ["RIGHT(phone, 4)", "SUBSTR(phone, -4)" ,"SUBSTR(phone, LENGTH(phone) - 3, 4)","REVERSE(SUBSTR(REVERSE(phone), 1, 4))"],
+            "question_text_after_options": ") AS masked_phone FROM users;",
+            "question_comment": "SUBSTR 支持负索引，SUBSTR(phone, -4) 直接从右侧取 4 位。SUBSTR(phone, LENGTH(phone) - 3, 4) 通过 LENGTH(phone) - 3 计算起始位置。REVERSE(SUBSTR(REVERSE(phone), 1, 4)) 借助 REVERSE 函数实现，逻辑正确但冗余。除非必要，否则不推荐这样写。",
+            "knowledge_comment": "Oracle 不支持 RIGHT 函数。正如它不支持 LEFT 和 MID 函数一样。",
+            "correct_answer": "RIGHT(phone, 4)",
+            "applicable_databases": ["Oracle"]
+            },
+            {
+            "question_id": 4,
+            "question_text_before_options": "从文件路径中提取文件名：SELECT ",
+            "options": ["SUBSTRING_INDEX(path, '/', -1)", "RIGHT(path, CHARINDEX('/', REVERSE(path)) - 1)" ,"SUBSTRING(path, LEN(path) - CHARINDEX('/', REVERSE(path)) + 2, 100)","REVERSE(SUBSTRING(REVERSE(path), 1, CHARINDEX('/', REVERSE(path)) - 1))"],
+            "question_text_after_options": " AS filename FROM files;",
+            "question_comment": "CHARINDEX 函数是 SQL Server中的函数，除了选项1，其他选项均被排除。",
+            "knowledge_comment": "SUBSTRING_INDEX(str, delimiter, count)：从 str 中按 delimiter 分割，取第 count 个部分。count=-1 表示从右侧开始取第一个部分（即最后一个 / 后的内容）。",
+            "correct_answer": "SUBSTRING_INDEX(path, '/', -1)",
+            "applicable_databases": ["MySQL"]
+            },
+            {
+            "question_id": 4,
+            "question_text_before_options": "从文件路径中提取文件名：SELECT ",
+            "options": ["SUBSTRING_INDEX(path, '/', -1)", "RIGHT(path, CHARINDEX('/', REVERSE(path)) - 1)" ,"SUBSTRING(path, LEN(path) - CHARINDEX('/', REVERSE(path)) + 2, 100)","REVERSE(SUBSTRING(REVERSE(path), 1, CHARINDEX('/', REVERSE(path)) - 1))"],
+            "question_text_after_options": " AS filename FROM files;",
+            "question_comment": "SUBSTRING_INDEX 是 MySQL 特有的函数，用于根据分隔符截取字符串部分，选项1排除。RIGHT(path, CHARINDEX('/', REVERSE(path)) - 1) 无法正确提取文件名，因为它错误地计算了截取长度。SUBSTRING(path, LEN(path) - CHARINDEX('/', REVERSE(path)) + 2, 100) 的思路正确，但需注意：替换固定长度（100）为 LEN(path)，处理无 / 的情况（通过 CASE 判断）。",
+            "knowledge_comment": "SQL Server 中需通过 反转 + 截取 + 再反转 或 定位最后一个 / 的位置来实现从文件路径中提取文件名这件事，以确保兼容性和健壮性。",
+            "correct_answer": "REVERSE(SUBSTRING(REVERSE(path), 1, CHARINDEX('/', REVERSE(path)) - 1))",
+            "applicable_databases": ["SQL Server"]
+            },
+            {
+            "question_id": 4,
+            "question_text_before_options": "从文件路径中提取文件名：SELECT ",
+            "options": ["SUBSTRING_INDEX(path, '/', -1)", "RIGHT(path, CHARINDEX('/', REVERSE(path)) - 1)" ,"SUBSTR(path, INSTR(path, '/', -1) + 1)","SUBSTRING(path, INSTR(path, '/', -1) + 1)"],
+            "question_text_after_options": " AS filename FROM files;",
+            "question_comment": "SUBSTRING_INDEX 是 MySQL 特有的函数，用于根据分隔符截取字符串部分，选项1排除。CHARINDEX 函数是 SQL Server中的函数，选项2被排除。SUBSTRING 在 MySQL 和 SQL Server 中直接支持，而 Oracle 不支持，选项4被排除。",
+            "knowledge_comment": "SUBSTR(str, start [, length]) 的起始位置start支持正数（从左到右）和负数（从右到左）。",
+            "correct_answer": "SUBSTR(path, INSTR(path, '/', -1) + 1)",
+            "applicable_databases": ["Oracle"]
+            },
+            {
+            "question_id": 5,
+            "question_text_before_options": "移除电话号码中的非数字字符-：SELECT ",
+            "options": ["SUBSTITUTE", "REPLACE" ,"REPLACE_WITH","SUBSTRING"],
+            "question_text_after_options": "(phone, '-', '') AS clean_phone;",
+            "question_comment": "SUBSTITUTE 是 Oracle 特有的函数。REPLACE_WITH 函数并不存在。SUBSTRING(str, start [, length])：从 start 位置开始截取长度为 length 的字符串（位置从 1 开始），不能实现题目所求是其一。就算要用，第二和第三参数也应该是数字。",
+            "knowledge_comment": "REPLACE 函数用于在字符串中替换指定的子串，其基本语法为：REPLACE(string, old_substring, new_substring)。将 string 中所有的 old_substring 替换为 new_substring，并返回替换后的新字符串。",
+            "correct_answer": "REPLACE",
+            "applicable_databases": ["MySQL", "SQL Server"]
+            },
+            {
+            "question_id": 5,
+            "question_text_before_options": "移除电话号码中的非数字字符-：SELECT ",
+            "options": ["SUBSTITUTE", "REPLACE" ,"REPLACE_WITH","SUBSTRING"],
+            "question_text_after_options": "(phone, '-') AS clean_phone;",
+            "question_comment": "REPLACE 函数接受3个参数，它的语法是：REPLACE(string, old_substring, new_substring)。将 string 中所有的 old_substring 替换为 new_substring，并返回替换后的新字符串。REPLACE_WITH 函数并不存在。SUBSTRING(str, start [, length])：如果 length 省略，则从 start 位置开始截取到尾端的字符串（位置从 1 开始），不能实现题目所求是其一。就算要用，第二个参数也应该是数字。",
+            "knowledge_comment": "SUBSTITUTE 函数的语法是 SUBSTITUTE(string, old_substring, [new_substring])，当省略 new_substring 时，SUBSTITUTE 函数会删除字符串中所有的 old_substring，这是 SUBSTITUTE 函数的一个独特功能。REPLACE 函数要实现相同功能，需要将 new_substring 显式地指定为空字符串。",
+            "correct_answer": "SUBSTITUTE",
+            "applicable_databases": ["Oracle"]
+            },
+            {
+            "question_id": 6,
+            "question_text_before_options": "从 JSON 字段中提取 username：SELECT ",
+            "options": ["JSON_EXTRACT", "JSON_VALUE" ,"EXTRACT"],
+            "question_text_after_options": "(user_info, '$.username') AS username FROM profiles;",
+            "question_comment": "JSON_VALUE 是 SQL Server 和 Oracle 中的函数。EXTRACT 函数的语法是 EXTRACT(unit FROM date_value)，用于从日期中提取想要的部分，比如年、月、日等。",
+            "knowledge_comment": "JSON_EXTRACT 函数的语法为 JSON_EXTRACT(json_doc, path)，是标准函数，若路径不存在返回 NULL。也可简写 -> ，针对本题，简写形式为 SELECT user_info->'$.username' AS username FROM profiles; 虽然 -> 操作符更简洁，但结果类型可能不同（需用 ->> 强制转为字符串）。",
+            "correct_answer": "JSON_EXTRACT",
+            "applicable_databases": ["MySQL"]
+            },
+            {
+            "question_id": 6,
+            "question_text_before_options": "从 JSON 字段中提取 username：SELECT ",
+            "options": ["JSON_EXTRACT", "JSON_VALUE" ,"EXTRACT"],
+            "question_text_after_options": "(user_info, '$.username') AS username FROM profiles;",
+            "question_comment": "JSON_EXTRACT 是 MySQL 中的函数。SQL Server 中不存在 EXTRACT 函数。",
+            "knowledge_comment": "JSON_VALUE 函数的语法为 JSON_VALUE(json_expr, path)，专门用于提取标量值（字符串、数字等）。若路径不存在，返回 NULL（可通过 IS NOT NULL 过滤）。嵌套路径写法为：JSON_VALUE(user_info, '$.address.city')。",
+            "correct_answer": "JSON_VALUE",
+            "applicable_databases": ["SQL Server"]
+            },
+            {
+            "question_id": 6,
+            "question_text_before_options": "从 JSON 字段中提取 username：SELECT ",
+            "options": ["JSON_EXTRACT", "JSON_VALUE" ,"EXTRACT"],
+            "question_text_after_options": "(user_info, '$.username' RETURNING VARCHAR2(100)) AS username FROM profiles;",
+            "question_comment": "JSON_EXTRACT 是 MySQL 中的函数。不存在 EXTRACT 函数。EXTRACT 函数的语法是 EXTRACT(unit FROM date_value)，用于从日期中提取想要的部分，比如年、月、日等。",
+            "knowledge_comment": "JSON_VALUE 函数的语法为 JSON_VALUE(json_column, path RETURNING type)，返回类型是可选的，若路径不存在，默认返回 NULL（可通过 DEFAULT ... ON ERROR 修改）。因此本题也可写作：SELECT JSON_VALUE(user_info, '$.username') AS username FROM profiles; 但建议用 RETURNING 指定类型，避免类型错误。",
+            "correct_answer": "JSON_VALUE",
+            "applicable_databases": ["Oracle"]
+            },
+            {
+            "question_id": 7,
+            "question_text_before_options": "create_time 是 DATE 类型，将 create_time（格式：2023-09-01）转为“2023年09月01日”：SELECT DATE_FORMAT(create_time, '",
+            "options": ["%Y年%m月%d日", "%y年%m月%d日", "%y年%M月%d日", "%y年%M月%D日"],
+            "question_text_after_options": "') FROM table;",
+            "question_comment": "%Y指4字年份(2023)；%yY指2字年份(23)；%m指2字月份（09）；%M指月份的英文全称（September）；%d指2字日子（01）；%D指日子跟着序数词（1st）。",
+            "knowledge_comment": "DATE_FORMAT 函数的语法为 DATE_FORMAT(date, format)，format中能够填写的简写是确定的，详情请参考此网站：https://www.w3schools.com/sql/func_mysql_date_format.asp",
+            "correct_answer": "%Y年%m月%d日",
+            "applicable_databases": ["MySQL"]
+            },
+            {
+            "question_id": 7,
+            "question_text_before_options": "create_time 是 DATE 类型，将 create_time（格式：2023-10-01）转为“2023年10月01日”：SELECT FORMAT(create_time, '",
+            "options": ["d","D","N","G","C"],
+            "question_text_after_options": "', 'zh-cn') FROM table;",
+            "question_comment": "自己去这个网站上填入每个选项看看结果吧：https://www.w3schools.com/sql/trysqlserver.asp?filename=trysql_func_sqlserver_format2",
+            "knowledge_comment": "FORMAT 函数的语法为 FORMAT(value , format [, culture])，关于 FORMAT 函数的解释请看这篇文章：https://learn.microsoft.com/en-us/sql/t-sql/functions/format-transact-sql?view=sql-server-ver16",
+            "correct_answer": "D",
+            "applicable_databases": ["SQL Server"]
+            },
+            {
+            "question_id": 7,
+            "question_text_before_options": "create_time 是 DATE 类型，将 create_time（格式：2023-10-01）转为“2023年10月01日”：SELECT TO_CHAR(create_time, '",
+            "options": ["%Y年%m月%d日", "YYYY\"年\"MM\"月\"DD\"日\"", "YYYY年MM月DD日", "yyyy年MM月dd日"],
+            "question_text_after_options": "') FROM table;",
+            "question_comment": "Oracle 使用 YYYY（年）、MM（月）、DD（日）格式，用双引号 \"\" 包裹非日期格式字符来避免错误解释。",
+            "knowledge_comment": "关键在于要使用双引号 \"\" 包裹非日期格式字符（如 \"年\"\"月\"\"日\"），否则 Oracle 可能将其解释为日期元素。",
+            "correct_answer": "YYYY\"年\"MM\"月\"DD\"日\"",
+            "applicable_databases": ["Oracle"]
+            },
+            {
+            "question_id": 8,
+            "question_text_before_options": "SELECT ",
+            "options": ["YEAR", "EXTRACT", "DATEPART"],
+            "question_text_after_options": "(start_date) AS year FROM table;",
+            "question_comment": "EXTRACT 函数的语法是 EXTRACT(unit FROM date_value)，想要获得年份则需写作 EXTRACT(YEAR FROM start_date)。DATEPART  是 SQL Server 中的函数。",
+            "knowledge_comment": "YEAR 函数的语法为 YEAR(date_value)，输入可以是日期字符串、DATE 类型或 DATETIME 类型。若输入为 NULL 或无效日期则返回 NULL。YEAR(start_date) 的等效函数是 EXTRACT(YEAR FROM start_date)。",
+            "correct_answer": "YEAR",
+            "applicable_databases": ["MySQL"]
+            },
+            {
+            "question_id": 8,
+            "question_text_before_options": "SELECT ",
+            "options": ["YEAR", "EXTRACT", "DATEPART"],
+            "question_text_after_options": "(start_date) AS year FROM table;",
+            "question_comment": "SQL Server 中不存在 EXTRACT 函数。DATEPART 函数的语法是 DATEPART(unit, start_date)，想要获得年份则需写作 DATEPART(YEAR, start_date)。",
+            "knowledge_comment": "YEAR 函数的语法为 YEAR(date_value)，输入可以是日期字符串、DATE 类型或 DATETIME 类型。若输入为 NULL 或无效日期则返回 NULL。YEAR(start_date) 的等效函数是 DATEPART(YEAR, start_date)。",
+            "correct_answer": "YEAR",
+            "applicable_databases": ["SQL Server"]
+            },
+            {
+            "question_id": 8,
+            "question_text_before_options": "SELECT ",
+            "options": ["YEAR", "EXTRACT", "DATEPART", "TO_CHAR"],
+            "question_text_after_options": "(YEAR FROM TO_DATE(start_date, 'YYYY-MM-DD')) AS year FROM table; ",
+            "question_comment": "Oracle 中不存在 YEAR 和 DATEPART 函数。TO_CHAR(start_date, 'YYYY') 也可从日期中提取年份，和 EXTRACT 类似，date_column（本题中为 start_date）如果是。字符串类型（如 VARCHAR2），在 Oracle 中需先将其转换为 DATE 类型。",
+            "knowledge_comment": "EXTRACT 函数的语法是 EXTRACT(unit FROM date_value)，用于从日期中提取想要的部分，比如年、月、日等。另可看出 start_date 列是字符串类型（如 VARCHAR2），在 Oracle 中需先将其转换为 DATE 类型，再使用 EXTRACT 函数。如果 start_date 是 DATE 类型，写作 EXTRACT(YEAR FROM start_date)即可。",
+            "correct_answer": "EXTRACT",
+            "applicable_databases": ["Oracle"]
+            },
+            {
+            "question_id": 9,
+            "question_text_before_options": "将部门员工姓名合并为逗号分隔字符串（如：Alice,Bob,Carol）：SELECT department, ",
+            "options": ["GROUP_CONCAT(name)", "GROUP_CONCAT(name, ',')" ,"STRING_AGG(name, ',')","LISTAGG(name, ',')"],
+            "question_text_after_options": " AS members FROM employees GROUP BY department;",
+            "question_comment": "GROUP_CONCAT(name, ',')错误的原因是语法错误。如果希望得到题目要求，可以写作：GROUP_CONCAT(name) 或 GROUP_CONCAT(name SEPARATOR ',')，因为,是默认分隔符，建议直接写 GROUP_CONCAT(name)。STRING_AGG 和 LISTAGG 在 MySQL 中均不支持。MySQL 使用 GROUP_CONCAT 实现相同功能。",
+            "knowledge_comment": "GROUP_CONCAT 函数的语法为 GROUP_CONCAT([DISTINCT] expr [ORDER BY expr ASC/DESC] [SEPARATOR str_val])，默认分隔符为逗号 ,。可通过 SET SESSION group_concat_max_len = 102400; 调整最大长度。",
+            "correct_answer": "GROUP_CONCAT(name)",
+            "applicable_databases": ["MySQL"]
+            },
+            {
+            "question_id": 9,
+            "question_text_before_options": "将部门员工姓名合并为逗号分隔字符串（如：Alice,Bob,Carol）：SELECT department, ",
+            "options": ["CONCAT", "GROUP_CONCAT" ,"STRING_AGG","LISTAGG"],
+            "question_text_after_options": "(name, ',') AS members FROM employees GROUP BY department;",
+            "question_comment": "CONCAT 是用于拼接多个字符串参数（横向拼接），而 STRING_AGG 是用于将多行数据聚合为单个字符串（纵向拼接）。GROUP_CONCAT 和 LISTAGG 在 SQL Server 中均不支持。",
+            "knowledge_comment": "STRING_AGG 是用于将多行数据按组拼接成单个字符串的聚合函数，在 SQL Server 2017+ 中支持。语法为：STRING_AGG(input_expression, separator) [WITHIN GROUP (ORDER BY order_expression [ASC|DESC])]。input_expression：要拼接的列或表达式，separator 是分隔符（如 ', '、'|'），WITHIN GROUP (ORDER BY)：可选，指定拼接顺序。",
+            "correct_answer": "STRING_AGG",
+            "applicable_databases": ["SQL Server"]
+            },
+            {
+            "question_id": 9,
+            "question_text_before_options": "将部门员工姓名合并为逗号分隔字符串（如：Alice,Bob,Carol）：SELECT department, ",
+            "options": ["CONCAT", "GROUP_CONCAT" ,"STRING_AGG","LISTAGG"],
+            "question_text_after_options": "(name, ',') WITHIN GROUP (ORDER BY name) AS members FROM employees GROUP BY department;",
+            "question_comment": "CONCAT 是用于拼接2个字符串参数（横向拼接），仅支持两个参数，若需拼接多个字符串，需嵌套使用或改用 || 操作符。而 LISTAGG 是用于将多行数据聚合为单个字符串（纵向拼接）。GROUP_CONCAT 和 STRING_AGG 在 SQL Server 中均不支持。",
+            "knowledge_comment": "Oracle 11g+ 支持 LISTAGG。LISTAGG 函数的语法为 LISTAGG(expression, separator) [WITHIN GROUP (ORDER BY sort_expression [ASC|DESC])]。支持排序（通过 WITHIN GROUP），WITHIN GROUP (ORDER BY ...) 是可选的，但省略后拼接顺序不确定。强烈建议保留。默认忽略 NULL 值，如需处理 NULL 需用 NVL(name, 'NULL') 显式处理。",
+            "correct_answer": "LISTAGG",
+            "applicable_databases": ["Oracle"]
+            },
+            {
+            "question_id": 10,
+            "question_text_before_options": "不能够匹配邮箱格式的是：WHERE email ",
+            "options": ["REGEXP", "REGEXP_LIKE" ,"RLIKE","LIKE"],
+            "question_text_after_options": " '^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\\.[A-Za-z]{2,})+$';",
+            "question_comment": "RLIKE 是早期 MySQL 版本引入的操作符，语法类似于 LIKE，但使用正则表达式而非简单通配符。为了与其他 SQL 数据库（如 PostgreSQL）保持一致，MySQL 后来添加了 REGEXP 作为 RLIKE 的别名。两者在功能、语法和性能上没有任何区别。它们都是用于正则表达式匹配的操作符。LIKE 使用简单通配符而非正则表达式。",
+            "knowledge_comment": "REGEXP_LIKE 是 Oracle 中的函数，既然是函数，而非操作符，那么应该后跟()，本题显然不应使用函数。此外， MySQL 并不支持 REGEXP_LIKE 函数。",
+            "correct_answer": "REGEXP_LIKE",
+            "applicable_databases": ["MySQL"]
+            },
+            {
+            "question_id": 10,
+            "question_text_before_options": "匹配邮箱格式：WHERE email ",
+            "options": ["REGEXP", "REGEXP_LIKE" ,"RLIKE","LIKE"],
+            "question_text_after_options": "('^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\\.[A-Za-z]{2,})+$', 'i');",
+            "question_comment": "REGEXP 和 RLIKE 是 MySQL 中的操作符，Oracle 并不支持。LIKE 使用简单通配符而非正则表达式。",
+            "knowledge_comment": "REGEXP_LIKE 是 Oracle 数据库中用于正则表达式匹配的函数，支持复杂的模式匹配和高级文本处理。基本语法：REGEXP_LIKE(source_string, pattern [, match_parameter])，source_string 是待匹配的字符串。pattern 是正则表达式模式。match_parameter（可选）是控制匹配行为的标志。",
+            "correct_answer": "REGEXP_LIKE",
+            "applicable_databases": ["Oracle"]
+            }
+        ]
 }

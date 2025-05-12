@@ -2,5 +2,6 @@
     {"category_id": 1,"category_name": "数据查询","category_introduction": "最常用，最基础，必须会"},
     {"category_id": 2,"category_name": "多表连接","category_introduction": "定会用到，必要掌握"},
     {"category_id": 3,"category_name": "条件判断","category_introduction": "频率高，内容多，影响大"},
-    {"category_id": 4,"category_name": "窗口函数","category_introduction": "极其有用 省时省力"}
+    {"category_id": 4,"category_name": "窗口函数","category_introduction": "极其有用，省时省力"},
+    {"category_id": 5,"category_name": "字符串操作","category_introduction": "库不同则不同，头疼"}
 ]
