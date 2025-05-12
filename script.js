@@ -31,7 +31,7 @@ function populateIntroduction(categories) {
     const quickStartButtons = document.createElement('div');
     quickStartButtons.classList.add("quick-start-buttons");
     categories.forEach((category)=>{
-        if (category.category_id < 6){
+        if (category.category_id < 10){
             const quickStartButton = document.createElement('div');
             quickStartButton.classList.add("quick-start-button");
             const quickStartH3 = document.createElement('h3');
@@ -129,19 +129,19 @@ function showAbout() {
     aboutDiv.classList.add('about');
     aboutDiv.innerHTML = `
         <h1>为什么选择 SQL Wizland？</h1>
-        <h2>数据会说话</h2>
+        <h2>职位需求大</h2>
         <p>
             职友集数据显示，2024年 SQL开发工程师的市场需求较2023年同期对比<strong>增长486%</strong>。
             软件开发公司中66.7%的 SQL开发工程师岗位月薪15-30k，年薪18-36w，其工资待遇比软件开发公司平均工资<strong>高出23.7%</strong>。
             2024年CSDN对近1000万条招聘信息的调查结果显示，SQL占招聘职位的8.2%，在编程语言类招聘需求中排名<strong>超过</strong> C#等编程语言。
         </p>
         <p>这些数据告诉我们：掌握 SQL刻不容缓。</p>
-        <h2>SQL Wizland的使命</h2>
+        <h2>高效记住 SQL 语句</h2>
         <p>
             如果您去搜索，您会发现市面上有很多刷题网站，这些刷题网站并不适合<strong>有解题逻辑但需加深 SQL语句印象的人</strong>。SQL Wizland了解这一痛苦，并因此应运而生。
         </p>
         <p>
-            SQL Wizland和传统的刷题网站有鲜明的差异，SQL Wizland专注于 <strong>SQL语句复习</strong>领域。
+            SQL Wizland和传统的刷题网站有鲜明的差异，SQL Wizland专注于 <strong>SQL 语句复习</strong>领域。
         </p>
         <p>
             SQL Wizland专为有解题逻辑但需加深语句印象者打造，SQL Wizland深知您的需求并非单纯解题，而是深度巩固 SQL语句知识，时刻维持对其的熟悉感。因此我们精心打造了丰富且系统的复习内容，涵盖了诸如 “数据查询”、“数据插入”、“数据更新” 等热门且最常用的核心板块，完美适配新手与专业人士。
