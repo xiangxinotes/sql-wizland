@@ -1019,5 +1019,117 @@
             "correct_answer": "jsonb '{\"user_id\": 101, \"action\": \"login\"}'",
             "applicable_databases": ["PostgreSQL"]
         }
+    ],
+    "7" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "",
+            "options": ["SELECT", "INSERT", "UPDATE", "DELETE"],
+            "question_text_after_options": " products SET price = price * 1.1 WHERE category = 'Electronics';",
+            "question_comment": "看到 SET 关键字就知道，这条语句是在更新表中的数据。SELECT 用于查询数据，不能用于修改数据。INSERT 用于向表中插入新的数据行，语法为 INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...)，与更新已有数据的操作不符。DELETE 用于从表中删除数据行，语法为 DELETE FROM table_name WHERE condition，与修改数据值的目的不一致。",
+            "knowledge_comment": "UPDATE 是 SQL 中用于修改表中已有数据的关键字，结合 SET 子句指定更新的列和值，WHERE 子句筛选要更新的行，符合题目中修改 products 表中价格的需求。",
+            "correct_answer": "UPDATE",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "UPDATE employees ",
+            "options": ["TO", "SET", "COLUMN", "MODIFY"],
+            "question_text_after_options": " salary = 8000 WHERE emp_id = 101;",
+            "question_comment": "TO 通常用于 ALTER TABLE 语句（如 ALTER COLUMN）或赋值操作（如 SELECT ... INTO），但不在 UPDATE 语句中直接使用。COLUMN 是用于定义表结构的关键字（如 CREATE TABLE 或 ALTER TABLE），不能用于 UPDATE 语句。MODIFY 是 Oracle 和 MySQL 中用于修改表结构的关键字（如 ALTER TABLE MODIFY COLUMN），不能直接用于更新数据。",
+            "knowledge_comment": "SET 是 UPDATE 语句中用于指定要更新的列及其新值的关键字。在 SQL 中，UPDATE 语句的标准语法为：UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;",
+            "correct_answer": "SET",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "同时更新工资和部门：UPDATE employees SET salary = 8000, ",
+            "options": ["department", "SET department", "COLUMN department", "MODIFY department"],
+            "question_text_after_options": " = '技术部' WHERE emp_id = 101;",
+            "question_comment": "SET 关键字在 UPDATE 语句中已经使用过一次来开始设置更新的列和值，不需要再次使用 SET 来更新 department 列，这种写法是错误的。UPDATE 语句中直接使用列名来指定要更新的列，不需要 COLUMN 关键字，所以该选项错误。MODIFY 关键字通常用于修改表结构中列的定义，而不是在 UPDATE 语句中用于更新列的值，在 UPDATE 语句中使用 MODIFY 是错误的语法。",
+            "knowledge_comment": "在 UPDATE 语句中，要同时更新多个列，直接在 SET 关键字后列出要更新的列及其对应的值，用逗号分隔。所以 UPDATE employees SET salary = 8000, department = '技术部' WHERE emp_id = 101; 是正确的语法。",
+            "correct_answer": "department",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "根据 departments 表的预算，更新 employees 表中对应部门员工的薪资上限：UPDATE employees e ",
+            "options": ["LEFT JOIN", "CROSS JOIN", "INNER JOIN", "NATURAL JOIN"],
+            "question_text_after_options": " departments d ON e.department_id = d.id SET e.max_salary = d.budget * 0.8;",
+            "question_comment": "使用 LEFT JOIN 时，若部门不存在，d.budget 为 NULL，会导致 e.max_salary 被设为 NULL。CROSS JOIN 生成笛卡尔积，会导致数据混乱。NATURAL JOIN 按同名列自动关联，可能导致非预期关联。",
+            "knowledge_comment": "INNER JOIN 仅更新 departments 中存在的部门员工，因此正确。如果觉得理解困难，可以去条件判断专栏做更多练习。",
+            "correct_answer": "INNER JOIN",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 5,
+            "question_text_before_options": "将 employees 表中每个经理的薪资设为其直接下属的平均薪资：UPDATE employees m SET salary = ( SELECT AVG(salary) FROM employees WHERE manager_id = m.",
+            "options": ["id", "manager_id", "employee_id", "department_id"],
+            "question_text_after_options": ");",
+            "question_comment": "若表主键为 id，则正确，但题目中主键为 employee_id。manager_id = m.manager_id 会筛选当前经理的同级，而非下属。department_id 与层级关系无关，manager_id = m.department_id 会产生啼笑皆非的后果。",
+            "knowledge_comment": "子查询通过 manager_id = m.employee_id 筛选当前经理的下属。",
+            "correct_answer": "employee_id",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "若工龄超过5年，重置年假为15天，否则保持原值：UPDATE employees SET annual_leave = ",
+            "options": ["15", "CASE WHEN years_of_service > 5 THEN 15 ELSE annual_leave END", "IFNULL(annual_leave, 15)", "DECODE(years_of_service, >5, 15)"],
+            "question_text_after_options": " WHERE years_of_service > 5;",
+            "question_comment": "直接写15会将所有员工的年假强制设为 15 天，而忽略工龄条件，导致错误。IFNULL(annual_leave, 15) 仅处理 annual_leave 为 NULL 的情况，无法根据工龄判断。DECODE是 Oracle 特有的简化版CASE，但选项出现语法错误。正确应为 DECODE(SIGN(years_of_service-5), 1, 15, annual_leave)），且其他数据库不支持。",
+            "knowledge_comment": "使用 CASE 表达式的逻辑是：若years_of_service > 5，则将annual_leave设为 15 天；否则保持原值（ELSE annual_leave）。除了 CASE 表达式，还可以使用这个更易读的写法：UPDATE employees SET annual_leave = IF(years_of_service > 5, 15, annual_leave);",
+            "correct_answer": "CASE WHEN years_of_service > 5 THEN 15 ELSE annual_leave END",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "若工龄超过5年，重置年假为15天，否则保持原值：UPDATE employees SET annual_leave = ",
+            "options": ["15", "CASE WHEN years_of_service > 5 THEN 15 ELSE annual_leave END", "ISNULL(annual_leave, 15)", "DECODE(years_of_service, >5, 15)"],
+            "question_text_after_options": " WHERE years_of_service > 5;",
+            "question_comment": "直接写15会将所有员工的年假强制设为 15 天，而忽略工龄条件，导致错误。ISNULL(annual_leave, 15) 仅处理 annual_leave 为 NULL 的情况，无法根据工龄判断。DECODE是 Oracle 特有的简化版CASE，但选项出现语法错误。正确应为 DECODE(SIGN(years_of_service-5), 1, 15, annual_leave)），且其他数据库不支持。",
+            "knowledge_comment": "使用 CASE 表达式的逻辑是：若years_of_service > 5，则将annual_leave设为 15 天；否则保持原值（ELSE annual_leave）。",
+            "correct_answer": "CASE WHEN years_of_service > 5 THEN 15 ELSE annual_leave END",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "若工龄超过5年，重置年假为15天，否则保持原值：UPDATE employees SET annual_leave = ",
+            "options": ["15", "CASE WHEN years_of_service > 5 THEN 15 ELSE annual_leave END", "NVL(annual_leave, 15)", "DECODE(years_of_service, >5, 15)"],
+            "question_text_after_options": " WHERE years_of_service > 5;",
+            "question_comment": "直接写15会将所有员工的年假强制设为 15 天，而忽略工龄条件，导致错误。NVL(annual_leave, 15) 仅处理 annual_leave 为 NULL 的情况，无法根据工龄判断。DECODE是 Oracle 特有的简化版CASE，但选项出现语法错误。正确应为 DECODE(SIGN(years_of_service-5), 1, 15, annual_leave)）。",
+            "knowledge_comment": "使用 CASE 表达式的逻辑是：若years_of_service > 5，则将annual_leave设为 15 天；否则保持原值（ELSE annual_leave）。虽然可用DECODE实现同样的需求，但不推荐（非标准）。",
+            "correct_answer": "CASE WHEN years_of_service > 5 THEN 15 ELSE annual_leave END",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "将 users 表中活跃度最低的 10 个用户标记为 inactive：UPDATE users SET status = 'inactive' ORDER BY activity_score ASC ",
+            "options": ["LIMIT", "TOP", "FETCH FIRST", "ROWCOUNT"],
+            "question_text_after_options": " 10;",
+            "question_comment": "TOP 是 SQL Server/Oracle 的语法，MySQL 不支持。MySQL 无法识别TOP关键字，会报错。FETCH FIRST是标准 SQL 语法（如 Oracle 12c+），但 MySQL 不支持。SET ROWCOUNT 是 SQL Server 的语法，用于限制后续操作的行数。MySQL 没有 ROWCOUNT 或类似机制，会报错。",
+            "knowledge_comment": "MySQL 使用LIMIT关键字限制查询或更新的行数。语法：LIMIT n，其中n为行数。通过 ORDER BY activity_score ASC 排序后，使用 LIMIT 10 仅更新前 10 条记录，符合题意。",
+            "correct_answer": "LIMIT",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "将 users 表中活跃度最低的 10 个用户标记为 inactive：UPDATE TOP",
+            "options": ["LIMIT", "TOP", "FETCH FIRST", "ROWCOUNT"],
+            "question_text_after_options": "(10) users SET status = 'inactive' ORDER BY activity_score ASC;",
+            "question_comment": "LIMIT 是 MySQL 语法，SQL Server 不支持。FETCH FIRST 是标准 SQL 语法（如 Oracle），UPDATE 语句中不支持。SET ROWCOUNT 是 SQL Server 旧语法（已弃用），需单独声明，不能直接用于 UPDATE 语句。使用时应这样写：SET ROWCOUNT 10; UPDATE users SET status = 'inactive' ORDER BY activity_score ASC; SET ROWCOUNT 0; -- 恢复默认",
+            "knowledge_comment": "SQL Server 使用 TOP(n) 限制更新行数，需用括号包裹数字。",
+            "correct_answer": "TOP",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "将 users 表中活跃度最低的 10 个用户标记为 inactive：UPDATE users SET status = 'inactive' WHERE user_id IN ( SELECT user_id FROM users ORDER BY activity_score ASC ",
+            "options": ["LIMIT", "TOP", "FETCH FIRST", "ROWCOUNT"],
+            "question_text_after_options": " 10 ROWS ONLY);",
+            "question_comment": "LIMIT 是 MySQL 语法，Oracle 不支持。TOP 是 SQL Server 语法，Oracle 不支持。ROWCOUNT 是 SQL Server 用于设置影响后续行数的变量，SET ROWCOUNT 是 SQL Server 旧语法（已弃用），Oracle 无此功能。",
+            "knowledge_comment": "Oracle 12c+ 支持标准 SQL 的 FETCH FIRST 语法，用于限制查询结果行数。Oracle 12c 之前需使用 ROWNUM 或窗口函数（如 ROW_NUMBER()）实现类似功能：WHERE ROWNUM <= 10  -- 无排序保证。",
+            "correct_answer": "FETCH FIRST",
+            "applicable_databases": ["Oracle"]
+        }
     ]
 }
