@@ -807,5 +807,217 @@
             "correct_answer": "REGEXP_LIKE",
             "applicable_databases": ["Oracle"]
             }
-        ]
+    ],
+    "6" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "INSERT ",
+            "options": ["IN", "TO", "INTO", "INTO TABLE"],
+            "question_text_after_options": " students (id, name, age) VALUES (1, '张三', 20);",
+            "question_comment": "固定语法：INSERT INTO。记住最简单的方法就是每天去数据库里加一行，加 30 天，我不信记不住。",
+            "knowledge_comment": "使用 INSERT INTO 语法，无需 TABLE 关键字。",
+            "correct_answer": "INTO",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "插入记录时使用默认值：INSERT INTO orders (order_id, amount, create_time) VALUES (1001, 500.0, ",
+            "options": ["DEFAULT", "NULL" ,"AUTO","NOW()"],
+            "question_text_after_options": ");",
+            "question_comment": "NULL 表示插入空值。若 create_time 列被定义为 NOT NULL 且无默认值，则会报错；若允许 NULL，则插入 NULL。SQL 标准中无 AUTO 关键字用于时间戳列。AUTO 通常与自增主键（如 AUTO_INCREMENT）相关，但不适用于时间列。NOW() 主要用于返回执行时刻的时间戳，格式：'YYYY-MM-DD HH:MM:SS'，比如 '2025-05-12 14:30:00'。但题目要求的是使用默认值，默认值并不一定是当前日期和时间，不可妄自揣测。",
+            "knowledge_comment": "DEFAULT 关键字表示使用列定义的默认值。若 create_time 列定义了默认值（如 DEFAULT CURRENT_TIMESTAMP），则会自动填充当前时间；若未定义，则取决于列是否允许 NULL。",
+            "correct_answer": "DEFAULT",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "插入记录时使用默认值：INSERT INTO orders (order_id, amount, create_time) VALUES (1001, 500.0, ",
+            "options": ["DEFAULT", "NULL" ,"AUTO","NOW()"],
+            "question_text_after_options": ");",
+            "question_comment": "NULL 表示插入空值。若 create_time 列被定义为 NOT NULL 且无默认值，则会报错；若允许 NULL，则插入 NULL。SQL 标准中无 AUTO 关键字用于时间戳列。AUTO 通常与自增主键（如 MySQL 的 AUTO_INCREMENT）相关，但不适用于时间列。NOW() 是 MySQL 函数，SQL Server 及 Oracle不支持。",
+            "knowledge_comment": "DEFAULT 关键字表示使用列定义的默认值。若 create_time 列定义了默认值（如 DEFAULT CURRENT_TIMESTAMP），则会自动填充当前时间；若未定义，则取决于列是否允许 NULL。",
+            "correct_answer": "DEFAULT",
+            "applicable_databases": ["SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "将 2023 年订单数据插入历史表：INSERT ",
+            "options": ["INTO order_history VALUES SELECT * FROM orders WHERE EXTRACT(YEAR FROM order_date) = 2023", "order_history SELECT * FROM orders WHERE EXTRACT(YEAR FROM order_date) = 2023" , "INTO order_history SELECT * FROM orders WHERE EXTRACT(YEAR FROM order_date) = 2023", "VALUES SELECT * FROM orders WHERE EXTRACT(YEAR FROM order_date) = 2023 INTO order_history"],
+            "question_text_after_options": ";",
+            "question_comment": "选项1混淆了手动插入指定值和从其他表导入的语法，错误的在查询语句前加了 VALUES。部分数据库（如 SQLite）允许省略INTO的特性，但主流数据库（MySQL、SQL Server、Oracle）均要求INSERT INTO。选项4混淆了手动插入指定值和从其他表导入的语法，错误的在查询语句前加了 VALUES。且 INTO destination_table 的顺序不对。",
+            "knowledge_comment": "从其他表导入数据的语法是：INSERT INTO destination_table SELECT col1, col2 FROM source_table; 当目标表 destination_table 和 来源表 source_table 结构完全相同时，可写作：INSERT INTO destination_table SELECT * FROM source_table。为了性能考虑，大数据量时采用分批插入或禁用索引。",
+            "correct_answer": "INTO order_history SELECT * FROM orders WHERE EXTRACT(YEAR FROM order_date) = 2023",
+            "applicable_databases": ["MySQL", "Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "将 2023 年订单数据插入历史表：INSERT INTO order_history ",
+            "options": ["INTO order_history VALUES SELECT * FROM orders WHERE DATEPART(YEAR, order_date) = 2023", "order_history SELECT * FROM orders WHERE DATEPART(YEAR, order_date) = 2023" , "INTO order_history SELECT * FROM orders WHERE DATEPART(YEAR, order_date) = 2023", "VALUES SELECT * FROM orders WHERE DATEPART(YEAR, order_date) = 2023 INTO order_history"],
+            "question_text_after_options": ";",
+            "question_comment": "选项1混淆了手动插入指定值和从其他表导入的语法，错误的在查询语句前加了 VALUES。部分数据库（如 SQLite）允许省略INTO的特性，但主流数据库（MySQL、SQL Server、Oracle）均要求INSERT INTO。选项4混淆了手动插入指定值和从其他表导入的语法，错误的在查询语句前加了 VALUES。且 INTO destination_table 的顺序不对。",
+            "knowledge_comment": "从其他表导入数据的语法是：INSERT INTO destination_table SELECT col1, col2 FROM source_table; 当目标表 destination_table 和 来源表 source_table 结构完全相同时，可写作：INSERT INTO destination_table SELECT * FROM source_table。为了性能考虑，大数据量时采用分批插入或禁用索引。",
+            "correct_answer": "INTO order_history SELECT * FROM orders WHERE DATEPART(YEAR, order_date) = 2023",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "向 students 表一次性插入三条记录：INSERT INTO students (id, name, age) ",
+            "options": ["VALUES (1, '张三', 20), (2, '李四', 22), (3, '王五', 25)", "VALUES (1, '张三', 20), VALUES (2, '李四', 22), VALUES (3, '王五', 25)" , "SELECT 1, '张三', 20 FROM DUAL UNION ALL SELECT 2, '李四', 22 FROM DUAL UNION ALL SELECT 3, '王五', 25 FROM DUAL"],
+            "question_text_after_options": ";",
+            "question_comment": "多行插入时直接用逗号分隔值列表，无需重复 VALUES，选项2错。选项3是 Oracle 一次性插入多条记录的语法。",
+            "knowledge_comment": "一次性插入多条记录的语法：INSERT INTO table VALUES (), (), ()",
+            "correct_answer": "VALUES (1, '张三', 20), (2, '李四', 22), (3, '王五', 25)",
+            "applicable_databases": ["MySQL", "SQL Server"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "向 students 表一次性插入三条记录：INSERT INTO students (id, name, age) ",
+            "options": ["VALUES (1, '张三', 20), (2, '李四', 22), (3, '王五', 25)", "VALUES (1, '张三', 20), VALUES (2, '李四', 22), VALUES (3, '王五', 25)" , "SELECT 1, '张三', 20 FROM DUAL UNION ALL SELECT 2, '李四', 22 FROM DUAL UNION ALL SELECT 3, '王五', 25 FROM DUAL"],
+            "question_text_after_options": ";",
+            "question_comment": "选项1是 MySQL 和 SQL Server 一次性插入多条记录的语法。选项2和选项1类似，但使用了多个 VALUES，MySQL 和 SQL Server 一次性插入多条记录的语法：INSERT INTO table VALUES (), (), ()，无需重复 VALUES，选项2错。",
+            "knowledge_comment": "一次性插入多条记录的语法：INSERT INTO table SELECT ... UNION ALL ...",
+            "correct_answer": "SELECT 1, '张三', 20 FROM DUAL UNION ALL SELECT 2, '李四', 22 FROM DUAL UNION ALL SELECT 3, '王五', 25 FROM DUAL",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 5,
+            "question_text_before_options": "插入用户，若 email 已存在则忽略：INSERT INTO users (id, email, name) VALUES (1, 'zhangsan@example.com', '张三') ",
+            "options": ["ON DUPLICATE KEY UPDATE", "ON DUPLICATE KEY SET", "ON CONFLICT (email)", "IGNORE"],
+            "question_text_after_options": " id = id;",
+            "question_comment": "选项2的 SET 字样错误。在 MySQL 中，ON DUPLICATE KEY UPDATE 是忽略重复的语法。ON CONFLICT (email) DO NOTHING 是 PostgreSQL 忽略重复的做法，此句指定冲突列，和冲突行为。INSERT IGNORE 简单，但会忽略所有错误，不合题意。如需使用，可参考：INSERT IGNORE INTO users (id, email, name) VALUES (1, 'zhangsan@example.com', '张三');",
+            "knowledge_comment": "ON DUPLICATE KEY UPDATE 的判断逻辑依赖于表的唯一约束（Unique Constraint）或主键（Primary Key），而非显式在语句中指定列。因此若 email 已存在（需在 email 列上有唯一索引），则执行 UPDATE id = id（实际上不更新任何内容，相当于忽略）。",
+            "correct_answer": "ON DUPLICATE KEY UPDATE",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 5,
+            "question_text_before_options": "插入用户，若 email 已存在则忽略：INSERT INTO users (id, email, name) VALUES (1, 'zhangsan@example.com', '张三') ",
+            "options": ["ON DUPLICATE KEY UPDATE id = id", "ON DUPLICATE KEY SET id = id", "ON CONFLICT (email) DO NOTHING", "IGNORE"],
+            "question_text_after_options": ";",
+            "question_comment": "ON DUPLICATE KEY UPDATE 的判断逻辑依赖于表的唯一约束（Unique Constraint）或主键（Primary Key），而非显式在语句中指定列。因此若 email 已存在（需在 email 列上有唯一索引），则执行 UPDATE id = id（实际上不更新任何内容，相当于忽略）。选项2的 SET 字样错误。在 MySQL 中，ON DUPLICATE KEY UPDATE 是忽略重复的语法。INSERT IGNORE 简单，但会忽略所有错误，不合题意。如需使用，可参考：INSERT IGNORE INTO users (id, email, name) VALUES (1, 'zhangsan@example.com', '张三');",
+            "knowledge_comment": "ON CONFLICT (email) DO NOTHING 是 PostgreSQL 忽略重复的做法，此句指定冲突列，和冲突行为。",
+            "correct_answer": "ON CONFLICT (email) DO NOTHING",
+            "applicable_databases": ["PostgreSQL"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "插入数据并返回新生成的 ID：INSERT INTO products (name, price) VALUES ('手机', 3000.0); SELECT ",
+            "options": ["LAST_INSERT_ID()", "INSERTED.id", "NEW.id", "RETURNING id"],
+            "question_text_after_options": ";",
+            "question_comment": "INSERTED 是 SQL Server 的语法，用于 OUTPUT 子句或触发器中引用插入的数据。MySQL 中无此关键字。NEW 是 MySQL 触发器中的特殊变量，用于引用新插入 / 更新的数据。不能在普通 SQL 语句中直接使用。旧版 MySQL（8.0.21 之前）不支持 RETURNING 语法。新版 MySQL（8.0.21+）支持 RETURNING，但需在 INSERT 语句中使用，而非单独的 SELECT，MySQL 8.0.21+ 正确语法：INSERT INTO products (name, price) VALUES ('手机', 3000.0) RETURNING id; 即直接在 INSERT 后返回。题目中 INSERT 和 SELECT 是分开的两条语句，因此 RETURNING 不适用。",
+            "knowledge_comment": "LAST_INSERT_ID() 是 MySQL 内置函数，返回当前会话中最后一次插入操作生成的自增 ID（适用于 AUTO_INCREMENT 列）。LAST_INSERT_ID() 仅对当前会话有效，不同会话的插入操作互不影响。若插入多行，仅返回第一行的 ID。",
+            "correct_answer": "LAST_INSERT_ID()",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "插入数据并返回新生成的 ID：INSERT INTO products (name, price) OUTPUT ",
+            "options": ["INSERTED.id", "NEW.id", "GENERATED_KEYS.id", "id"],
+            "question_text_after_options": " VALUES ('手机', 3000.0);",
+            "question_comment": "SQL Server 不支持 NEW 关键字。NEW 通常用在 MySQL、PostgreSQL 的触发器（Trigger）中引用新插入的行，但不能直接在 INSERT 语句中使用。GENERATED_KEYS 是 JDBC API 中的概念（如 Statement.getGeneratedKeys()），并非 SQL 标准语法，不能直接在 SQL 语句中使用。在 SQL Server 的 OUTPUT 子句中，必须明确指定 INSERTED. 或 DELETED. 前缀，用于引用插入 / 删除操作的临时表。直接写 id 会导致 SQL Server 无法识别该列的来源，从而抛出语法错误。",
+            "knowledge_comment": "OUTPUT 子句规则：必须使用 INSERTED. 或 DELETED. INSERTED 代表引用插入操作后的新行。DELETED 代表引用删除操作前的旧行（用于 DELETE 或 UPDATE）。",
+            "correct_answer": "INSERTED.id",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "插入数据并返回新生成的 ID：DECLARE v_id NUMBER; BEGIN INSERT INTO products (name, price) ",
+            "options": ["OUTPUT id", "SELECT SCOPE_IDENTITY()", "RETURNING id", "RETURNING id INTO v_id"],
+            "question_text_after_options": "; END;",
+            "question_comment": "OUTPUT 是 SQL Server 的语法，Oracle 不支持。SCOPE_IDENTITY() 是 SQL Server 的函数，用于返回当前会话的自增 ID。Oracle 的 RETURNING 必须配合 INTO 使用。",
+            "knowledge_comment": "返回自增 ID 的正确语法：RETURNING column INTO variable，Oracle 使用 RETURNING ... INTO 语法将生成的 id 存入变量。Oracle 的 RETURNING 必须配合 INTO 使用，需配合 PL/SQL 变量，且不支持直接返回结果集。",
+            "correct_answer": "RETURNING id INTO v_id",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "插入数据并返回新生成的 ID：INSERT INTO products (name, price) ",
+            "options": ["OUTPUT id", "SELECT CURRVAL('products_id_seq')", "RETURNING id", "RETURNING id INTO v_new_id"],
+            "question_text_after_options": " VALUES ('手机', 3000.0);",
+            "question_comment": "OUTPUT 是 SQL Server 的语法，PostgreSQL 不支持。ETURNING ... INTO 是 Oracle/PLpgSQL 的语法，在纯 SQL 中无效。CURRVAL 返回当前会话中最近一次 NEXTVAL 的值，所以如果未在当前会话中调用 NEXTVAL，会报错。且 CURRVAL 可能返回其他会话的值，并不可靠。",
+            "knowledge_comment": "PostgreSQL 使用 RETURNING 子句直接返回插入后的列值。",
+            "correct_answer": "RETURNING id",
+            "applicable_databases": ["PostgreSQL"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "高效插入 1000 条测试数据：WITH ",
+            "options": ["RECURSIVE", "ITERATIVE", "LOOP", "CTE"],
+            "question_text_after_options": " nums AS ( SELECT 1 AS n UNION ALL SELECT n + 1 FROM nums WHERE n < 1000 ) INSERT INTO test_data (id, value) SELECT n, CONCAT('Data-', n) FROM nums;",
+            "question_comment": "ITERATIVE 不是 SQL 标准关键字，部分编程语言（如 Python）中使用该术语表示迭代，但 SQL 中无此用法。LOOP 是过程化 SQL（如 PL/SQL、T-SQL）中的循环结构，用于编写存储过程，与 CTE 语法无关。CTE 是 Common Table Expression（公用表表达式）的缩写，不是 SQL 关键字。SQL 中不需要显式写 CTE。正确语法为 WITH RECURSIVE ...，而非 WITH CTE ...。",
+            "knowledge_comment": "RECURSIVE 是启用递归 CTE 的关键字，必须紧跟在 WITH 之后。递归 CTE 的语法是：WITH RECURSIVE nums AS ( 递归逻辑...) SELECT ...; 递归 CTE 可能导致性能问题，特别是深度递归时。建议设置合理的终止条件，并使用 SET max_recursion_depth = N; 限制递归深度。递归 CTE 的默认限制是 1000 层，因此在生成 1 到 1000 的序列时，无需显式设置 max_recursion_depth。",
+            "correct_answer": "RECURSIVE",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "高效插入 1000 条测试数据：WITH ",
+            "options": ["RECURSIVE", "ITERATIVE", "LOOP", "CTE"],
+            "question_text_after_options": " nums AS ( SELECT 1 AS n UNION ALL SELECT n + 1 FROM nums WHERE n < 1000 ) INSERT INTO test_data (id, value) SELECT n, 'Data-' || n::text FROM nums;",
+            "question_comment": "ITERATIVE 不是 SQL 标准关键字，部分编程语言（如 Python）中使用该术语表示迭代，但 SQL 中无此用法。LOOP 是过程化 SQL（如 PL/SQL、T-SQL）中的循环结构，用于编写存储过程，与 CTE 语法无关。CTE 是 Common Table Expression（公用表表达式）的缩写，不是 SQL 关键字。SQL 中不需要显式写 CTE。正确语法为 WITH RECURSIVE ...，而非 WITH CTE ...。",
+            "knowledge_comment": "RECURSIVE 是启用递归 CTE 的关键字，必须紧跟在 WITH 之后。递归 CTE 的语法是：WITH RECURSIVE nums AS ( 递归逻辑...) SELECT ...; 递归深度无默认层数限制，但受系统内存和堆栈大小约束。",
+            "correct_answer": "RECURSIVE",
+            "applicable_databases": ["PostgreSQL"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "高效插入 1000 条测试数据：WITH nums AS ( SELECT 1 AS n  UNION ALL  SELECT n + 1  FROM nums  WHERE n < 1000) INSERT INTO test_data (id, value) SELECT n, 'Data-' + CAST(n AS VARCHAR(10)) FROM nums",
+            "options": ["RECURSIVE" ,"WITH RECURSIVE", "LIMIT 1000", "OPTION (MAXRECURSION 1000)"],
+            "question_text_after_options": ";",
+            "question_comment": "SQL Server 不使用 RECURSIVE 关键字，直接通过 WITH 定义 CTE。RECURSIVE 是 MySQL/PostgreSQL 的关键字，WITH RECURSIVE 是 MySQL/PostgreSQL 的语法，SQL Server 中会报错。LIMIT 是 MySQL 的语法，SQL Server 中需用 TOP 或 OFFSET/FETCH。",
+            "knowledge_comment": "SQL Server 必须显式指定递归深度，默认递归深度为 100，需通过 OPTION (MAXRECURSION 1000) 允许递归到 1000 层。如果 OPTION (MAXRECURSION n) 中的 n 为 0，则表示无限制。",
+            "correct_answer": "OPTION (MAXRECURSION 1000)",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "正确使用递归查询生成 1 到 1000 的序列：INSERT INTO test_data (id, value) SELECT LEVEL, 'Data-' || LEVEL FROM DUAL CONNECT BY ",
+            "options": ["LEVEL <= 1000", "PRIOR LEVEL = LEVEL + 1" , "NOCYCLE LEVEL = LEVEL + 1", "LEVEL = PRIOR LEVEL + 1 AND LEVEL <= 1000"],
+            "question_text_after_options": ";",
+            "question_comment": "选项1缺少递归关系定义（如 LEVEL = PRIOR LEVEL + 1），Oracle 无法确定如何生成下一行，会导致循环错误。PRIOR LEVEL = LEVEL + 1 表示当前行的 LEVEL 比父行小 1，导致生成倒序序列（如 1000, 999, ..., 1）。NOCYCLE 用于处理循环，但LEVEL = LEVEL + 1 是逻辑矛盾（永远不成立），导致无限循环。NOCYCLE 仅抑制错误，但无法生成有效序列。",
+            "knowledge_comment": "通过 LEVEL = PRIOR LEVEL + 1 定义递归关系：当前行的 LEVEL 比父行大 1（生成正序），并通过 LEVEL <= 1000 终止，确保生成 1 到 1000。CONNECT BY 语法结构：SELECT ... FROM table_name CONNECT BY [NOCYCLE] condition START WITH initial_condition; PRIOR 关键字用于引用父行的值。START WITH：可选，指定递归起点（本例中 FROM DUAL 隐含起点为 1）。在 Oracle 中使用 CONNECT BY 时，必须同时定义递归关系（如 LEVEL = PRIOR LEVEL + 1）和终止条件（如 LEVEL <= 1000）。",
+            "correct_answer": "LEVEL = PRIOR LEVEL + 1 AND LEVEL <= 1000",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 8,
+            "question_text_before_options": "向 logs 表插入 JSON 格式日志：INSERT INTO logs (log_data) VALUES (",
+            "options": ["'{\"user_id\": 101, \"action\": \"login\"}'", "JSON '{\"user_id\": 101, \"action\": \"login\"}'", "JSON_OBJECT('user_id', 101, 'action', 'login')", "CAST('{\"user_id\": 101, \"action\": \"login\"}' AS JSON)"],
+            "question_text_after_options": ");",
+            "question_comment": "选项1未显式指定 JSON 类型，虽然 MySQL 允许直接插入字符串到 JSON 列，但不验证格式，可能导致存储非法 JSON。选项2 JSON '...' 是 PostgreSQL 语法，MySQL 不支持。选项4的 CAST 在 MySQL 中不用于 JSON 类型转换。",
+            "knowledge_comment": "JSON_OBJECT 是 MySQL 构造 JSON 的标准函数，JSON_OBJECT 自动构造合法 JSON，并验证格式。",
+            "correct_answer": "JSON_OBJECT('user_id', 101, 'action', 'login')",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 8,
+            "question_text_before_options": "向 logs 表插入 JSON 格式日志（log_data 为 NVARCHAR(MAX) 类型）：INSERT INTO logs (log_data) VALUES (",
+            "options": ["'{\"user_id\": 101, \"action\": \"login\"}'", "JSON '{\"user_id\": 101, \"action\": \"login\"}'", "JSON_OBJECT('user_id', 101, 'action', 'login')", "JSON_MODIFY('{}', '$.user_id', 101, '$.action', 'login')"],
+            "question_text_after_options": ");",
+            "question_comment": "JSON '...' 是 PostgreSQL 语法，SQL Server 不支持。JSON_OBJECT 是 MySQL/Oracle 函数，SQL Server 无此函数。JSON_MODIFY 用于修改已有 JSON，不能直接构造完整 JSON。",
+            "knowledge_comment": "SQL Server 不强制要求 NVARCHAR 列存储合法 JSON，因此可直接将字符串存储为 JSON，但需手动确保格式合法。可以用 ISJSON 函数来验证合法性，一个插入前验证的举例：IF ISJSON('{\"user_id\": 101}') = 1 INSERT INTO logs VALUES ('{\"user_id\": 101}');",
+            "correct_answer": "'{\"user_id\": 101, \"action\": \"login\"}'",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 8,
+            "question_text_before_options": "向 logs 表插入 JSON 格式日志（log_data 为 JSON 类型）：INSERT INTO logs (log_data) VALUES (",
+            "options": ["'{\"user_id\": 101, \"action\": \"login\"}'", "JSON '{\"user_id\": 101, \"action\": \"login\"}'", "JSON_OBJECT('user_id' VALUE 101, 'action' VALUE 'login')", "CAST('{\"user_id\": 101, \"action\": \"login\"}' AS JSON)"],
+            "question_text_after_options": ");",
+            "question_comment": "选项1未指定 JSON 类型，直接插入字符串到 JSON 列，Oracle 会存储为普通文本，失去 JSON 索引能力。JSON '...' 是 PostgreSQL 语法，Oracle 不支持。Oracle 不支持 CAST(... AS JSON) 语法。",
+            "knowledge_comment": "JSON_OBJECT 是 Oracle 构造 JSON 的标准函数。JSON_OBJECT 自动验证 JSON 格式，生成合法 JSON 对象，并支持索引优化。",
+            "correct_answer": "",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 8,
+            "question_text_before_options": "向 logs 表插入 JSON 格式日志最推荐的方式是：INSERT INTO logs (log_data) VALUES (",
+            "options": ["'{\"user_id\": 101, \"action\": \"login\"}'", "jsonb '{\"user_id\": 101, \"action\": \"login\"}'", "{\"user_id\": 101, \"action\": \"login\"}", "CAST('{\"user_id\": 101, \"action\": \"login\"}' AS JSON)"],
+            "question_text_after_options": ");",
+            "question_comment": "选项1未指定 JSON 类型，PostgreSQL 默认将其视为 text，可能导致后续查询异常。选项3缺少引号，PostgreSQL 无法识别为合法 JSON 或文本。选项4的 CAST 生成 json 类型而非 jsonb，且效率较低（jsonb 为二进制存储）。",
+            "knowledge_comment": "jsonb '...' 是 PostgreSQL 构造 JSONB 对象的标准语法，jsonb '...' 显式构造 JSONB 对象，确保类型正确且支持索引。在 PostgreSQL 中插入 JSON 时，始终使用 jsonb '{}' 语法，确保类型正确且充分利用 JSONB 的优势。构造 JSONB 的方法：1. 直接构造 jsonb '{\"key\": \"value\"}' 2. 函数构造 to_jsonb(row('value')) 3. 强制类型转换 '{\"key\": \"value\"}'::jsonb",
+            "correct_answer": "jsonb '{\"user_id\": 101, \"action\": \"login\"}'",
+            "applicable_databases": ["PostgreSQL"]
+        }
+    ]
 }
