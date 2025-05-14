@@ -5,5 +5,6 @@
     {"category_id": 4,"category_name": "窗口函数","category_introduction": "极其有用，省时省力"},
     {"category_id": 5,"category_name": "字符串操作","category_introduction": "库不同则不同，头疼"},
     {"category_id": 6,"category_name": "数据插入","category_introduction": "第一步，无插入，不数据"},
-    {"category_id": 7,"category_name": "数据更新","category_introduction": "唯一不变的，是变化本身"}
+    {"category_id": 7,"category_name": "数据更新","category_introduction": "唯一不变的，是变化本身"},
+    {"category_id": 8,"category_name": "数据删除","category_introduction": "不需要了，就尽早摆脱"}
 ]

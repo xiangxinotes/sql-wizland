@@ -1131,5 +1131,37 @@
             "correct_answer": "FETCH FIRST",
             "applicable_databases": ["Oracle"]
         }
+    ],
+    "8" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "",
+            "options": ["SELECT", "UPDATE", "DELETE", "INSERT"],
+            "question_text_after_options": " FROM employees WHERE department = 'HR';",
+            "question_comment": "SELECT 用于查询数据，语法为 SELECT column1, column2 FROM table_name;，此处缺少列名，或代表全部列的符号 *。UPDATE 用于修改数据，语法为 UPDATE table_name SET column = value WHERE condition;，此处缺少 SET 子句且逻辑不符。INSERT 用于插入新数据，语法为 INSERT INTO table_name (columns) VALUES (values);",
+            "knowledge_comment": "DELETE FROM 是标准的删除语句语法，用于删除表中符合条件的记录。DELETE 是选项中唯一一个填入不会报错的关键字。",
+            "correct_answer": "DELETE",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "DELETE ",
+            "options": ["IN", "FROM", "* FROM", "TABLE"],
+            "question_text_after_options": " employees WHERE age > 60;",
+            "question_comment": "IN 是用于条件筛选的操作符（如 WHERE age IN (60, 65, 70)），不能替代 FROM 关键字。* 在 SELECT 语句中表示选择所有列（如 SELECT * FROM employees），但 DELETE 语句不需要指定列，因为满足的条件的行里所有列的数据都会被删除，所以直接使用 FROM 即可。TABLE 是用于操作表结构的关键字（如 CREATE TABLE、ALTER TABLE），不能用于 DELETE 语句。",
+            "knowledge_comment": "删除数据的基本语法是：DELETE FROM table_name WHERE conditionl; FROM 是 DELETE 语句中必需的关键字，用于指定要删除数据的表。",
+            "correct_answer": "FROM",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "删除没有订单的客户：DELETE customers FROM customers LEFT JOIN orders ON customers.id = orders.customer_id WHERE ",
+            "options": ["orders.id","customers.id","orders.customer_id","orders"],
+            "question_text_after_options": " IS NULL;",
+            "question_comment": "customers.id是主键，不可能为NULL，此条件永远不成立，导致无法删除任何数据。LEFT JOIN 的条件是 customers.id = orders.customer_id，若右表无匹配记录，orders.customer_id 确实为 NULL，逻辑等价于检查 orders.id。然而，在实际业务中，orders.customer_id 可能允许为 NULL（表示无关联客户），此时会误删有订单但该字段为 NULL 的客户，因此不推荐使用，orders.id是唯一标识，更可靠，建议选择唯一标识字段（如orders.id）进行判断。orders是表名，不能直接用于IS NULL判断，语法错误。",
+            "knowledge_comment": "题目要求删除没有订单的客户，即customers表中在orders表中无匹配记录的客户。通过LEFT JOIN连接两表后，无订单的客户在右表（orders）的所有字段均为NULL，因此 orders.id 为 NULL 表示无订单。",
+            "correct_answer": "orders.id",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        }
     ]
 }
