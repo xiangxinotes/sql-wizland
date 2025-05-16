@@ -294,11 +294,11 @@
         },
         {
             "question_id": 6,
-            "question_text_before_options": "查询名字以“张”开头且名字有3个字的用户：SELECT * FROM users WHERE name LIKE ",
+            "question_text_before_options": "查询名字以\"张\"开头且名字有3个字的用户：SELECT * FROM users WHERE name LIKE ",
             "options": ["'张_'", "'张%'" ,"'张__'","'张*'"],
             "question_text_after_options": ";",
-            "question_comment": "_ 是 LIKE 操作符中的通配符，代表单个任意字符。'张_' 表示以 “张” 开头，后面跟着1个任意字符的字符串；% 是通配符，代表零个或多个任意字符。'张%' 表示以 “张” 开头的任意字符串；在常见的主流关系型数据库（如 MySQL、SQL Server、Oracle、PostgreSQL 等）中，SELECT * FROM websites WHERE Name LIKE '张*' 均不适用，因为这些数据库在使用 LIKE 进行模糊匹配时，标准的通配符是 %（代表零个或多个任意字符）和 _（代表单个任意字符），而非 *。",
-            "knowledge_comment": "_ 是 LIKE 操作符中的通配符，代表单个任意字符。'张__' 表示以 “张” 开头，后面跟着两个任意字符的字符串。",
+            "question_comment": "_ 是 LIKE 操作符中的通配符，代表单个任意字符。'张_' 表示以 \"张\" 开头，后面跟着1个任意字符的字符串；% 是通配符，代表零个或多个任意字符。'张%' 表示以 \"张\" 开头的任意字符串；在常见的主流关系型数据库（如 MySQL、SQL Server、Oracle、PostgreSQL 等）中，SELECT * FROM websites WHERE Name LIKE '张*' 均不适用，因为这些数据库在使用 LIKE 进行模糊匹配时，标准的通配符是 %（代表零个或多个任意字符）和 _（代表单个任意字符），而非 *。",
+            "knowledge_comment": "_ 是 LIKE 操作符中的通配符，代表单个任意字符。'张__' 表示以 \"张\" 开头，后面跟着两个任意字符的字符串。",
             "correct_answer": "'张__'",
             "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
         },
@@ -364,7 +364,7 @@
         },
         {
             "question_id": 10,
-            "question_text_before_options": "将 NULL 替换为“未知”：SELECT name, ",
+            "question_text_before_options": "将 NULL 替换为 \"未知\"：SELECT name, ",
             "options": ["ISNULL" ,"NVL" ,"IFNULL" ,"COALESCE"],
             "question_text_after_options": "(city, '未知') AS city FROM customers;",
             "question_comment": "本题可使用排除法。ISNULL 是 SQL Server 函数名，用来判断 NULL 值；NVL 是 Oracle 函数名，用来判断 NULL 值；COALESCE 函数的作用是返回参数列表中第一个非 NULL 的值。它接受多个参数，会按照从左到右的顺序依次检查这些参数，一旦遇到非 NULL 的值，就返回该值，若所有参数都是 NULL，则返回 NULL。使用 COALESCE 函数并不能完成本题的要求。",
@@ -374,7 +374,7 @@
         },
         {
             "question_id": 10,
-            "question_text_before_options": "将 NULL 替换为“未知”：SELECT name, ",
+            "question_text_before_options": "将 NULL 替换为 \"未知\"：SELECT name, ",
             "options": ["ISNULL" ,"NVL" ,"IFNULL" ,"COALESCE"],
             "question_text_after_options": "(city, '未知') AS city FROM customers;",
             "question_comment": "本题可使用排除法。NVL 是 Oracle 函数名，用来判断 NULL 值；IFNULL 是 MSQL 函数名，用来判断 NULL 值；COALESCE 函数的作用是返回参数列表中第一个非 NULL 的值。它接受多个参数，会按照从左到右的顺序依次检查这些参数，一旦遇到非 NULL 的值，就返回该值，若所有参数都是 NULL，则返回 NULL。使用 COALESCE 函数并不能完成本题的要求。",
@@ -384,7 +384,7 @@
         },
         {
             "question_id": 10,
-            "question_text_before_options": "将 NULL 替换为“未知”：SELECT name, ",
+            "question_text_before_options": "将 NULL 替换为\"未知\"：SELECT name, ",
             "options": ["ISNULL" ,"NVL" ,"IFNULL" ,"COALESCE"],
             "question_text_after_options": "(city, '未知') AS city FROM customers;",
             "question_comment": "本题可使用排除法。ISNULL 是 SQL Server 函数名，用来判断 NULL 值；IFNULL 是 MSQL 函数名，用来判断 NULL 值；COALESCE 函数的作用是返回参数列表中第一个非 NULL 的值。它接受多个参数，会按照从左到右的顺序依次检查这些参数，一旦遇到非 NULL 的值，就返回该值，若所有参数都是 NULL，则返回 NULL。使用 COALESCE 函数并不能完成本题的要求。",
@@ -394,7 +394,7 @@
         },
         {
             "question_id": 11,
-            "question_text_before_options": "格式化日期为“YYYY-MM-DD”格式：SELECT DATE_FORMAT(order_date, '",
+            "question_text_before_options": "格式化日期为\"YYYY-MM-DD\"格式：SELECT DATE_FORMAT(order_date, '",
             "options": ["%Y-%m-%d" ,"yyyy-MM-dd" ,"YYYY-MM-DD" ,"YY-MM-DD"],
             "question_text_after_options": "') AS formatted_date FROM orders;",
             "question_comment": "DATE_FORMAT 函数用于将日期或日期时间值按照指定的格式进行格式化输出。其语法为 DATE_FORMAT(date, format)，其中 date 是要格式化的日期或日期时间值，format 是指定的输出格式。",
@@ -404,7 +404,7 @@
         },
         {
             "question_id": 11,
-            "question_text_before_options": "格式化日期为“YYYY-MM-DD”格式：SELECT FORMAT(order_date, '",
+            "question_text_before_options": "格式化日期为\"YYYY-MM-DD\"格式：SELECT FORMAT(order_date, '",
             "options": ["%Y-%m-%d" ,"yyyy-MM-dd" ,"YYYY-MM-DD" ,"YY-MM-DD"],
             "question_text_after_options": "') AS formatted_date FROM orders;",
             "question_comment": "从 SQL Server 2012 版本开始，引入了 FORMAT 函数来实现日期格式化功能。FORMAT 函数更加通用，不仅可以处理日期类型，还能处理其他数据类型。其语法为 FORMAT(value, format [, culture])，其中 value 是要格式化的值，format 是指定的格式，culture 是可选的文化设置。",
@@ -414,7 +414,7 @@
         },
         {
             "question_id": 11,
-            "question_text_before_options": "格式化日期为“YYYY-MM-DD”格式：SELECT TO_CHAR(order_date, '",
+            "question_text_before_options": "格式化日期为\"YYYY-MM-DD\"格式：SELECT TO_CHAR(order_date, '",
             "options": ["%Y-%m-%d" ,"yyyy-MM-dd" ,"YYYY-MM-DD" ,"YY-MM-DD"],
             "question_text_after_options": "') AS formatted_date FROM orders;",
             "question_comment": "在 Oracle 中，使用 TO_CHAR 函数来进行日期格式化。TO_CHAR 函数可以将日期、数字等数据类型转换为字符类型，并按照指定的格式输出。其语法为 TO_CHAR(date, format)，其中 date 是要格式化的日期，format 是指定的格式。",
@@ -439,7 +439,7 @@
         "question_text_before_options": "SELECT student_id, exam_name, score, DENSE_RANK() OVER (",
         "options": ["GROUP BY", "PARTITION BY", "PART BY", "PARTITION ON"],
         "question_text_after_options": " exam_name ORDER BY score DESC) AS ranking FROM student_scores;",
-        "question_comment": "GROUP BY 用于聚合查询的分组，而窗口函数中必须用 PARTITION BY 定义分区。因为都是分组，所以人们容易将两种“分组”概念混淆，要注意区分。PART BY 是一种错写，通常是因为对 PARTITION 单词的不熟悉导致的，单词多写几遍就记住了，要多用哦。PARTITION ON 也是一种错写，在窗口函数中，ORDER BY 用于排序，类似的 PARTITION BY 用来分区，可以一起记忆，都使用BY。",
+        "question_comment": "GROUP BY 用于聚合查询的分组，而窗口函数中必须用 PARTITION BY 定义分区。因为都是分组，所以人们容易将两种\"分组\"概念混淆，要注意区分。PART BY 是一种错写，通常是因为对 PARTITION 单词的不熟悉导致的，单词多写几遍就记住了，要多用哦。PARTITION ON 也是一种错写，在窗口函数中，ORDER BY 用于排序，类似的 PARTITION BY 用来分区，可以一起记忆，都使用BY。",
         "knowledge_comment": "PARTITION BY 是唯一在窗口函数中定义分区的关键词。",
         "correct_answer": "PARTITION BY",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
@@ -459,7 +459,7 @@
         "question_text_before_options": "计算每个员工按入职日期的累计工资总和：SELECT name, hire_date, salary, SUM(salary) OVER (ORDER BY hire_date ",
         "options": ["PARTITION BY department", "DESC" ,"ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW","RANGE BETWEEN 1 PRECEDING AND CURRENT ROW"],
         "question_text_after_options": ") AS total FROM employees;",
-        "question_comment": "ORDER BY 子句顺序在 PARTITION BY 子句之后，排除一个错误答案；在计算累计工资总和时，我们通常需要按入职日期从早到晚（升序）排列来正确累加，而 DESC 是降序，会导致累计结果不符合逻辑；RANGE BETWEEN 1 PRECEDING AND CURRENT ROW 计算当前行和与当前行 hire_date 值相邻的前一行（逻辑范围）的累加值，因此无法实现“从最早日期到当前日期”的累计总和，仅计算相邻行的部分值。",
+        "question_comment": "ORDER BY 子句顺序在 PARTITION BY 子句之后，排除一个错误答案；在计算累计工资总和时，我们通常需要按入职日期从早到晚（升序）排列来正确累加，而 DESC 是降序，会导致累计结果不符合逻辑；RANGE BETWEEN 1 PRECEDING AND CURRENT ROW 计算当前行和与当前行 hire_date 值相邻的前一行（逻辑范围）的累加值，因此无法实现\"从最早日期到当前日期\"的累计总和，仅计算相邻行的部分值。",
         "knowledge_comment": "ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW 这个子句表示从当前行之前的所有行（UNBOUNDED PRECEDING）到当前行（CURRENT ROW），这样就能实现累计求和。这样长的字句需要多使用才能记住。",
         "correct_answer": "ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW",
         "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
@@ -699,7 +699,7 @@
             },
             {
             "question_id": 7,
-            "question_text_before_options": "create_time 是 DATE 类型，将 create_time（格式：2023-09-01）转为“2023年09月01日”：SELECT DATE_FORMAT(create_time, '",
+            "question_text_before_options": "create_time 是 DATE 类型，将 create_time（格式：2023-09-01）转为\"2023年09月01日\"：SELECT DATE_FORMAT(create_time, '",
             "options": ["%Y年%m月%d日", "%y年%m月%d日", "%y年%M月%d日", "%y年%M月%D日"],
             "question_text_after_options": "') FROM table;",
             "question_comment": "%Y指4字年份(2023)；%yY指2字年份(23)；%m指2字月份（09）；%M指月份的英文全称（September）；%d指2字日子（01）；%D指日子跟着序数词（1st）。",
@@ -709,7 +709,7 @@
             },
             {
             "question_id": 7,
-            "question_text_before_options": "create_time 是 DATE 类型，将 create_time（格式：2023-10-01）转为“2023年10月01日”：SELECT FORMAT(create_time, '",
+            "question_text_before_options": "create_time 是 DATE 类型，将 create_time（格式：2023-10-01）转为\"2023年10月01日\"：SELECT FORMAT(create_time, '",
             "options": ["d","D","N","G","C"],
             "question_text_after_options": "', 'zh-cn') FROM table;",
             "question_comment": "自己去这个网站上填入每个选项看看结果吧：https://www.w3schools.com/sql/trysqlserver.asp?filename=trysql_func_sqlserver_format2",
@@ -719,7 +719,7 @@
             },
             {
             "question_id": 7,
-            "question_text_before_options": "create_time 是 DATE 类型，将 create_time（格式：2023-10-01）转为“2023年10月01日”：SELECT TO_CHAR(create_time, '",
+            "question_text_before_options": "create_time 是 DATE 类型，将 create_time（格式：2023-10-01）转为\"2023年10月01日\"：SELECT TO_CHAR(create_time, '",
             "options": ["%Y年%m月%d日", "YYYY\"年\"MM\"月\"DD\"日\"", "YYYY年MM月DD日", "yyyy年MM月dd日"],
             "question_text_after_options": "') FROM table;",
             "question_comment": "Oracle 使用 YYYY（年）、MM（月）、DD（日）格式，用双引号 \"\" 包裹非日期格式字符来避免错误解释。",
@@ -1180,7 +1180,7 @@
             "question_text_before_options": "CREATE ",
             "options": ["SCHEMA", "DATABASE", "DB", "NEW DATABASE"],
             "question_text_after_options": " shop_db;",
-            "question_comment": "在 MySQL 中，SCHEMA 是 DATABASE 的同义词，CREATE SCHEMA 与 CREATE DATABASE 等价。但在 SQL Server 中，SCHEMA 代表数据库中的命名空间，与数据库是不同概念。DB 是 “database” 的缩写，但 SQL 中无 CREATE DB 语法。SQL 中无 NEW DATABASE 语法，属于干扰项。",
+            "question_comment": "在 MySQL 中，SCHEMA 是 DATABASE 的同义词，CREATE SCHEMA 与 CREATE DATABASE 等价。但在 SQL Server 中，SCHEMA 代表数据库中的命名空间，与数据库是不同概念。DB 是 \"database\" 的缩写，但 SQL 中无 CREATE DB 语法。SQL 中无 NEW DATABASE 语法，属于干扰项。",
             "knowledge_comment": "CREATE DATABASE 是创建数据库的标准语句，直接指定数据库名称。",
             "correct_answer": "DATABASE",
             "applicable_databases": ["SQL Server"]
@@ -1190,7 +1190,7 @@
             "question_text_before_options": "创建数据库（SQL 语句已简化）：CREATE ",
             "options": ["SCHEMA", "DATABASE", "DB", "NEW DATABASE"],
             "question_text_after_options": " shop_db;",
-            "question_comment": "在 MySQL 中，SCHEMA 是 DATABASE 的同义词，CREATE SCHEMA 与 CREATE DATABASE 等价。但在 Oracle 中，SCHEMA 代表数据库中的命名空间，与数据库是不同概念。DB 是 “database” 的缩写，但 SQL 中无 CREATE DB 语法。SQL 中无 NEW DATABASE 语法，属于干扰项。",
+            "question_comment": "在 MySQL 中，SCHEMA 是 DATABASE 的同义词，CREATE SCHEMA 与 CREATE DATABASE 等价。但在 Oracle 中，SCHEMA 代表数据库中的命名空间，与数据库是不同概念。DB 是 \"database\" 的缩写，但 SQL 中无 CREATE DB 语法。SQL 中无 NEW DATABASE 语法，属于干扰项。",
             "knowledge_comment": "CREATE DATABASE 是创建数据库的标准语句，直接指定数据库名称。Oracle 的数据库创建需要同时配置实例和物理文件，包括：指定数据文件路径、大小、自动扩展规则；配置日志组和日志文件；设置字符集、国家字符集等全局参数。推荐用 DBCA (Database Configuration Assistant) 创建数据库，因为 Oracle 数据库创建需数十个参数，手动编写 SQL 易遗漏关键配置。而 DBCA 会生成完整的 CREATE DATABASE 脚本（包含所有参数），并执行。所以为了专注于关键词练习，这里的 SQL 语句是简化后的语句，实际不止于此。Oracle 的架构设计虽然初期学习曲线陡峭，但在大型企业级应用中更具优势。",
             "correct_answer": "DATABASE",
             "applicable_databases": ["Oracle"]
@@ -1263,6 +1263,78 @@
             "question_comment": "在 Oracle 中使用 USE 语句会直接报错，因为 Oracle 不支持 USE 语法。数据库一旦创建，所有表直接隶属于该实例，所以无需 USE 语句切换。表的创建需直接指定表空间（默认使用 USERS 表空间）。",
             "knowledge_comment": "Oracle 的流程为：CREATE DATABASE（系统级）→ 直接 CREATE TABLE（无需切换，表隶属于当前实例）。Oracle 的数据库创建需要同时配置实例和物理文件，包括：指定数据文件路径、大小、自动扩展规则；配置日志组和日志文件；设置字符集、国家字符集等全局参数。推荐用 DBCA (Database Configuration Assistant) 创建数据库，因为 Oracle 数据库创建需数十个参数，手动编写 SQL 易遗漏关键配置。而 DBCA 会生成完整的 CREATE DATABASE 脚本（包含所有参数），并执行。所以为了专注于关键词练习，这里的 SQL 语句是简化后的语句，实际不止于此。",
             "correct_answer": "CREATE DATABASE order_db; CREATE TABLE orders (...);",
+            "applicable_databases": ["Oracle"]
+        }
+    ],
+    "11" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "",
+            "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
+            "question_text_after_options": " DATABASE mydb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;",
+            "question_comment": "UPDATE 和 SET 是修改表中数据时的关键词，MODIFY 用于表结构修改，它们都不能用于修改数据库。",
+            "knowledge_comment": "ALTER DATABASE mydb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; 这个命令会将整个数据库的字符集修改为utf8mb4，并且使用utf8mb4_unicode_ci排序规则。你会发现这句话除了 ALTER 关键词外，其他部分都和创建数据库时指定字符集和排序规则的部分一样。一样的语句降低了掌握的成本。",
+            "correct_answer": "ALTER",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 1,
+            "question_text_before_options": "",
+            "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
+            "question_text_after_options": " DATABASE mydb COLLATE Latin1_General_CI_AS;",
+            "question_comment": "UPDATE 和 SET 是修改表中数据时的关键词，MODIFY 在 MySQL 和 Oracle 中可用于表结构修改，但在 SQL Server 2016+ 之后则可用于数据库的重命名，因此此处只可填入 ALTER。",
+            "knowledge_comment": "ALTER DATABASE mydb COLLATE Latin1_General_CI_AS; 这个命令会将整个数据库的字符集和排序规则修改为 Latin1_General_CI_AS。你会发现这句话除了 ALTER 关键词外，其他部分都和创建数据库时指定字符集和排序规则的部分一样。一样的语句降低了掌握的成本。",
+            "correct_answer": "ALTER",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 1,
+            "question_text_before_options": "简化版：",
+            "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
+            "question_text_after_options": " DATABASE CHARACTER SET AL32UTF8;",
+            "question_comment": "UPDATE 和 SET 是修改表中数据时的关键词，MODIFY 用于表结构修改，因此它们都不能用于修改数据库。",
+            "knowledge_comment": "ALTER DATABASE CHARACTER SET AL32UTF8; 这个命令会将整个数据库的字符集修改为 AL32UTF8。你可能发现这句话中并未指明 database_name，没错，在 Oracle 数据库中，ALTER DATABASE 命令确实不需要显式指定数据库名称。这是因为 Oracle 的架构设计与 MySQL、SQL Server 等数据库不同。Oracle 是单实例单数据库的架构，一个 Oracle 实例（由内存结构和后台进程组成）通常只关联一个数据库（由数据文件、控制文件、日志文件组成）。因此，当您通过 SQL*Plus 或其他工具连接到某个 Oracle 实例时，所有 ALTER DATABASE 操作默认针对该实例关联的唯一数据库。",
+            "correct_answer": "ALTER",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "修改会话级排序规则：ALTER SESSION SET ",
+            "options": ["NLS_SORT", "NLS_COMP" , "COLLATION", "NLS_COLLATE"],
+            "question_text_after_options": " = 'BINARY_CI'; ALTER SESSION SET NLS_COMP = 'LINGUISTIC';",
+            "question_comment": "NLS_COMP 定义字符数据的比较规则，此处的 COMP 是 Comparison的简写，它控制 WHERE 条件、JOIN 等场景的行为。鉴于后跟参数为 BINARY_CI，而 NLS_COMP 的可选值只有 BINARY 和 LINGUISTIC，没有 BINARY_CI 或其他类似值，因此本处不可填入 NLS_COMP。此外本句后还有一句设置 NLS_COMP，同时设置 NLS_SORT 和 NLS_COMP 才能确保排序和比较行为一致。COLLATION 不是 SQL 关键词，干扰项。NLS_COLLATE 用于国家字符集排序。",
+            "knowledge_comment": "NLS_SORT 参数（如 BINARY、LINGUISTIC 等）定义字符数据的排序规则，即 ORDER BY、索引排序等场景的行为。但严格来说，Oracle 的排序规则更多依赖字符集和会话参数，无法直接修改数据库级别的排序规则。",
+            "correct_answer": "NLS_SORT",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "重命名 SQL Server 数据库（2016+）：ALTER DATABASE mydb SET SINGLE_USER WITH ROLLBACK IMMEDIATE; ALTER DATABASE mydb ",
+            "options": ["SET", "MODIFY" , "RENAME", "ALTER"],
+            "question_text_after_options": " NAME = newdb; ALTER DATABASE newdb SET MULTI_USER;",
+            "question_comment": "SET 可用于修改数据库选项（如 SET READ_ONLY）。原生 SQL 中无 RENAME DATABASE 语法。重命名表或列需用 sp_rename 存储过程（如 EXEC sp_rename 'old_table', 'new_table'），但该存储过程不能用于重命名数据库。ALTER 已在语句开头，不能重复使用。",
+            "knowledge_comment": "SQL Server 2016+ 支持 ALTER DATABASE ... MODIFY NAME = new_name;",
+            "correct_answer": "MODIFY",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "修改主数据文件自动增长为 100MB，最大 1GB：ALTER DATABASE mydb ",
+            "options": ["MODIFY", "MODIFY FILE" ,"ALTER","ALTER FILE"],
+            "question_text_after_options": " (NAME = mydb_data, FILEGROWTH = 100MB, MAXSIZE = 1GB);",
+            "question_comment": "单独使用 MODIFY 无法指定操作对象为文件，必须搭配 FILE 关键字（即 MODIFY FILE）。ALTER 仅用于开启语句，无法直接修饰文件操作，需随后搭配 MODIFY FILE 使用。修改文件属性需用 MODIFY 而非 ALTER，正确组合为 MODIFY FILE，而非 ALTER FILE。",
+            "knowledge_comment": "SQL Server 中修改数据库文件属性的完整语法为 ALTER DATABASE ... MODIFY FILE (...)，MODIFY FILE 是固定关键字组合，不可拆分。FILEGROWTH 需显式指定单位（MB/GB/%等），如果不指定单位，则默认使用 MB。使用百分比（如 10%）时，增长量会随文件变大而逐渐增加，可能导致后期文件膨胀过快。因此建议对稳定增长的数据库使用固定值（如 100MB）。频繁的小幅度增长（如 1 MB）可能影响性能，建议根据业务负载设置合理的增长量。",
+            "correct_answer": "MODIFY FILE",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "修改主数据文件自动增长为 100MB，最大 1GB：ALTER DATABASE DATAFILE '/path/to/file.dbf' AUTOEXTEND ON ",
+            "options": ["SIZE" ,"STEP", "NEXT", "INCREMENT"],
+            "question_text_after_options": " 100M MAXSIZE 1G;",
+            "question_comment": "SIZE 用于创建文件时指定初始大小（如 SIZE 1G）。STEP 非 Oracle 关键字。INCREMENT 用于表空间默认扩展（如 CREATE TABLESPACE ... INCREMENT BY）。",
+            "knowledge_comment": "Oracle 中指定自动增长步长的关键字为 NEXT。Oracle 中自动增长单位用 M 表示 MB，NEXT 100M 即每次扩展 100MB。如果不指定单位，默认单位是数据库块大小（DB_BLOCK_SIZE），通常默认为 8 KB。频繁的小幅度扩展（如 100 KB）会导致性能开销，建议合理设置扩展量（例如每次扩展 100 MB）。",
+            "correct_answer": "NEXT",
             "applicable_databases": ["Oracle"]
         }
     ]

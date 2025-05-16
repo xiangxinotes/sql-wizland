@@ -31,7 +31,7 @@ function populateIntroduction(categories) {
     const quickStartButtons = document.createElement('div');
     quickStartButtons.classList.add("quick-start-buttons");
     categories.forEach((category)=>{
-        if (category.category_id < 10){
+        if (category.category_id < 12){
             const quickStartButton = document.createElement('div');
             quickStartButton.classList.add("quick-start-button");
             const quickStartH3 = document.createElement('h3');
