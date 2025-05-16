@@ -1145,7 +1145,7 @@
         },
         {
             "question_id": 2,
-            "question_text_before_options": "【要改】DELETE ",
+            "question_text_before_options": "DELETE ",
             "options": ["IN", "FROM", "* FROM", "TABLE"],
             "question_text_after_options": " employees WHERE age > 60;",
             "question_comment": "IN 是用于条件筛选的操作符（如 WHERE age IN (60, 65, 70)），不能替代 FROM 关键字。* 在 SELECT 语句中表示选择所有列（如 SELECT * FROM employees），但 DELETE 语句不需要指定列，因为满足的条件的行里所有列的数据都会被删除，所以直接使用 FROM 即可。TABLE 是用于操作表结构的关键字（如 CREATE TABLE、ALTER TABLE），不能用于 DELETE 语句。",
@@ -1158,9 +1158,39 @@
             "question_text_before_options": "删除没有订单的客户：DELETE customers FROM customers LEFT JOIN orders ON customers.id = orders.customer_id WHERE ",
             "options": ["orders.id","customers.id","orders.customer_id","orders"],
             "question_text_after_options": " IS NULL;",
-            "question_comment": "customers.id是主键，不可能为NULL，此条件永远不成立，导致无法删除任何数据。LEFT JOIN 的条件是 customers.id = orders.customer_id，若右表无匹配记录，orders.customer_id 确实为 NULL，逻辑等价于检查 orders.id。然而，在实际业务中，orders.customer_id 可能允许为 NULL（表示无关联客户），此时会误删有订单但该字段为 NULL 的客户，因此不推荐使用，orders.id是唯一标识，更可靠，建议选择唯一标识字段（如orders.id）进行判断。orders是表名，不能直接用于IS NULL判断，语法错误。",
+            "question_comment": "customers.id是主键，不可能为NULL，此条件永远不成立，导致无法删除任何数据。LEFT JOIN 的条件是 customers.id = orders.customer_id，若右表无匹配记录，orders.customer_id 确实为 NULL，逻辑等价于检查 orders.id。然而，在实际业务中，orders.customer_id 可能允许为 NULL（表示无关联客户），此时会误删有订单但该字段为 NULL 的客户，因此不推荐使用，orders.id 是唯一标识，更可靠，建议选择唯一标识字段（如 orders.id）进行判断。orders 是表名，不能直接用于 IS NULL 判断，语法错误。",
             "knowledge_comment": "题目要求删除没有订单的客户，即customers表中在orders表中无匹配记录的客户。通过LEFT JOIN连接两表后，无订单的客户在右表（orders）的所有字段均为NULL，因此 orders.id 为 NULL 表示无订单。",
             "correct_answer": "orders.id",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "删除没有订单的客户：DELETE c FROM customers c LEFT JOIN orders o ON c.id = o.customer_id WHERE ",
+            "options": ["o.id","c.id","o.customer_id","o"],
+            "question_text_after_options": " IS NULL;",
+            "question_comment": "c.id是主键，不可能为NULL，此条件永远不成立，导致无法删除任何数据。LEFT JOIN 的条件是 c.id = o.customer_id，若右表无匹配记录，o.customer_id 确实为 NULL，逻辑等价于检查 o.id。然而，在实际业务中，o.customer_id 可能允许为 NULL（表示无关联客户），此时会误删有订单但该字段为 NULL 的客户，因此不推荐使用，o.id 是唯一标识，更可靠，建议选择唯一标识字段（如 o.id）进行判断。o 是表名，不能直接用于 IS NULL 判断，语法错误。",
+            "knowledge_comment": "题目要求删除没有订单的客户，即customers表中在orders表中无匹配记录的客户。通过LEFT JOIN连接两表后，无订单的客户在右表（orders）的所有字段均为NULL，因此 o.id 为 NULL 表示无订单。",
+            "correct_answer": "o.id",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "删除没有订单的客户：DELETE FROM customers WHERE id IN (SELECT c.id FROM customers c LEFT JOIN orders o ON c.id = o.customer_id WHERE ",
+            "options": ["o.id","c.id","o.customer_id","o"],
+            "question_text_after_options": " IS NULL);",
+            "question_comment": "c.id是主键，不可能为NULL，此条件永远不成立，导致无法删除任何数据。LEFT JOIN 的条件是 c.id = o.customer_id，若右表无匹配记录，o.customer_id 确实为 NULL，逻辑等价于检查 o.id。然而，在实际业务中，o.customer_id 可能允许为 NULL（表示无关联客户），此时会误删有订单但该字段为 NULL 的客户，因此不推荐使用，o.id 是唯一标识，更可靠，建议选择唯一标识字段（如 o.id）进行判断。o 是表名，不能直接用于 IS NULL 判断，语法错误。",
+            "knowledge_comment": "题目要求删除没有订单的客户，即customers表中在orders表中无匹配记录的客户。Oracle 不允许直接在 DELETE 中使用 JOIN，因此通过子查询间接实现。子查询中通过LEFT JOIN连接两表后，无订单的客户在右表（orders）的所有字段均为NULL，因此 o.id 为 NULL 表示无订单。",
+            "correct_answer": "o.id",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "清空表数据：",
+            "options": ["DROP", "CLEAR", "DELETE", "TRUNCATE"],
+            "question_text_after_options": " TABLE orders;",
+            "question_comment": "DROP TABLE orders; 会删除整张表（包括表结构），而非仅清空数据。SQL 无 CLEAR 关键字，可能混淆为编程语言（如 Python 列表的 clear() 方法）。此处不可填入 DELETE，可以清空表数据的是：DELETE FROM orders; DELETE FROM 会逐行删除数据，可回滚，且不释放表空间（仅标记为可重用）。大数据量时 TRUNCATE 远快于 DELETE。",
+            "knowledge_comment": "TRUNCATE TABLE 用于快速清空表数据，释放存储空间，且操作不可回滚（直接删除数据页，不记录详细日志）。",
+            "correct_answer": "TRUNCATE",
             "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
         }
     ],
