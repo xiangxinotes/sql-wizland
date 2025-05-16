@@ -1163,5 +1163,107 @@
             "correct_answer": "orders.id",
             "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
         }
+    ],
+    "9" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "CREATE ",
+            "options": ["DB", "TABLE", "SPACE", "DATABASE"],
+            "question_text_after_options": " shop_db;",
+            "question_comment": "MySQL 不支持 CREATE DB，DB 不是关键字。CREATE TABLE 用于创建表，与创建数据库无关。MySQL 无 CREATE SPACE 语法，纯属干扰项。",
+            "knowledge_comment": "在 MySQL 中，CREATE DATABASE 是创建数据库的标准语法，明确且唯一。MySQL 早期版本为了兼容其他数据库（如 PostgreSQL、Oracle）对 SCHEMA 的支持，引入了 SCHEMA 这一别名。在 MySQL 中，SCHEMA 等于 DATABASE，两者可互换使用。但在其他数据库中，SCHEMA 是数据库内部的逻辑分组，隶属于某个数据库。",
+            "correct_answer": "DATABASE",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 1,
+            "question_text_before_options": "CREATE ",
+            "options": ["SCHEMA", "DATABASE", "DB", "NEW DATABASE"],
+            "question_text_after_options": " shop_db;",
+            "question_comment": "在 MySQL 中，SCHEMA 是 DATABASE 的同义词，CREATE SCHEMA 与 CREATE DATABASE 等价。但在 SQL Server 中，SCHEMA 代表数据库中的命名空间，与数据库是不同概念。DB 是 “database” 的缩写，但 SQL 中无 CREATE DB 语法。SQL 中无 NEW DATABASE 语法，属于干扰项。",
+            "knowledge_comment": "CREATE DATABASE 是创建数据库的标准语句，直接指定数据库名称。",
+            "correct_answer": "DATABASE",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 1,
+            "question_text_before_options": "创建数据库（SQL 语句已简化）：CREATE ",
+            "options": ["SCHEMA", "DATABASE", "DB", "NEW DATABASE"],
+            "question_text_after_options": " shop_db;",
+            "question_comment": "在 MySQL 中，SCHEMA 是 DATABASE 的同义词，CREATE SCHEMA 与 CREATE DATABASE 等价。但在 Oracle 中，SCHEMA 代表数据库中的命名空间，与数据库是不同概念。DB 是 “database” 的缩写，但 SQL 中无 CREATE DB 语法。SQL 中无 NEW DATABASE 语法，属于干扰项。",
+            "knowledge_comment": "CREATE DATABASE 是创建数据库的标准语句，直接指定数据库名称。Oracle 的数据库创建需要同时配置实例和物理文件，包括：指定数据文件路径、大小、自动扩展规则；配置日志组和日志文件；设置字符集、国家字符集等全局参数。推荐用 DBCA (Database Configuration Assistant) 创建数据库，因为 Oracle 数据库创建需数十个参数，手动编写 SQL 易遗漏关键配置。而 DBCA 会生成完整的 CREATE DATABASE 脚本（包含所有参数），并执行。所以为了专注于关键词练习，这里的 SQL 语句是简化后的语句，实际不止于此。Oracle 的架构设计虽然初期学习曲线陡峭，但在大型企业级应用中更具优势。",
+            "correct_answer": "DATABASE",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "创建 shop_db 数据库，指定排序规则为 Latin1_General_CI_AS（不区分大小写，区分重音）：CREATE DATABASE shop_db ",
+            "options": ["COLLATE", "WITH COLLATION", "ORDER BY", "ORDER COLLATION"],
+            "question_text_after_options": " Latin1_General_CI_AS;",
+            "question_comment": "WITH COLLATION 不是标准语法，应使用 COLLATE。ORDER BY 用于查询结果排序，非建库语法。ORDER COLLATION 则是纯粹的干扰项，无此类语法。",
+            "knowledge_comment": "SQL Server 中字符集是隐式确定的，不可直接设置。SQL Server 的字符集机制：默认使用 Unicode（UTF-16），字符集不可通过 COLLATE 或建库语句显式修改。使用 COLLATE 指定排序规则，控制字符比较的规则，决定如何对字符串进行排序和比较，它定义字符的排序顺序、大小写敏感性、重音敏感性等规则。它能够决定 ORDER BY 的结果顺序。",
+            "correct_answer": "COLLATE",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "创建 shop_db 数据库，指定字符集为 utf8mb4：CREATE DATABASE shop_db ",
+            "options": ["CHARSET = ", "CHARACTER SET", "SET CHARSET", "USING CHARACTER"],
+            "question_text_after_options": " utf8mb4;",
+            "question_comment": "CHARSET = 是 ALTER DATABASE 语句的语法（如 ALTER DATABASE db_name CHARACTER SET = utf8mb4），非建库语法。SET CHARSET & USING CHARACTER 错误，无此类语法。",
+            "knowledge_comment": "标准 SQL 中指定字符集的完整语法是 CHARACTER SET。需要注意的是：MySQL 支持 CHARSET 作为 CHARACTER SET 的简写。字符集是编码规则，决定如何将字符（如 A、中）存储为二进制数据。不同字符集支持的字符范围和编码方式不同。字符集能够决定数据库能存储哪些字符（如中文、 emoji）。不同字符集占用空间不同（如 utf8 vs utf8mb4）。常见字符集有：latin，适合存储纯英文数据。utf8，适合中英文混合场景，但要求无特殊符合，比如 emoji。utf8mb4，覆盖所有 Unicode，包含emoji，擅长处理现代社交应用数据。",
+            "correct_answer": "CHARACTER SET",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "创建 shop_db 数据库，指定字符集为 utf8mb4、排序规则为 utf8mb4_unicode_ci：CREATE DATABASE shop_db CHARSET utf8mb4 ",
+            "options": ["COLLATE", "WITH COLLATION", "ORDER BY", "ORDER COLLATION"],
+            "question_text_after_options": " utf8mb4_unicode_ci;",
+            "question_comment": "WITH COLLATION 不是标准语法，应使用 COLLATE。ORDER BY 用于查询结果排序，非建库语法。ORDER COLLATION 则是纯粹的干扰项，无此类语法。",
+            "knowledge_comment": "标准 SQL 和 MySQL 统一使用 COLLATE 指定排序规则。排序规则 (Collation) 是比较字符的规则，决定如何对字符串进行排序和比较（如 A 和 a 是否相等）。它能够决定 ORDER BY 的结果顺序（如中文按拼音还是笔画排序）；控制比较时是否区分大小写（如 A vs a）；控制比较时是否区分重音（如 é vs e）。常见的排序规则有：utf8_general_ci，适合对 utf8 字符集进行排序，大小写不敏感、重音不敏感。utf8_bin，适合对 utf8 字符集进行排序，大小写敏感、重音敏感。utf8mb4_unicode_ci，适合对 utf8mb4 字符集进行排序，大小写不敏感、重音部分敏感，按 Unicode标准排序。每个字符集有多个对应的排序规则（如 utf8mb4 对应 utf8mb4_unicode_ci、utf8mb4_bin 等）。",
+            "correct_answer": "COLLATE",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "创建 shop_db 数据库，指定字符集为 AL32UTF8（SQL 语句已简化）：CREATE DATABASE shop_db ",
+            "options": ["CHARSET", "CHARACTER SET", "ENCODING", "WITH CHARACTER"],
+            "question_text_after_options": " AL32UTF8;",
+            "question_comment": "CHARSET 是 MySQL 简写语法，Oracle 不支持。ENCODING & WITH CHARACTER 错误，无此类语法。",
+            "knowledge_comment": "标准 SQL 中指定字符集的完整语法是 CHARACTER SET。字符集是编码规则，决定如何将字符（如 A、中）存储为二进制数据。不同字符集支持的字符范围和编码方式不同。字符集能够决定数据库能存储哪些字符（如中文、 emoji）。不同字符集占用空间不同。Oracle 的数据库创建需要同时配置实例和物理文件，包括：指定数据文件路径、大小、自动扩展规则；配置日志组和日志文件；设置字符集、国家字符集等全局参数。推荐用 DBCA (Database Configuration Assistant) 创建数据库，因为 Oracle 数据库创建需数十个参数，手动编写 SQL 易遗漏关键配置。而 DBCA 会生成完整的 CREATE DATABASE 脚本（包含所有参数），并执行。所以为了专注于关键词练习，这里的 SQL 语句是简化后的语句，实际不止于此。",
+            "correct_answer": "CHARACTER SET",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "创建 shop_db 数据库，指定字符集为 AL32UTF8、排序规则为 AL32UTF8_GENERAL_CI（SQL 语句已简化）：CREATE DATABASE shop_db CHARACTER SET AL32UTF8 ",
+            "options": ["NLS_COLLATE", "NLS_SORT", "COLLATE", "SORT_RULE"],
+            "question_text_after_options": " = 'AL32UTF8_GENERAL_CI';",
+            "question_comment": "NLS_COLLATE 用于国家字符集排序。COLLATE 是 MySQL/SQL Server 中指定排序规则的关键字，后不可跟 = ，且 Oracle 不支持 COLLATE 关键字。SORT_RULE 是纯粹的干扰项，不存在此语法。",
+            "knowledge_comment": "Oracle 中通过 NLS_SORT 参数指定排序规则。排序规则 (Collation) 是比较字符的规则，决定如何对字符串进行排序和比较（如 A 和 a 是否相等）。它能够决定 ORDER BY 的结果顺序（如中文按拼音还是笔画排序）；控制比较时是否区分大小写（如 A vs a）；控制比较时是否区分重音（如 é vs e）。Oracle 的数据库创建需要同时配置实例和物理文件，包括：指定数据文件路径、大小、自动扩展规则；配置日志组和日志文件；设置字符集、国家字符集等全局参数。推荐用 DBCA (Database Configuration Assistant) 创建数据库，因为 Oracle 数据库创建需数十个参数，手动编写 SQL 易遗漏关键配置。而 DBCA 会生成完整的 CREATE DATABASE 脚本（包含所有参数），并执行。所以为了专注于关键词练习，这里的 SQL 语句是简化后的语句，实际不止于此。",
+            "correct_answer": "NLS_SORT",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "创建一个用于数据库 order_db，并在其中创建 orders 表：",
+            "options": ["CREATE TABLE order_db.orders (...); CREATE DATABASE order_db;", "CREATE DATABASE order_db; USE order_db; CREATE TABLE orders (...);" ,"CREATE DATABASE order_db; CREATE TABLE orders (...);","USE order_db; CREATE DATABASE order_db; CREATE TABLE orders (...);"],
+            "question_text_after_options": "",
+            "question_comment": "必须先创建数据库（CREATE DATABASE），再使用 USE 切换到该数据库，最后创建表。按照此流程的写法才是正解。",
+            "knowledge_comment": "必须先创建数据库（CREATE DATABASE），再使用 USE 切换到该数据库，最后创建表。USE 关键词切用于换上下文，保证在正确的数据库中创建表。",
+            "correct_answer": "CREATE DATABASE order_db; USE order_db; CREATE TABLE orders (...);",
+            "applicable_databases": ["MySQL", "SQL Server"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "创建一个用于数据库 order_db，并在其中创建 orders 表（SQL 语句已简化）：",
+            "options": ["CREATE TABLE order_db.orders (...); CREATE DATABASE order_db;", "CREATE DATABASE order_db; USE order_db; CREATE TABLE orders (...);" ,"CREATE DATABASE order_db; CREATE TABLE orders (...);","USE order_db; CREATE DATABASE order_db; CREATE TABLE orders (...);"],
+            "question_text_after_options": "",
+            "question_comment": "在 Oracle 中使用 USE 语句会直接报错，因为 Oracle 不支持 USE 语法。数据库一旦创建，所有表直接隶属于该实例，所以无需 USE 语句切换。表的创建需直接指定表空间（默认使用 USERS 表空间）。",
+            "knowledge_comment": "Oracle 的流程为：CREATE DATABASE（系统级）→ 直接 CREATE TABLE（无需切换，表隶属于当前实例）。Oracle 的数据库创建需要同时配置实例和物理文件，包括：指定数据文件路径、大小、自动扩展规则；配置日志组和日志文件；设置字符集、国家字符集等全局参数。推荐用 DBCA (Database Configuration Assistant) 创建数据库，因为 Oracle 数据库创建需数十个参数，手动编写 SQL 易遗漏关键配置。而 DBCA 会生成完整的 CREATE DATABASE 脚本（包含所有参数），并执行。所以为了专注于关键词练习，这里的 SQL 语句是简化后的语句，实际不止于此。",
+            "correct_answer": "CREATE DATABASE order_db; CREATE TABLE orders (...);",
+            "applicable_databases": ["Oracle"]
+        }
     ]
 }
