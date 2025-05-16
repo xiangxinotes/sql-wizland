@@ -1145,7 +1145,7 @@
         },
         {
             "question_id": 2,
-            "question_text_before_options": "DELETE ",
+            "question_text_before_options": "【要改】DELETE ",
             "options": ["IN", "FROM", "* FROM", "TABLE"],
             "question_text_after_options": " employees WHERE age > 60;",
             "question_comment": "IN 是用于条件筛选的操作符（如 WHERE age IN (60, 65, 70)），不能替代 FROM 关键字。* 在 SELECT 语句中表示选择所有列（如 SELECT * FROM employees），但 DELETE 语句不需要指定列，因为满足的条件的行里所有列的数据都会被删除，所以直接使用 FROM 即可。TABLE 是用于操作表结构的关键字（如 CREATE TABLE、ALTER TABLE），不能用于 DELETE 语句。",
@@ -1264,6 +1264,18 @@
             "knowledge_comment": "Oracle 的流程为：CREATE DATABASE（系统级）→ 直接 CREATE TABLE（无需切换，表隶属于当前实例）。Oracle 的数据库创建需要同时配置实例和物理文件，包括：指定数据文件路径、大小、自动扩展规则；配置日志组和日志文件；设置字符集、国家字符集等全局参数。推荐用 DBCA (Database Configuration Assistant) 创建数据库，因为 Oracle 数据库创建需数十个参数，手动编写 SQL 易遗漏关键配置。而 DBCA 会生成完整的 CREATE DATABASE 脚本（包含所有参数），并执行。所以为了专注于关键词练习，这里的 SQL 语句是简化后的语句，实际不止于此。",
             "correct_answer": "CREATE DATABASE order_db; CREATE TABLE orders (...);",
             "applicable_databases": ["Oracle"]
+        }
+    ],
+    "10": [
+        {
+            "question_id": 1,
+            "question_text_before_options": "",
+            "options": ["DROP", "DELETE", "REMOVE", "DESTROY"],
+            "question_text_after_options": " DATABASE testDB;",
+            "question_comment": "DELETE FROM 用于删除表中的数据行，而非整个数据库或表结构。REMOVE 在标准 SQL 中完全不存在，既不用于删除数据库，也不用于其他操作。在 MySQL 中，REMOVE 唯一可能出现的场景是作为 DROP 的别名出现在 ALTER TABLE 语句的非标准语法中（极少数情况），例如：ALTER TABLE table_name DROP|REMOVE COLUMN column_name; 用于移除列。此处 REMOVE 是 DROP 的非标准别名（仅用于列的删除），但绝不能用于删除数据库。注意：这种用法并非 MySQL 官方推荐，且仅限 ALTER TABLE 场景，与数据库删除无关。标准 SQL 中不存在 DESTROY 关键字，此为非 SQL 术语，可能与操作系统层面的文件删除混淆（如删除数据库文件），但不属于 SQL 语法范畴。",
+            "knowledge_comment": "DROP DATABASE 是删除数据库的标准语法，用于永久删除整个数据库，包括数据库中的所有表、数据、索引、视图等对象。语法：DROP DATABASE [IF EXISTS] database_name; IF EXISTS 可选，用于避免删除不存在的数据库时抛出错误。当需要彻底移除不再使用的数据库时使用，操作不可逆，需谨慎执行。",
+            "correct_answer": "DROP",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
         }
     ],
     "11" : [
