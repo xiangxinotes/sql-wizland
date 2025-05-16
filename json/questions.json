@@ -1194,7 +1194,7 @@
             "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
         }
     ],
-    "9" : [
+    "12" : [
         {
             "question_id": 1,
             "question_text_before_options": "CREATE ",
@@ -1296,7 +1296,7 @@
             "applicable_databases": ["Oracle"]
         }
     ],
-    "10": [
+    "13": [
         {
             "question_id": 1,
             "question_text_before_options": "",
@@ -1308,7 +1308,7 @@
             "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
         }
     ],
-    "11" : [
+    "14" : [
         {
             "question_id": 1,
             "question_text_before_options": "",
