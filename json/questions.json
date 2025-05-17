@@ -1306,6 +1306,298 @@
             "applicable_databases": ["Oracle"]
         }
     ],
+    "10" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "修改 employees 表：",
+            "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
+            "question_text_after_options": " TABLE products ...",
+            "question_comment": "UPDATE 和 SET 用于修改表中的数据（如 UPDATE products SET price = 9.99），非修改表结构。SET 还可用于设置变量或配置（如 SET SQL_SAFE_UPDATES = 0），非表结构操作。MODIFY 是 ALTER TABLE 中的子关键字，用于修改列属性（如 ALTER TABLE products MODIFY price INT），不能单独作为表操作关键字。",
+            "knowledge_comment": "修改表结构的关键字是 ALTER TABLE，例如：ALTER TABLE products ADD COLUMN price DECIMAL(10,2); 关于 ALTER TABLE 的更多官方解释请参考此文档：https://dev.mysql.com/doc/refman/8.0/en/alter-table.html",
+            "correct_answer": "ALTER",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 1,
+            "question_text_before_options": "修改 employees 表：",
+            "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
+            "question_text_after_options": " TABLE products ...",
+            "question_comment": "UPDATE 和 SET 用于修改表中的数据（如 UPDATE products SET price = 9.99），非修改表结构。SET 还可SET 用于设置 SQL*Plus 参数（如 SET SERVEROUTPUT ON），非表结构操作。MODIFY 是 ALTER TABLE 中的子关键字，用于修改列属性（如 ALTER TABLE products MODIFY price NUMBER(12,2)），不能单独作为表操作关键字。",
+            "knowledge_comment": "修改表结构的关键字是 ALTER TABLE，例如：ALTER TABLE products ADD price NUMBER(10,2);",
+            "correct_answer": "ALTER",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 1,
+            "question_text_before_options": "修改 employees 表：",
+            "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
+            "question_text_after_options": " TABLE products ...",
+            "question_comment": "UPDATE 和 SET 用于修改表中的数据（如 UPDATE products SET price = 9.99），非修改表结构。SET 还可用于设置变量或配置（如 SET SQL_SAFE_UPDATES = 0），非表结构操作。MODIFY 在 MySQL 和 Oracle 中可用于表结构修改，但在 SQL Server 2016+ 之后则可配合 NAME（即MODIFY NAME = new_db_name）用于数据库的重命名，不可用于修改表结构。",
+            "knowledge_comment": "修改表结构的关键字是 ALTER TABLE，例如：ALTER TABLE products ADD price DECIMAL(10,2);",
+            "correct_answer": "ALTER",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "ALTER TABLE products ",
+            "options": ["APPEND", "ADD COLUMN" , "INSERT", "INSERT COLUMN"],
+            "question_text_after_options": " price DECIMAL(10,2);",
+            "question_comment": "APPEND 并非 SQL 关键字。INSERT 用于插入数据（行），而非添加列。正确的语法是 INSERT INTO ... VALUES(...);",
+            "knowledge_comment": "添加列的标准语法为： ALTER TABLE ... ADD [COLUMN] ...; ADD COLUMN 被用于添加列，其中 COLUMN 可以省略，此处可以填入 ADD COLUMN 或 ADD。",
+            "correct_answer": "ADD COLUMN",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "ALTER TABLE products ",
+            "options": ["ADD", "ADD COLUMN" , "INSERT", "INSERT COLUMN"],
+            "question_text_after_options": " price DECIMAL(10,2);",
+            "question_comment": "在 MySQL 中 ADD COLUMN 也是正确答案，但其不适用于 SQL Server 和 Oracle。INSERT 用于插入数据（行），而非添加列。正确的语法是 INSERT INTO ... VALUES(...);",
+            "knowledge_comment": "添加列的标准语法为： ALTER TABLE ... ADD ...; 注意 ADD 后无需 COLUMN。",
+            "correct_answer": "ADD",
+            "applicable_databases": ["SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "不能被用来修改列类型的是：ALTER TABLE employees ",
+            "options": ["MODIFY", "ALTER COLUMN", "MODIFY COLUMN"],
+            "question_text_after_options": " salary DECIMAL(12,2);",
+            "question_comment": "ALTER COLUMN 在 SQL Server 中被用来修改列类型，但它不适用于 MySQL。题目问的正是不能被用来修改列类型的选项，因此选择 ALTER COLUMN。",
+            "knowledge_comment": "修改列的标准语法为： ALTER TABLE ... MODIFY [COLUMN] ...; 其中 COLUMN 可省略，但建议保留以增强可读性。",
+            "correct_answer": "ALTER COLUMN",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "ALTER TABLE employees ",
+            "options": ["MODIFY", "ALTER COLUMN", "MODIFY COLUMN"],
+            "question_text_after_options": " salary NUMBER(12,2);",
+            "question_comment": "ALTER COLUMN 在 SQL Server 中被用来修改列类型，但它不适用于 Oracle。 MySQL 中 MODIFY COLUMN 也可用来修改列类型，但它不适用于 Oracle。",
+            "knowledge_comment": "修改列的标准语法为： ALTER TABLE ... MODIFY ...; 注意 MODIFY 后无需 COLUMN。",
+            "correct_answer": "MODIFY",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "ALTER TABLE employees ",
+            "options": ["MODIFY", "ALTER COLUMN", "MODIFY COLUMN"],
+            "question_text_after_options": " salary DECIMAL(12,2);",
+            "question_comment": "在 MySQL 和 Oracle 中修改列的语法是： ALTER TABLE ... MODIFY ...; 在 MySQL 中 MODIFY COLUMN 也可用来修改列类型，但这两种写法都不适用于 SQL Server。",
+            "knowledge_comment": "ALTER COLUMN 在 SQL Server 中被用来修改列类型。标准语法是：ALTER TABLE ... ALTER COLUMN ...; 注意 ALTER 后必须加 COLUMN。更多内容可参考：https://learn.microsoft.com/en-us/sql/t-sql/statements/alter-table-transact-sql?view=sql-server-ver16",
+            "correct_answer": "ALTER COLUMN",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "将列 \"phone\" 重命名为 \"mobile\"，并修改数据类型为 VARCHAR(20)：ALTER TABLE customers ",
+            "options": ["RENAME COLUMN", "MODIFY COLUMN", "CHANGE COLUMN", "ALTER COLUMN"],
+            "question_text_after_options": " phone mobile VARCHAR(20);",
+            "question_comment": "RENAME COLUMN 是 Oracle 语法，MySQL 不支持。且 RENAME COLUMN 需搭配 TO 关键字使用，语法是：RENAME COLUMN old_column_name TO new_column_name; MODIFY COLUMN 仅用于修改列属性（如数据类型），ALTER COLUMN 在 SQL Server 中被用来修改列类型，两者都不可用于重命名。",
+            "knowledge_comment": "MySQL 使用 CHANGE COLUMN 语法，无需 TO 关键字。新旧列名直接以空格分隔。",
+            "correct_answer": "CHANGE COLUMN",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "将列 \"phone\" 重命名为 \"mobile\"：ALTER TABLE customers ",
+            "options": ["MODIFY COLUMN", "RENAME COLUMN", "ALTER COLUMN", "CHANGE COLUMN"],
+            "question_text_after_options": " phone TO mobile;",
+            "question_comment": "修改列的标准语法为： ALTER TABLE ... MODIFY ...; 注意 MODIFY 后无 COLUMN。MODIFY COLUMN 在 MySQL 中仅用于修改列属性（如数据类型），ALTER COLUMN 在 SQL Server 中被用来修改列类型，两者都不可用于重命名。MySQL 使用 CHANGE COLUMN 语法来重命名列，但无需 TO 关键字。新旧列名直接以空格分隔。",
+            "knowledge_comment": "RENAME COLUMN 是 Oracle 语法，MySQL 不支持。且 RENAME COLUMN 需搭配 TO 关键字使用，语法是：RENAME COLUMN old_column_name TO new_column_name;",
+            "correct_answer": "RENAME COLUMN",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "将列 \"phone\" 重命名为 \"mobile\"：",
+            "options": ["ALTER TABLE customers RENAME COLUMN phone TO mobile", "ALTER TABLE customers CHANGE COLUMN phone mobile VARCHAR(20)", "EXEC sp_rename 'employees.phone', 'mobile'", "EXEC sp_rename 'employees.phone', 'mobile', 'COLUMN'"],
+            "question_text_after_options": ";",
+            "question_comment": "选项1是 Oracle 重命名列的语句。选项2是 MySQL 重命名列的语句。选项3是 SQL Server 中重命名表的语句，与题目要求不符。更多内容可参考：https://learn.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-rename-transact-sql?view=sql-server-ver16",
+            "knowledge_comment": "重命名列的语法是：EXEC sp_rename '表名.旧列名', '新列名', 'COLUMN';",
+            "correct_answer": "EXEC sp_rename 'employees.phone', 'mobile', 'COLUMN'",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 5,
+            "question_text_before_options": "为现有表添加主键约束：ALTER TABLE users ",
+            "options": ["ADD", "SET" ,"MODIFY","CREATE"],
+            "question_text_after_options": " PRIMARY KEY (id);",
+            "question_comment": "SET 用于修改配置或变量，非添加约束。MODIFY 用于修改列属性，非添加约束。CREATE关键字通常用于创建新的数据库对象，如表、索引、视图等，而不是在ALTER TABLE语句中修改现有表的结构。",
+            "knowledge_comment": "在 MySQL 中，标准语法为 ALTER TABLE table_name ADD PRIMARY KEY column_name; 如果需要显式命名约束：ALTER TABLE users ADD CONSTRAINT pk_users_id PRIMARY KEY (id); 请注意，显式命名主键约束虽支持但无效，MySQL 中固定为 PRIMARY，你的命名会被忽略。",
+            "correct_answer": "ADD",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 5,
+            "question_text_before_options": "为现有表添加主键约束：ALTER TABLE users ",
+            "options": ["ADD", "SET" ,"ALTER", "CREATE"],
+            "question_text_after_options": " CONSTRAINT pk_users_id PRIMARY KEY (id);",
+            "question_comment": "SET 用于修改配置或变量，非添加约束。ALTER 可用于修改表和数据库，但不能用来添加约束。CREATE 关键字通常用于创建新的数据库对象，如表、索引、视图等，而不是在ALTER TABLE语句中修改现有表的结构。",
+            "knowledge_comment": "省略约束名的标准语法为 ALTER TABLE table_name ADD PRIMARY KEY column_name; 显式命名约束的标准语法为 ALTER TABLE table_name ADD CONSTRAINT constraint_name PRIMARY KEY (column_name); 虽然省略约束名的写法也完全支持，但仍旧建议使用显式命名，便于后续管理（如删除约束、调试错误）。",
+            "correct_answer": "ADD",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 5,
+            "question_text_before_options": "为现有表添加主键约束：ALTER TABLE users ",
+            "options": ["ADD", "SET" ,"MODIFY", "CREATE"],
+            "question_text_after_options": " CONSTRAINT pk_users_id PRIMARY KEY (id);",
+            "question_comment": "SET 用于修改配置或变量，非添加约束。MODIFY 用于修改列属性，非添加约束。CREATE关键字通常用于创建新的数据库对象，如表、索引、视图等，而不是在ALTER TABLE语句中修改现有表的结构。",
+            "knowledge_comment": "省略约束名的标准语法为 ALTER TABLE table_name ADD PRIMARY KEY column_name; 显式命名约束的标准语法为 ALTER TABLE table_name ADD CONSTRAINT constraint_name PRIMARY KEY (column_name); 虽然省略约束名的写法也完全支持，但仍旧建议使用显式命名，便于后续管理（如删除约束、调试错误）。",
+            "correct_answer": "ADD",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "为现有表添加外键约束：ALTER TABLE orders ",
+            "options": ["ADD", "LINK", "CONSTRAINT", "ADD CONSTRAINT"],
+            "question_text_after_options": " FOREIGN KEY (customer_id) REFERENCES customers(id);",
+            "question_comment": " LINK 不是 SQL 关键字。CONSTRAINT 可用于命名约束，但如需向现有表添加命名的外键约束，正确语法为：ALTER TABLE table_name ADD CONSTRAINT constraint_name FOREIGN KEY (column_name) REFERENCES source_table_name(primary_key_column_name); 但此处无显式命名，因此无需使用 CONSTRAIN。CONSTRAINT 和 ADD CONSTRAINT 错误。",
+            "knowledge_comment": "为现有表添加外键约束有2种写法，一种为省略约束名的语法： ALTER TABLE ... ADD FOREIGN KEY (column_name) REFERENCES source_table_name(primary_key_column_name)。另一种为显式命名约束，语法为： ALTER TABLE table_name ADD CONSTRAINT constraint_name FOREIGN KEY (column_name) REFERENCES source_table_name(primary_key_column_name); 本题考查省略约束名的语法。",
+            "correct_answer": "ADD",
+            "applicable_databases": ["MySQL", "SQL Server"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "为现有表添加外键约束：ALTER TABLE orders ",
+            "options": ["ADD", "LINK", "CONSTRAINT", "ADD CONSTRAINT"],
+            "question_text_after_options": " fk_orders_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id);",
+            "question_comment": " 在 MySQL 和 SQL Server 中，为现有表添加外键约束有2种写法，一种为省略约束名的语法： ALTER TABLE ... ADD FOREIGN KEY (column_name) REFERENCES source_table_name(primary_key_column_name)。另一种为显式命名约束，语法为： ALTER TABLE table_name ADD CONSTRAINT constraint_name FOREIGN KEY (column_name) REFERENCES source_table_name(primary_key_column_name); 但 Oracle 则要求必须显式命名外键约束，否则报错，ADD 不可选。主键和唯一约束（PRIMARY KEY/UNIQUE）在 Oracle 中可隐式命名，而其他约束（如外键、检查约束）需显式命名。LINK 非 SQL 关键字。CONSTRAINT 可用于命名约束，但如需向现有表添加命名的外键约束，必须在前加上 ADD 才可以。",
+            "knowledge_comment": "为现有表添加外键约束的标准写法为：ALTER TABLE table_name ADD CONSTRAINT constraint_name FOREIGN KEY (column_name) REFERENCES source_table_name(primary_key_column_name);",
+            "correct_answer": "ADD CONSTRAINT",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "删除外键约束：ALTER TABLE orders ",
+            "options": ["DROP", "DROP FOREIGN KEY", "DROP CONSTRAINT"],
+            "question_text_after_options": " fk_orders_customer_id;",
+            "question_comment": "单独的 DROP 关键字无法删除外键约束，需配合 FOREIGN KEY 使用。DROP CONSTRAINT 是 SQL Server/Oracle/PostgreSQL 中删除外键约束的语法，在 MySQL 中只能用于删除检查约束，而非外键约束。",
+            "knowledge_comment": "MySQL 中删除外键约束的标准语法为：ALTER TABLE table_name DROP FOREIGN KEY foreign_key_constraint_name; 若创建表时显式命名，直接使用即可。如果隐式命名，可以使用 SHOW CREATE TABLE table_name; 来查询约束名。",
+            "correct_answer": "DROP FOREIGN KEY",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "删除外键约束：ALTER TABLE orders ",
+            "options": ["DROP", "DROP FOREIGN KEY", "DROP CONSTRAINT"],
+            "question_text_after_options": " fk_orders_customer_id;",
+            "question_comment": "单独的 DROP 关键字无法删除外键约束，需配合 CONSTRAINT 使用。DROP FOREIGN KEY 是 MySQL 中删除外键约束的语法。",
+            "knowledge_comment": "删除约束的标准语法为：ALTER TABLE table_name DROP CONSTRAINT foreign_key_constraint_name; 可用于删除任何约束。若创建表时显式命名，直接使用即可。如果隐式命名，可以使用 SELECT name FROM sys.foreign_keys WHERE parent_object_id = OBJECT_ID('table_name'); 来查询约束名。",
+            "correct_answer": "DROP CONSTRAINT",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 7,
+            "question_text_before_options": "删除外键约束：ALTER TABLE orders ",
+            "options": ["DROP", "DROP FOREIGN KEY", "DROP CONSTRAINT"],
+            "question_text_after_options": " fk_orders_customer_id;",
+            "question_comment": "单独的 DROP 关键字无法删除外键约束，需配合 CONSTRAINT 使用。DROP FOREIGN KEY 是 MySQL 中删除外键约束的语法。",
+            "knowledge_comment": "删除约束的标准语法为：ALTER TABLE table_name DROP CONSTRAINT foreign_key_constraint_name; 可用于删除任何约束。若创建表时显式命名，直接使用即可。如果忘记命名，可以使用 SELECT constraint_name FROM user_constraints WHERE table_name = '表名' AND constraint_type = 'R'; 来查询约束名。Oracle 外键约束类型标记为 R（Referential Integrity）。",
+            "correct_answer": "DROP CONSTRAINT",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 8,
+            "question_text_before_options": "删除列：ALTER TABLE customers ",
+            "options": ["DROP", "REMOVE", "DELETE", "TRUNCATE"],
+            "question_text_after_options": " phone;",
+            "question_comment": "REMOVE 不是 SQL 关键字（部分数据库有 REMOVE CONSTRAINT，但非删除列）。DELETE 和 TRUNCATE 用于清空表数据（行），而非删除列。",
+            "knowledge_comment": "删除列的标准语法为 ALTER TABLE table_name DROP [COLUMN] column_name; 其中 COLUMN 可以省略。",
+            "correct_answer": "DROP",
+            "applicable_databases": ["MySQL", "Oracle"]
+        },
+        {
+            "question_id": 8,
+            "question_text_before_options": "删除列：ALTER TABLE customers ",
+            "options": ["DROP", "REMOVE", "DELETE", "TRUNCATE"],
+            "question_text_after_options": " COLUMN phone;",
+            "question_comment": "REMOVE 不是 SQL 关键字（部分数据库有 REMOVE CONSTRAINT，但非删除列）。DELETE 和 TRUNCATE 用于清空表数据（行），而非删除列。",
+            "knowledge_comment": "删除列的标准语法为 ALTER TABLE table_name DROP COLUMN column_name; 其中 COLUMN 不可以省略。更多内容可参考：https://learn.microsoft.com/en-us/sql/t-sql/statements/alter-table-transact-sql?view=sql-server-ver16",
+            "correct_answer": "DROP",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 9,
+            "question_text_before_options": "删除多个列：ALTER TABLE employees ",
+            "options": ["DROP COLUMN phone_number, DROP COLUMN address, DROP COLUMN birth_date", "DROP COLUMN phone_number, address, birth_date" ,"DROP COLUMN (phone_number, address, birth_date)","DROP (phone_number, address, birth_date)"],
+            "question_text_after_options": ";",
+            "question_comment": "DROP COLUMN column_name_1, column_name_2, column_name_3 是 SQL Server 删除多列的语法，用逗号分隔列名，无需重复 DROP COLUMN，特点是简洁。DROP COLUMN (column_name_1, column_name_2, column_name_3) 并不适用于任何数据库。DROP (column_name_1, column_name_2, column_name_3) 是 Oracle 删除多列的语法，列名用括号包裹，逗号分隔。特点是格式统一，支持级联约束删除。",
+            "knowledge_comment": "在 MySQL 和 PostgreSQL 中，每个列单独写 DROP COLUMN，用逗号分隔。特点是：冗余但明确。删除列会永久删除该列的所有数据，操作前务必备份。若列有主键、外键、默认值等约束，需先删除约束。",
+            "correct_answer": "DROP COLUMN phone_number, DROP COLUMN address, DROP COLUMN birth_date",
+            "applicable_databases": ["MySQL", "PostgreSQL"]
+        },
+        {
+            "question_id": 9,
+            "question_text_before_options": "删除多个列：ALTER TABLE employees ",
+            "options": ["DROP COLUMN phone_number, DROP COLUMN address, DROP COLUMN birth_date", "DROP COLUMN phone_number, address, birth_date" ,"DROP COLUMN (phone_number, address, birth_date)","DROP (phone_number, address, birth_date)"],
+            "question_text_after_options": ";",
+            "question_comment": "在 MySQL 和 PostgreSQL 中，每个列单独写 DROP COLUMN，用逗号分隔。特点是：冗余但明确。DROP COLUMN (column_name_1, column_name_2, column_name_3) 并不适用于任何数据库。DROP (column_name_1, column_name_2, column_name_3) 是 Oracle 删除多列的语法，列名用括号包裹，逗号分隔。特点是格式统一，支持级联约束删除。",
+            "knowledge_comment": "DROP COLUMN column_name_1, column_name_2, column_name_3 是 SQL Server 删除多列的语法，用逗号分隔列名，无需重复 DROP COLUMN，特点是简洁。删除列会永久删除该列的所有数据，操作前务必备份。若列有主键、外键、默认值等约束，需先删除约束。",
+            "correct_answer": "DROP COLUMN phone_number, address, birth_date",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 9,
+            "question_text_before_options": "删除多个列：ALTER TABLE employees ",
+            "options": ["DROP COLUMN phone_number, DROP COLUMN address, DROP COLUMN birth_date", "DROP COLUMN phone_number, address, birth_date" ,"DROP COLUMN (phone_number, address, birth_date)","DROP (phone_number, address, birth_date)"],
+            "question_text_after_options": ";",
+            "question_comment": "在 MySQL 和 PostgreSQL 中，每个列单独写 DROP COLUMN，用逗号分隔。特点是：冗余但明确。DROP COLUMN column_name_1, column_name_2, column_name_3 是 SQL Server 删除多列的语法，用逗号分隔列名，无需重复 DROP COLUMN，特点是简洁。DROP COLUMN (column_name_1, column_name_2, column_name_3) 并不适用于任何数据库。",
+            "knowledge_comment": "DROP (column_name_1, column_name_2, column_name_3) 是 Oracle 删除多列的语法，列名用括号包裹，逗号分隔。特点是格式统一，支持级联约束删除。级联约束删除的语法是：DROP (column_name_1, column_name_2, column_name_3) CASCADE CONSTRAINTS; 删除列会永久删除该列的所有数据，操作前务必备份。",
+            "correct_answer": "DROP (phone_number, address, birth_date)",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 10,
+            "question_text_before_options": "重命名表名：",
+            "options": ["RENAME", "ALTER", "UPDATE", "SET"],
+            "question_text_after_options": " TABLE old_table_name TO new_table_name;",
+            "question_comment": "使用 ALTER TABLE 来重命名表名的语法为 ALTER TABLE old_table_name RENAME TO new_table_name; 根据题干可看出缺少 RENAME。UPDATE 和 SET 用于修改表中的数据（如 UPDATE products SET price = 9.99），非修改表结构。",
+            "knowledge_comment": "有2种方法来重命名一张表。方法1使用 RENAME TABLE 语句，语法：RENAME TABLE old_table_name TO new_table_name; 方法2使用 ALTER TABLE 语句，语法：ALTER TABLE old_table_name RENAME TO new_table_name;",
+            "correct_answer": "RENAME",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 10,
+            "question_text_before_options": "不可用于重命名表名的是：",
+            "options": ["EXEC sp_rename 'employees', 'staff'", "EXEC sp_rename 'employees', 'staff', 'COLUMN'" ,"EXEC sp_rename 'employees', 'staff', 'OBJECT'", "EXEC sp_rename @objname = 'dbo.employees', @newname = 'staff', @objtype = 'OBJECT';"],
+            "question_text_after_options": ";",
+            "question_comment": "SQL Server 重命名表名的方式和 MySQL、Oracle 差别很大，一定要注意区分。且它的写法也很多样。选项中的 EXEC sp_rename 'employees', 'staff', 'COLUMN' 是用来重命名列的，'COLUMN' 指明了这一点，因此错误。",
+            "knowledge_comment": "SQL Server 重命名表名的方式多样，请参考此文档：https://learn.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-rename-transact-sql?view=sql-server-ver16. SQL Server 不支持一次性重命名多个表，必须逐表调用 sp_rename 存储过程。",
+            "correct_answer": "EXEC sp_rename 'employees', 'staff', 'COLUMN'",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 10,
+            "question_text_before_options": "重命名表名：ALTER",
+            "options": ["RENAME", "ALTER", "UPDATE", "SET"],
+            "question_text_after_options": " TABLE employees RENAME TO staff;",
+            "question_comment": "MySQL 可以使用 RENAME TABLE 语句来重命名一张或多张表，语法分别为：RENAME TABLE old_table_name TO new_table_name; RENAME TABLE old_table1 TO new_table1, old_table2 TO new_table2; Oracle 不适用。UPDATE 和 SET 用于修改表中的数据（如 UPDATE products SET price = 9.99），非修改表结构。",
+            "knowledge_comment": "重命名一张表的语法为：ALTER TABLE old_table_name RENAME TO new_table_name; Oracle 不支持一次性重命名多个表，必须逐表执行 ALTER TABLE ... RENAME TO ...;",
+            "correct_answer": "ALTER",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 11,
+            "question_text_before_options": "重命名多张表的表名：",
+            "options": ["RENAME", "ALTER", "UPDATE", "SET"],
+            "question_text_after_options": " TABLE old_table1 TO new_table1, old_table2 TO new_table2;",
+            "question_comment": "ALTER TABLE 用于修改表，但如需使用 ALTER TABLE 重命名表，正确的语法是：ALTER TABLE old_table_name RENAME TO new_table_name; ALTER TABLE 设计上就是针对单个表的修改，RENAME TABLE 则是专门用于重命名一个或多个表的语句。UPDATE 和 SET 用于修改表中的数据（如 UPDATE products SET price = 9.99），非修改表结构。",
+            "knowledge_comment": "重命名多张表的方式只有一种，使用 RENAME TABLE。语法为 RENAME TABLE old_table1 TO new_table1, old_table2 TO new_table2;",
+            "correct_answer": "RENAME",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 12,
+            "question_text_before_options": "以逻辑方式删除列：ALTER TABLE employees ",
+            "options": ["DROP", "DELETE", "SET USED", "SET UNUSED"],
+            "question_text_after_options": " COLUMN phone;",
+            "question_comment": "DROP COLUMN 会直接删除列，可能导致长时间锁表，不适用于大表。DELETE 用于删除数据（行），非列结构。在物理删除前，可使用 ALTER TABLE table_name SET USED COLUMN column_name; 来恢复未使用的列。",
+            "knowledge_comment": "Oracle 中标记列未使用的标准语法为 ALTER TABLE ... SET UNUSED COLUMN ...; 该操作仅修改元数据，不立即删除物理数据。从大表中删除列的过程可能非常耗时且耗费资源。以逻辑方式删除列则可以很高效的执行列删除任务。其核心优势在于减少锁表时间，适合对可用性要求高的生产环境。ALTER TABLE table_name DROP UNUSED COLUMNS; 后才释放磁盘空间，标记阶段不释放。SELECT * FROM user_unused_col_tabs WHERE table_name = 'table_name'; 可查询未使用列。在物理删除前，可使用 ALTER TABLE table_name SET USED COLUMN column_name; 恢复未使用的列。",
+            "correct_answer": "SET UNUSED",
+            "applicable_databases": ["Oracle"]
+        }
+    ],
     "12" : [
         {
             "question_id": 1,
@@ -1426,7 +1718,7 @@
             "question_text_before_options": "",
             "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
             "question_text_after_options": " DATABASE mydb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;",
-            "question_comment": "UPDATE 和 SET 是修改表中数据时的关键词，MODIFY 用于表结构修改，它们都不能用于修改数据库。",
+            "question_comment": "UPDATE 和 SET 是修改表中数据时的关键词，MODIFY 用于表结构修改，因此它们都不能用于修改数据库。",
             "knowledge_comment": "ALTER DATABASE mydb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; 这个命令会将整个数据库的字符集修改为utf8mb4，并且使用utf8mb4_unicode_ci排序规则。你会发现这句话除了 ALTER 关键词外，其他部分都和创建数据库时指定字符集和排序规则的部分一样。一样的语句降低了掌握的成本。",
             "correct_answer": "ALTER",
             "applicable_databases": ["MySQL"]
@@ -1436,7 +1728,7 @@
             "question_text_before_options": "",
             "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
             "question_text_after_options": " DATABASE mydb COLLATE Latin1_General_CI_AS;",
-            "question_comment": "UPDATE 和 SET 是修改表中数据时的关键词，MODIFY 在 MySQL 和 Oracle 中可用于表结构修改，但在 SQL Server 2016+ 之后则可用于数据库的重命名，因此此处只可填入 ALTER。",
+            "question_comment": "UPDATE 和 SET 是修改表中数据时的关键词，MODIFY 在 MySQL 和 Oracle 中可用于表结构修改，但在 SQL Server 2016+ 之后则可配合 NAME（即MODIFY NAME = new_db_name）用于数据库的重命名，因此此处只可填入 ALTER。",
             "knowledge_comment": "ALTER DATABASE mydb COLLATE Latin1_General_CI_AS; 这个命令会将整个数据库的字符集和排序规则修改为 Latin1_General_CI_AS。你会发现这句话除了 ALTER 关键词外，其他部分都和创建数据库时指定字符集和排序规则的部分一样。一样的语句降低了掌握的成本。",
             "correct_answer": "ALTER",
             "applicable_databases": ["SQL Server"]
