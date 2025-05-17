@@ -1598,6 +1598,48 @@
             "applicable_databases": ["Oracle"]
         }
     ],
+    "11" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "删除表：",
+            "options": ["DROP", "DELETE", "REMOVE", "TRUNCATE"],
+            "question_text_after_options": " TABLE employees;",
+            "question_comment": "DELETE FROM table_name; 用于删除数据，不删除表结构。REMOVE 不是 SQL 关键字。TRUNCATE TABLE table_name; 用来清空数据但保留表结构。",
+            "knowledge_comment": "标准语法为 DROP TABLE table_name; 用于删除表结构及数据。",
+            "correct_answer": "DROP",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "删除表并删除外键约束：DROP TABLE departments ",
+            "options": ["IF EXISTS", "CASCADE CONSTRAINTS", "ON DELETE CASCADE", "PURGE"],
+            "question_text_after_options": ";",
+            "question_comment": "IF EXISTS 是 MySQL/SQL Server 的语法（如 DROP TABLE IF EXISTS），Oracle 不支持。ON DELETE CASCADE 可以在 CREATE TABLE 时用于处理外键关联表数据删除的一种约束机制，它确保当父表中的记录被删除时，子表中与之关联的记录会被自动级联删除。这种机制在维护数据完整性的同时，简化了手动删除操作的复杂度。放在 DROP TABLE 语句里并不合适。PURGE 用于彻底删除回收站中的表，而非直接删除表。",
+            "knowledge_comment": "CASCADE CONSTRAINTS 用于删除外键约束，搭配 DROP TABLE departments 可以实现表的删除和外键约束的删除。在本题中用于删除 departments 时自动删除 employees 的外键。",
+            "correct_answer": "CASCADE CONSTRAINTS",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "避免报错安全地删除表： DROP TABLE ",
+            "options": ["IF EXISTS", "ONLY IF" ,"WHEN EXISTS","EXISTS"],
+            "question_text_after_options": " employees;",
+            "question_comment": "ONLY IF 和 WHEN EXISTS 并非 SQL 关键字。EXISTS 用于子查询，并非表删除语法。",
+            "knowledge_comment": "MySQL/SQL Server 支持 DROP TABLE IF EXISTS，若表不存在则忽略错误。",
+            "correct_answer": "IF EXISTS",
+            "applicable_databases": ["MySQL", "SQL Server"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "彻底删除表，不放入回收站：DROP TABLE employees ",
+            "options": ["FORCE", "IMMEDIATE", "PURGE", "CASCADE"],
+            "question_text_after_options": ";",
+            "question_comment": "FORCE 和 IMMEDIATE 并非 SQL 关键字。CASCADE CONSTRAINTS 用于删除外键约束，非彻底删除表。",
+            "knowledge_comment": "Oracle 中 DROP TABLE 表名 PURGE 可直接彻底删除表，不放入回收站。",
+            "correct_answer": "PURGE",
+            "applicable_databases": ["Oracle"]
+        }
+    ],
     "12" : [
         {
             "question_id": 1,
