@@ -1194,6 +1194,118 @@
             "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
         }
     ],
+    "9" : [
+        {
+            "question_id": 1,
+            "question_text_before_options": "创建名为 \"students\" 的表：",
+            "options": ["MAKE", "BUILD", "CREATE", "CREATE NEW"],
+            "question_text_after_options": " TABLE students ( ... );",
+            "question_comment": "MAKE & BUILD 非 SQL 关键字，语法错误。CREATE NEW TABLE中 的 NEW 是多余的，标准语法是：CREATE TABLE table_name (...);",
+            "knowledge_comment": "CREATE TABLE 是 SQL 标准语法，表示创建表结构。",
+            "correct_answer": "CREATE",
+            "applicable_databases": ["MySQL", "SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "定义主键约束：CREATE TABLE users ( id INT ",
+            "options": ["UNIQUE" ,"PRIMARY KEY", "NOT NULL", "AUTO_INCREMENT"],
+            "question_text_after_options": ", name VARCHAR(50), email VARCHAR(100) );",
+            "question_comment": "UNIQUE 仅保证唯一性，但允许 NULL，不能作为主键。NOT NULL 仅限制非空，不保证唯一性。在 MySQL 中 AUTO_INCREMENT 用于自增列，但需配合 PRIMARY KEY。",
+            "knowledge_comment": "PRIMARY KEY，即 PRIMARY（主）KEY（键）。用来定义 id 为主键（唯一且非空）。",
+            "correct_answer": "PRIMARY KEY",
+            "applicable_databases": ["MySQL", "SQL Server"]
+        },
+        {
+            "question_id": 2,
+            "question_text_before_options": "定义主键约束：CREATE TABLE users ( id NUMBER(10) ",
+            "options": ["AUTO_INCREMENT", "NOT NULL" ,"PRIMARY KEY","UNIQUE"],
+            "question_text_after_options": ", name VARCHAR2(50), email VARCHAR2(100) );",
+            "question_comment": "AUTO_INCREMENT 用于自增列，但需配合 PRIMARY KEY。NOT NULL 仅限制非空，不保证唯一性。UNIQUE 仅保证唯一性，但允许 NULL，不能作为主键。",
+            "knowledge_comment": "PRIMARY KEY，即 PRIMARY（主）KEY（键）。用来定义 id 为主键（唯一且非空）。",
+            "correct_answer": "PRIMARY KEY",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "CREATE TABLE products ( id INT ",
+            "options": ["AUTO_INCREMENT" , "AUTOINCREMENT", "IDENTITY", "AUTO_KEY"],
+            "question_text_after_options": " PRIMARY KEY, name VARCHAR(50));",
+            "question_comment": "SQL Server 实现自增列的方法是：IDENTITY(start, increment)，不适合 MySQL，错误答案。MySQL 实现自增列的关键字是 AUTO_INCREMENT，因此 AUTOINCREMENT & AUTO_KEY 均为错误答案。",
+            "knowledge_comment": "MySQL 实现自增列的关键字是 AUTO_INCREMENT，且必须与主键结合：自增列通常需要是主键（或唯一键）。默认从 1 开始，每次递增 1。",
+            "correct_answer": "AUTO_INCREMENT",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 3,
+            "question_text_before_options": "CREATE TABLE products ( id INT ",
+            "options": ["AUTO_INCREMENT", "AUTO_INCREMENT(1,1)" , "IDENTITY", "IDENTITY(1,1)"],
+            "question_text_after_options": " PRIMARY KEY, name VARCHAR(50));",
+            "question_comment": "MySQL 实现自增列的关键字是 AUTO_INCREMENT，且必须与主键结合：自增列通常需要是主键（或唯一键）。默认从 1 开始，每次递增 1。因此填入 AUTO_INCREMENT 在 MySQL 中是适用的，但不适用于 SQL Server。AUTO_INCREMENT(1,1) 为错误用法，如果希望在会话级别更改初始值和步长，应该使用 SET @@auto_increment_offset = n; 来更改初始值；SET @@auto_increment_increment = n; 来更改步长。如果希望在全局级别更改初始值和步长，应该使用 SET GLOBAL auto_increment_offset = n; 来更改初始值；SET GLOBAL auto_increment_increment = n; 来更改步长。若 SET @@auto_increment_offset = 3; SET @@auto_increment_increment = 2; 则出现这样的id：3,5,7,9,11,... IDENTITY 的语法是 IDENTITY(start, increment)，因此本题正确答案为 IDENTITY(1, 1)。",
+            "knowledge_comment": "SQL Server 实现自增列的方法是：IDENTITY(start, increment)，IDENTITY(1,1) 意味着从 1 开始，每次递增 1。虽然非强制与主键结合，但自增列通常作为主键。每个表只能有一个 IDENTITY 列。",
+            "correct_answer": "IDENTITY(1,1)",
+            "applicable_databases": ["SQL Server"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "CREATE TABLE orders ( order_id INT PRIMARY KEY, customer_id INT, order_date DATE, CONSTRAINT fk_customer FOREIGN KEY (customer_id) ",
+            "options": ["CONNECTS", "LINKS" ,"REFERENCES","RELATES"],
+            "question_text_after_options": " customers(customer_id)) ENGINE=InnoDB;",
+            "question_comment": "SQL 语法中不存在 CONNECTS, LINKS, 和 RELATES 关键字。虽然它们在语言上都与连接有关，但 SQL 标准规定外键必须用 REFERENCES。",
+            "knowledge_comment": "在 SQL 中，定义外键约束时，必须使用 REFERENCES 关键字指明外键关联的主表和主键列。语法规则为：FOREIGN KEY (子表列) REFERENCES 主表(主表列)",
+            "correct_answer": "REFERENCES",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 4,
+            "question_text_before_options": "CREATE TABLE orders ( order_id INT PRIMARY KEY, customer_id INT, order_date DATE, CONSTRAINT fk_customer FOREIGN KEY (customer_id) ",
+            "options": ["CONNECTS", "LINKS" ,"REFERENCES","RELATES"],
+            "question_text_after_options": " customers(customer_id));",
+            "question_comment": "SQL 语法中不存在 CONNECTS, LINKS, 和 RELATES 关键字。虽然它们在语言上都与连接有关，但 SQL 标准规定外键必须用 REFERENCES。",
+            "knowledge_comment": "在 SQL 中，定义外键约束时，必须使用 REFERENCES 关键字指明外键关联的主表和主键列。语法规则为：FOREIGN KEY (子表列) REFERENCES 主表(主表列)",
+            "correct_answer": "REFERENCES",
+            "applicable_databases": ["SQL Server", "Oracle"]
+        },
+        {
+            "question_id": 5,
+            "question_text_before_options": "CREATE TABLE employees ( employee_id INT PRIMARY KEY, sex CHAR(1) ",
+            "options": ["SET", "DEFAULT" ,"VALUE","INITIAL"],
+            "question_text_after_options": " '女', hire_date DATE, salary DECIMAL(10, 2));",
+            "question_comment": "SET 通常用于 UPDATE 语句中修改数据，而非定义表结构时的默认值。VALUE 在 SQL 中通常用于 INSERT 语句（如 INSERT INTO ... VALUES(...)）或函数参数，但不可用于定义默认值。INITIAL 不是 SQL 关键字。",
+            "knowledge_comment": "在 SQL 中，DEFAULT 是定义列默认值的标准关键字。sex CHAR(1) DEFAULT '女' 表示若插入数据时未指定 sex 的值，自动填充为 \"女\"。",
+            "correct_answer": "DEFAULT",
+            "applicable_databases": ["MySQL", "SQL Server"]
+        },
+        {
+            "question_id": 5,
+            "question_text_before_options": "CREATE TABLE employees ( employee_id NUMBER(10) CONSTRAINT pk_employees_id PRIMARY KEY, sex CHAR(1) ",
+            "options": ["SET", "DEFAULT" ,"VALUE","INITIAL"],
+            "question_text_after_options": " '女', hire_date DATE, salary NUMBER(10, 2));",
+            "question_comment": "SET 通常用于 UPDATE 语句中修改数据，而非定义表结构时的默认值。VALUE 在 SQL 中通常用于 INSERT 语句（如 INSERT INTO ... VALUES(...)）或函数参数，但不可用于定义默认值。INITIAL 不是 SQL 关键字。",
+            "knowledge_comment": "在 SQL 中，DEFAULT 是定义列默认值的标准关键字。sex CHAR(1) DEFAULT '女' 表示若插入数据时未指定 sex 的值，自动填充为 \"女\"。",
+            "correct_answer": "DEFAULT",
+            "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "CREATE TABLE employees ( id INT PRIMARY KEY, age INT ",
+            "options": ["CHECK", "VALIDATE" ,"ENSURE","VERIFY"],
+            "question_text_after_options": " (age BETWEEN 18 AND 65) );",
+            "question_comment": "VALIDATE、ENSURE 和 VERIFY 不是 SQL 关键字。",
+            "knowledge_comment": "CHECK 是 SQL 中定义条件约束的标准关键字，用于限制列值的范围。age INT CHECK (age BETWEEN 18 AND 65) 表示 age 列的值必须介于 18 到 65 之间。",
+            "correct_answer": "CHECK",
+            "applicable_databases": ["MySQL", "SQL Server"]
+        },
+        {
+            "question_id": 6,
+            "question_text_before_options": "CREATE TABLE employees ( id NUMBER(10) PRIMARY KEY, age NUMBER(3) ",
+            "options": ["CHECK", "VALIDATE" ,"ENSURE","VERIFY"],
+            "question_text_after_options": " (age BETWEEN 18 AND 65) );",
+            "question_comment": "VALIDATE 是 Oracle 的关键字，主要用于约束管理。用于验证现有数据：在启用约束时检查已有数据是否满足条件。语法为：ALTER TABLE employees ENABLE VALIDATE CONSTRAINT chk_age; VALIDATE STRUCTURE 可用于验证索引或表的物理结构完整性（需使用 DBMS_REPAIR 包）。VALIDATE 不可用于定义列级约束。ENSURE 和 VERIFY 不是 SQL 关键字。Oracle 的 VERIFY 命令通常用于外部工具或命令，不可用于表定义。",
+            "knowledge_comment": "CHECK 是 SQL 中定义条件约束的标准关键字，用于限制列值的范围。age NUMBER(3) CHECK (age BETWEEN 18 AND 65) 表示 age 列的值必须介于 18 到 65 之间。",
+            "correct_answer": "CHECK",
+            "applicable_databases": ["Oracle"]
+        }
+    ],
     "12" : [
         {
             "question_id": 1,
