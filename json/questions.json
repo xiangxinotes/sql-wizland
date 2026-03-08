@@ -99,7 +99,38 @@
         "knowledge_comment": "ROUND(n,d)，按指定 d 位数对数值 n 进行四舍五入，ROUND(number, 2) 即按照2位数对 number 进行四舍五入，若 number = 2.339，则 ROUND(number, 2) = 2.34； ROUND(n,d,f)，根据 f 大小按指定 d 位数对数值 n 进行截取（当 f 为0时，即默认值，需要对数值进行四舍五入；当 f 大于0时，不进行四舍五入，直接截取），ROUND(number, 2, 1)即按照2位数直接对 number 进行截取，若 number = 2.339，则 ROUND(number, 2, 1) = 2.33",
         "correct_answer": "ROUND(AVG(price), 2)",
         "applicable_databases": ["SQL Server"]
-    }],
+    },
+    {
+        "question_id": 11,
+        "question_text_before_options": "查找 test_db 库下所有表中列名包含 user 的列: SELECT TABLE_SCHEMA AS DATABASE_NAME, TABLE_NAME, COLUMN_NAME FROM ",
+        "options": ["sys.columns", "information_schema.COLUMNS", "dba_tab_columns", "sys.tables"],
+        "question_text_after_options": " WHERE COLUMN_NAME LIKE '%user%' AND TABLE_SCHEMA = 'test_db';",
+        "question_comment": "本题考查的是存储列元数据的系统表。information_schema.COLUMNS 是 MySQL 内置的元数据视图，专门存储所有数据库、表、列的核心信息（列名、所属表 / 库、数据类型等），是查询列元数据的标准入口；sys.columns 是 SQL Server 的系统视图，并非 MySQL 语法，可直接排除；dba_tab_columns 是 Oracle 的数据字典视图，MySQL 无此表，可直接排除；sys.tables 是 SQL Server 存储表元数据的视图（MySQL 也无此表），且仅能查 “表” 信息，无法查 “列” 信息，不符合题意。",
+        "knowledge_comment": "本题核心考点是元数据查询（information_schema 系统数据库）。information_schema 是 MySQL 自带的系统数据库，存储了整个 MySQL 实例的元数据（数据库、表、列、索引、权限等），所有用户均可访问（无需额外授权）。COLUMNS：存储所有列的元数据（关键字段：TABLE_SCHEMA = 数据库名、TABLE_NAME = 表名、COLUMN_NAME = 列名、DATA_TYPE = 列类型）；TABLES：存储所有表的元数据；应用场景：除了 “查找指定列”，还可用于批量核对表结构、统计数据库表数量、检查字段类型是否统一等运维 / 开发场景。补充：LIKE '%user%' 是模糊匹配语法，需配合元数据表使用才能实现 “跨表找列” 的核心需求。",
+        "correct_answer": "information_schema.COLUMNS",
+        "applicable_databases": ["MySQL"]
+    },
+    {
+        "question_id": 11,
+        "question_text_before_options": "查找 test_db 库下所有表中列名包含 user 的列: SELECT DB_NAME() AS DATABASE_NAME, t.name AS TABLE_NAME, c.name AS COLUMN_NAME FROM ",
+        "options": ["sys.columns", "information_schema.COLUMNS", "dba_tab_columns", "sys.databases"],
+        "question_text_after_options": " c JOIN sys.tables t ON c.object_id = t.object_id WHERE c.name LIKE '%user%' AND DB_NAME() = 'test_db';",
+        "question_comment": "本题考查的是存储列元数据的系统表。sys.columns 是 SQL Server 内置的系统视图，存储所有列的元数据（object_id 关联表），需与 sys.tables（表元数据）关联才能获取 “表名 + 列名”，是 SQL Server 查列元数据的原生方式；虽然 SQL Server 也支持 information_schema.COLUMNS（兼容标准），但题干明确关联系统视图（sys.tables），且 sys.columns 是 SQL Server 更推荐的原生用法，因此排除此选项；dba_tab_columns 是 Oracle 专属视图，SQL Server 无此对象，可直接排除；sys.databases 仅存储数据库级元数据（如数据库名、创建时间），无法查询列信息，不符合题意。",
+        "knowledge_comment": "本题核心考点是 SQL Server 系统视图（sys 架构）。SQL Server 的 sys 架构是存储数据库元数据的核心入口，包含一系列系统视图，替代了早期的系统表，是 SQL Server 推荐的元数据查询方式；sys.columns：列元数据（name = 列名、object_id = 所属表 ID、system_type_id = 列类型 ID）；sys.tables：表元数据（name = 表名、object_id = 表唯一 ID）；关联逻辑：通过 object_id 将列与表关联，才能获取 “表名 + 列名” 的对应关系；补充：SQL Server 也兼容 information_schema.COLUMNS（通用标准），但 sys 架构的视图性能更好、字段更全，是企业级开发的首选；应用场景：批量修改列名、检查重复列、统计各表的字段数量等。",
+        "correct_answer": "sys.columns",
+        "applicable_databases": ["SQL Server"]
+    },
+    {
+        "question_id": 11,
+        "question_text_before_options": "查找 test_db 方案（Schema）下所有表中列名包含 user 的列: SELECT owner AS schema_name, table_name, column_name FROM ",
+        "options": ["sys.columns", "information_schema.COLUMNS", "dba_tab_columns", "all_tables"],
+        "question_text_after_options": " WHERE column_name LIKE '%USER%' AND owner = 'TEST_DB';",
+        "question_comment": "本题考查的是存储列元数据的系统表。dba_tab_columns 是 Oracle 核心数据字典视图，存储所有方案下的列元数据（owner = 方案名、table_name = 表名、column_name = 列名），是 Oracle 查列信息的标准方式 sys.columns 是 SQL Server 的系统视图，Oracle 无此对象，可直接排除； Oracle 不支持 information_schema.COLUMNS（该视图是 MySQL/SQL Server 兼容的通用标准），可直接排除； all_tables 仅存储表级元数据（方案名、表名），无法查询列信息，不符合题意。",
+        "knowledge_comment": "本题核心考点是 数据字典视图（DBA_/ALL_/USER_ 系列）。Oracle 的数据字典是存储数据库结构信息的核心，以视图形式提供（前缀为 DBA_/ALL_/USER_），用于查询元数据；dba_tab_columns：所有方案下的列元数据（需 DBA 权限）；all_tab_columns：当前用户可访问的列元数据；user_tab_columns：当前用户所属的列元数据；关键字段：owner（方案名，对应 MySQL 的数据库名）、table_name（表名）、column_name（列名）、data_type（列类型）；补充：Oracle 大小写敏感（默认列名存储为大写），因此模糊匹配时需用 %USER% 而非 %user%；应用场景：跨表核对字段、批量导出表结构、检查字段长度是否符合规范等。",
+        "correct_answer": "dba_tab_columns",
+        "applicable_databases": ["Oracle"]
+    }
+],
     "2" : [
         {
         "question_id": 1,
