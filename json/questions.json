@@ -1339,7 +1339,7 @@
     "10" : [
         {
             "question_id": 1,
-            "question_text_before_options": "修改 employees 表：",
+            "question_text_before_options": "修改 products 表：",
             "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
             "question_text_after_options": " TABLE products ...",
             "question_comment": "UPDATE 和 SET 用于修改表中的数据（如 UPDATE products SET price = 9.99），非修改表结构。SET 还可用于设置变量或配置（如 SET SQL_SAFE_UPDATES = 0），非表结构操作。MODIFY 是 ALTER TABLE 中的子关键字，用于修改列属性（如 ALTER TABLE products MODIFY price INT），不能单独作为表操作关键字。",
@@ -1349,7 +1349,7 @@
         },
         {
             "question_id": 1,
-            "question_text_before_options": "修改 employees 表：",
+            "question_text_before_options": "修改 products 表：",
             "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
             "question_text_after_options": " TABLE products ...",
             "question_comment": "UPDATE 和 SET 用于修改表中的数据（如 UPDATE products SET price = 9.99），非修改表结构。SET 还可SET 用于设置 SQL*Plus 参数（如 SET SERVEROUTPUT ON），非表结构操作。MODIFY 是 ALTER TABLE 中的子关键字，用于修改列属性（如 ALTER TABLE products MODIFY price NUMBER(12,2)），不能单独作为表操作关键字。",
@@ -1359,7 +1359,7 @@
         },
         {
             "question_id": 1,
-            "question_text_before_options": "修改 employees 表：",
+            "question_text_before_options": "修改 products 表：",
             "options": ["ALTER", "UPDATE", "SET", "MODIFY"],
             "question_text_after_options": " TABLE products ...",
             "question_comment": "UPDATE 和 SET 用于修改表中的数据（如 UPDATE products SET price = 9.99），非修改表结构。SET 还可用于设置变量或配置（如 SET SQL_SAFE_UPDATES = 0），非表结构操作。MODIFY 在 MySQL 和 Oracle 中可用于表结构修改，但在 SQL Server 2016+ 之后则可配合 NAME（即MODIFY NAME = new_db_name）用于数据库的重命名，不可用于修改表结构。",
@@ -1626,6 +1626,26 @@
             "knowledge_comment": "Oracle 中标记列未使用的标准语法为 ALTER TABLE ... SET UNUSED COLUMN ...; 该操作仅修改元数据，不立即删除物理数据。从大表中删除列的过程可能非常耗时且耗费资源。以逻辑方式删除列则可以很高效的执行列删除任务。其核心优势在于减少锁表时间，适合对可用性要求高的生产环境。ALTER TABLE table_name DROP UNUSED COLUMNS; 后才释放磁盘空间，标记阶段不释放。SELECT * FROM user_unused_col_tabs WHERE table_name = 'table_name'; 可查询未使用列。在物理删除前，可使用 ALTER TABLE table_name SET USED COLUMN column_name; 恢复未使用的列。",
             "correct_answer": "SET UNUSED",
             "applicable_databases": ["Oracle"]
+        },
+        {
+            "question_id": 13,
+            "question_text_before_options": "在用户信息表的 level 列后增加一列school（最多可保存15个汉字）：",
+            "options": ["", "", "", ""],
+            "question_text_after_options": "",
+            "question_comment": "",
+            "knowledge_comment": "",
+            "correct_answer": "",
+            "applicable_databases": ["MySQL"]
+        },
+        {
+            "question_id": 14,
+            "question_text_before_options": "在用户信息表，achievement的默认值设置为0：ALTER TABLE employees ",
+            "options": ["", "", "", ""],
+            "question_text_after_options": "",
+            "question_comment": "",
+            "knowledge_comment": "",
+            "correct_answer": "",
+            "applicable_databases": ["MySQL"]
         }
     ],
     "11" : [
@@ -1753,7 +1773,7 @@
         },
         {
             "question_id": 4,
-            "question_text_before_options": "创建一个用于数据库 order_db，并在其中创建 orders 表：",
+            "question_text_before_options": "创建一个数据库 order_db，并在其中创建 orders 表：",
             "options": ["CREATE TABLE order_db.orders (...); CREATE DATABASE order_db;", "CREATE DATABASE order_db; USE order_db; CREATE TABLE orders (...);" ,"CREATE DATABASE order_db; CREATE TABLE orders (...);","USE order_db; CREATE DATABASE order_db; CREATE TABLE orders (...);"],
             "question_text_after_options": "",
             "question_comment": "必须先创建数据库（CREATE DATABASE），再使用 USE 切换到该数据库，最后创建表。按照此流程的写法才是正解。",
@@ -1763,7 +1783,7 @@
         },
         {
             "question_id": 4,
-            "question_text_before_options": "创建一个用于数据库 order_db，并在其中创建 orders 表（SQL 语句已简化）：",
+            "question_text_before_options": "创建一个数据库 order_db，并在其中创建 orders 表（SQL 语句已简化）：",
             "options": ["CREATE TABLE order_db.orders (...); CREATE DATABASE order_db;", "CREATE DATABASE order_db; USE order_db; CREATE TABLE orders (...);" ,"CREATE DATABASE order_db; CREATE TABLE orders (...);","USE order_db; CREATE DATABASE order_db; CREATE TABLE orders (...);"],
             "question_text_after_options": "",
             "question_comment": "在 Oracle 中使用 USE 语句会直接报错，因为 Oracle 不支持 USE 语法。数据库一旦创建，所有表直接隶属于该实例，所以无需 USE 语句切换。表的创建需直接指定表空间（默认使用 USERS 表空间）。",
